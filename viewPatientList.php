@@ -1,5 +1,9 @@
+<?php session_start();
+
+$_SESSION['user'] = 'obsample@gmail.com';
+?>
 <!doctype html>
-<html lang="en" ng-app="app">
+<html lang="en">
 
 <head>
   <meta charset="utf-8" />
@@ -22,7 +26,7 @@
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
-<body class="" ng-controller="patientdata" ng-init="fetchAllPatients()">
+<body>
   <div class="wrapper">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="..assets/img/sidebar-1.jpg">
       <!--
@@ -32,7 +36,7 @@
   -->
       <div class="logo">
         <a href="http://www.creative-tim.com" class="simple-text logo-mini">
-          PHIM-PMS
+          <?php echo $_SESSION['user'];?>
         </a>
       </div>
       <div class="sidebar-wrapper">
@@ -50,19 +54,19 @@
             </a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="#0">
+            <a class="nav-link">
               <i class="material-icons">pregnant_woman</i>
               <p>Manage Patient</p>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#0">
+            <a class="nav-link" href="labResults.php">
               <i class="material-icons">file_copy</i>
               <p>View Lab Results</p>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#0">
+            <a class="nav-link" href="viewAppointments.php">
               <i class="material-icons">event_note</i>
               <p>Manage Appointments</p>
             </a>
@@ -74,7 +78,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#0">
+            <a class="nav-link" href="">
               <i class="material-icons">power_settings_new</i>
               <p>Logout</p>
             </a>
@@ -96,22 +100,9 @@
 
       <div class="content">
         <div class="container-fluid">
-          <div class="alert alert-success text-center" ng-show="success">
-            <button type="button" class="close" ng-click="clearMessage()"><span aria-hidden="true">&times;</span></button>
-            <i class="fa fa-check"></i> {{ successMessage }}
-          </div>
-          <div class="alert alert-danger text-center" ng-show="error">
-            <button type="button" class="close" ng-lick="clearMessage()"><span aria-hidden="true">&times;</span></button>
-            <i class="fa fa-warning"></i> {{ errorMessage }}
-          </div>
           <div class="row">
             <div class="col-md-12">
-              <button href="" class="btn btn-primary" ng-click="showAddPatient()"><i class="fa fa-plus"></i> New Member</button>
-            </div>
-            <div class="col-md-12">
-              <button href="" class="btn btn-warning" ng-click="fetchAllPatients()"> All Patients</button>
-              <button href="" class="btn btn-danger" ng-click="fetchHighRiskPatients()">High Risk Patients</button>
-              <button href="" class="btn btn-success" ng-click="fetchNormalPatients()">Normal Patients</button>
+              <a href="patientAdd.php" class="btn btn-primary"><i class="fa fa-plus"></i> Add Patient</a>
               <span class="pull-right">
                 <input type="text" ng-model="search" class="form-control" placeholder="Search">
               </span>
@@ -122,6 +113,7 @@
               <div class="card-header card-header-primary">
                 <h3 class="card-title">Patient List</h3>
               </div>
+
               <div class="card-body">
 
                 <div class="table-responsive text-nowrap">
@@ -135,10 +127,10 @@
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Patient Status</th>
+                        <th>Patient Condition</th>
                         <th>Contact Number</th>
+                        <th>Email</th>
                         <th>Last Visit</th>
-                        <th>Address</th>
-                        <th>Date Added</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -146,21 +138,50 @@
 
                     <!--Table body-->
                     <tbody>
-                      <tr dir-paginate="patient in patients|orderBy:sortKey:reverse|filter:search|itemsPerPage:5">
-                        <td>{{ patient.patID }}</td>
-                        <td>{{ patient.pFirstName }}</td>
-                        <td>{{ patient.pLastName }}</td>
-                        <td>{{ patient.status }}</td>
-                        <td>{{ patient.contactNo }}</td>
-                        <td>{{ patient.lastVisited }}</td>
-                        <td>{{ patient.address }}</td>
-                        <td>{{ patient.dateAdded }}</td>
-                        <td>
-                          <button type="button" class="btn btn-success" ng-click="showEdit(); selectPatient(patient);"><i class="fa fa-edit"></i> Edit</button>
-                          <button type="button" class="btn btn-danger" ng-click="showDelete(); selectPatient(patient);"> <i class="fa fa-trash"></i> Delete</button>
-                        </td>
+                      <?php
+                      include("includes/db.php");
+                      $ref = "patientdata";
+                      $data = $database->getReference($ref)->getValue();
+                      $i = 0;
+                      foreach ($data as $key => $data1) {
+                        if ($_SESSION['user'] == $data1['ob']) {
+                          $i++;
+                          ?>
+                          <tr>
+                            <th scope="row"><?php echo $i; ?></th>
+                            <td><?php $_SESSION['f_name'] = $data1['f_name'];
+                                    echo $data1['f_name']; ?></td>
+                            <td><?php $_SESSION['l_name'] = $data1['l_name'];
+                                    echo $data1['l_name']; ?></td>
+                            <td><?php $_SESSION['patType'] = $data1['patType'];
+                                    echo $data1['patType']; ?></td>
+                            <td><?php $_SESSION['status'] = $data1['status'];
+                                    echo $data1['status']; ?></td>
+                            <td><?php $_SESSION['contactNo'] = $data1['contactNo'];
+                                    echo $data1['contactNo']; ?></td>
+                            <td><?php $_SESSION['email'] = $data1['email'];
+                                    echo $data1['email']; ?></td>
+                            <td><?php $_SESSION['lastVisited'] = $data1['lastVisited'];
+                                    echo $data1['lastVisited']; ?></td>
 
-                      </tr>
+                            <?php
+                                $_SESSION['address'] = $data1['address'];
+                                $_SESSION['familyHistory'] = $data1['familyHistory'];
+                                $_SESSION['medicalHistory'] = $data1['medicalHistory'];
+                                $_SESSION['ob'] = $data1['ob'];
+                                $_SESSION['occupation'] = $data1['occupation'];
+                                $_SESSION['dateAdded'] = $data1['dateAdded']
+                                ?>
+                            <td>
+                              <a type="button" class="btn btn-success" href="patientDetails.php?key=<?php $_SESSION['key'] = $key; echo $key; ?>"><i class="fa fa-eye"></i> View</a>
+                              <a type="button" class="btn btn-info" href="patientConsult.php?key=<?php $_SESSION['key'] = $key; echo $key; ?>"><i class="material-icons">person</i> Consult</a>
+                              <a type="button" class="btn btn-danger" href="update_data.php?key=<?php echo $key; ?>"><i class="fa fa-trash"></i> Delete</a>
+                            </td>
+                          </tr>
+                      <?php
+                        }
+                      }
+                      ?>
                     </tbody>
                     <!--Table body-->
 
@@ -181,7 +202,7 @@
 
         <!-- your content here -->
       </div>
-      <?php include('patientModal.php'); ?>
+
     </div>
     <footer class="footer">
       <div class="container-fluid">

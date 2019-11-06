@@ -35,7 +35,7 @@
   <link href="../assets/demo/demo.css" rel="stylesheet" />
 </head>
 
-<body class="" ng-controller="patientdata" ng-init="fetch()">
+<body class="" ng-controller="patientdata" ng-init="fetchHighRiskPatients()">
   <div class="wrapper">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar.png">
       <!--

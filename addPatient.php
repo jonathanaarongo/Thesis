@@ -4,7 +4,6 @@
 
     $out = array('error' => false, 'pFirstName' => false, 'pLastName' => false, 'address' => false, 'contactNo' => false, 
     'status' => false);
-
     $pFirstName = $data->pFirstName;
     $pLastName = $data->pLastName;
     $address = $data->address;
@@ -37,7 +36,7 @@
         $query = $conn->query($sql);
 
         if($query){
-            $out['message'] = 'Patient Added Successfully';
+            $out['message'] = "Patient $pFirstName $pLastName Added Successfully";
         }
         else{
             $out['error'] = true;

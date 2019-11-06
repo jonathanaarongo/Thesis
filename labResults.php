@@ -1,0 +1,329 @@
+<?php session_start();
+
+$_SESSION['user'] = 'obsample@gmail.com';
+?>
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="assets/img/favicon.png">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>
+        Template
+    </title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <!-- CSS Files -->
+    <link href="assets/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="assets/demo/demo.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="sidebar" data-color="purple" data-background-color="white" data-image="..assets/img/sidebar-1.jpg">
+            <!--
+      Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+      Tip 2: you can also add an image using data-image tag
+  -->
+            <div class="logo">
+                <a href="http://www.creative-tim.com" class="simple-text logo-mini">
+                    <?php echo $_SESSION['user']; ?>
+                </a>
+            </div>
+            <div class="sidebar-wrapper">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#0">
+                            <i class="material-icons">language</i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#0">
+                            <i class="material-icons">add_box</i>
+                            <p>Add Patient</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="viewPatientList.php">
+                            <i class="material-icons">pregnant_woman</i>
+                            <p>Manage Patient</p>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link">
+                            <i class="material-icons">file_copy</i>
+                            <p>View Lab Results</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="viewAppointments.php">
+                            <i class="material-icons">event_note</i>
+                            <p>Manage Appointments</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="patientInquiries.php">
+                            <i class="material-icons">emoji_people</i>
+                            <p>Patient Inquiries</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#0">
+                            <i class="material-icons">power_settings_new</i>
+                            <p>Logout</p>
+                        </a>
+                    </li>
+                    <!-- your sidebar here -->
+                </ul>
+            </div>
+        </div>
+        <div class="main-panel">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+                <div class="container-fluid">
+                    <div class="navbar-wrapper">
+                        <a class="navbar-brand" href="#pablo"></a>
+                    </div>
+                </div>
+            </nav>
+            <!-- End Navbar -->
+
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <span class="pull-right">
+                                <input type="text" ng-model="search" class="form-control" placeholder="Search">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header card-header-primary">
+                                <h3 class="card-title">Lab Results</h3>
+                            </div>
+
+                            <div class="card-body">
+
+                                <div class="table-responsive text-nowrap" id="folder_table">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pull-right" style="margin-top:-30px;">
+                        <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
+                        </dir-pagination-controls>
+                    </div>
+                </div>
+
+
+                <!-- your content here -->
+            </div>
+
+        </div>
+        <footer class="footer">
+            <div class="container-fluid">
+                <nav class="float-left">
+                    <ul>
+                        <li>
+
+                        </li>
+                    </ul>
+                </nav>
+                <div class="copyright float-right">
+                    &copy;
+                    <script>
+                        document.write(new Date().getFullYear())
+                    </script> AGAPAY
+                </div>
+                <!-- your footer here -->
+            </div>
+        </footer>
+    </div>
+    </div>
+
+    <script src="dirPaginate.js"></script>
+    <script src="angular.js"></script>
+    <script src="assets/js/core/jquery.min.js"></script>
+    <script src="assets/js/core/popper.min.js"></script>
+    <script src="assets/js/core/bootstrap-material-design.min.js"></script>
+    <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+
+</body>
+
+<script>
+    $(document).ready(function() {
+
+        load_folder_list();
+
+        function load_folder_list() {
+            var action = "fetch";
+            $.ajax({
+                url: "labResultsAction.php",
+                method: "POST",
+                data: {
+                    action: action
+                },
+                success: function(data) {
+                    $('#folder_table').html(data);
+                }
+            });
+        }
+
+        $(document).on('click', '#create_folder', function() {
+            $('#action').val("create");
+            $('#folder_name').val('');
+            $('#folder_button').val('Create');
+            $('#folderModal').modal('show');
+            $('#old_name').val('');
+            $('#change_title').text("Create Folder");
+        });
+
+        $(document).on('click', '#folder_button', function() {
+            var folder_name = $('#folder_name').val();
+            var old_name = $('#old_name').val();
+            var action = $('#action').val();
+            if (folder_name != '') {
+                $.ajax({
+                    url: "labResultsAction.php",
+                    method: "POST",
+                    data: {
+                        folder_name: folder_name,
+                        old_name: old_name,
+                        action: action
+                    },
+                    success: function(data) {
+                        $('#folderModal').modal('hide');
+                        load_folder_list();
+                        alert(data);
+                    }
+                });
+            } else {
+                alert("Enter Folder Name");
+            }
+        });
+
+        $(document).on("click", ".update", function() {
+            var folder_name = $(this).data("name");
+            $('#old_name').val(folder_name);
+            $('#folder_name').val(folder_name);
+            $('#action').val("change");
+            $('#folderModal').modal("show");
+            $('#folder_button').val('Update');
+            $('#change_title').text("Change Folder Name");
+        });
+
+        $(document).on("click", ".delete", function() {
+            var folder_name = $(this).data("name");
+            var action = "delete";
+            if (confirm("Are you sure you want to remove it?")) {
+                $.ajax({
+                    url: "labResultsAction.php",
+                    method: "POST",
+                    data: {
+                        folder_name: folder_name,
+                        action: action
+                    },
+                    success: function(data) {
+                        load_folder_list();
+                        alert(data);
+                    }
+                });
+            }
+        });
+
+        $(document).on('click', '.upload', function() {
+            var folder_name = $(this).data("name");
+            $('#hidden_folder_name').val(folder_name);
+            $('#uploadModal').modal('show');
+        });
+
+        $('#upload_form').on('submit', function() {
+            $.ajax({
+                url: "upload.php",
+                method: "POST",
+                data: new FormData(this),
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(data) {
+                    load_folder_list();
+                    alert(data);
+                }
+            });
+        });
+
+        $(document).on('click', '.view_files', function() {
+            var folder_name = $(this).data("name");
+            var action = "fetch_files";
+            $.ajax({
+                url: "labResultsAction.php",
+                method: "POST",
+                data: {
+                    action: action,
+                    folder_name: folder_name
+                },
+                success: function(data) {
+                    $('#file_list').html(data);
+                    $('#filelistModal').modal('show');
+                }
+            });
+        });
+
+        $(document).on('click', '.remove_file', function() {
+            var path = $(this).attr("id");
+            var action = "remove_file";
+            if (confirm("Are you sure you want to remove this file?")) {
+                $.ajax({
+                    url: "labResultsAction.php",
+                    method: "POST",
+                    data: {
+                        path: path,
+                        action: action
+                    },
+                    success: function(data) {
+                        alert(data);
+                        $('#filelistModal').modal('hide');
+                        load_folder_list();
+                    }
+                });
+            }
+        });
+
+        $(document).on('blur', '.change_file_name', function() {
+            var folder_name = $(this).data("folder_name");
+            var old_file_name = $(this).data("file_name");
+            var new_file_name = $(this).text();
+            var action = "change_file_name";
+            $.ajax({
+                url: "labResultsAction.php",
+                method: "POST",
+                data: {
+                    folder_name: folder_name,
+                    old_file_name: old_file_name,
+                    new_file_name: new_file_name,
+                    action: action
+                },
+                success: function(data) {
+                    alert(data);
+                }
+            });
+        });
+
+    });
+</script>
+
+</html>

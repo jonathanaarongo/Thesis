@@ -1,5 +1,6 @@
+<?php session_start();?>
 <!doctype html>
-<html lang="en" ng-app="app">
+<html lang="en">
 
 <head>
   <meta charset="utf-8" />
@@ -22,7 +23,7 @@
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
-<body class="" ng-controller="patientdata" ng-init="fetchAllQuestions()">
+<body>
   <div class="wrapper">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="..assets/img/sidebar-1.jpg">
       <!--
@@ -32,7 +33,7 @@
   -->
       <div class="logo">
         <a href="http://www.creative-tim.com" class="simple-text logo-mini">
-          PHIM-PMS
+        <?php echo $_SESSION['user'];?>
         </a>
       </div>
       <div class="sidebar-wrapper">
@@ -56,13 +57,13 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#0">
+            <a class="nav-link" href="labResults.php">
               <i class="material-icons">file_copy</i>
               <p>View Lab Results</p>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#0">
+            <a class="nav-link" href="viewAppointments.php">
               <i class="material-icons">event_note</i>
               <p>Manage Appointments</p>
             </a>
@@ -94,20 +95,10 @@
       <!-- End Navbar -->
 
       <div class="content">
+        <?php echo date("Y-m-d", strtotime("+1 week"));?>
         <div class="container-fluid">
-          <div class="alert alert-success text-center" ng-show="success">
-            <button type="button" class="close" ng-click="clearMessage()"><span aria-hidden="true">&times;</span></button>
-            <i class="fa fa-check"></i> {{ successMessage }}
-          </div>
-          <div class="alert alert-danger text-center" ng-show="error">
-            <button type="button" class="close" ng-lick="clearMessage()"><span aria-hidden="true">&times;</span></button>
-            <i class="fa fa-warning"></i> {{ errorMessage }}
-          </div>
           <div class="row">
             <div class="col-md-12">
-            <button href="" class="btn btn-primary" ng-click="fetchAllQuestions()">All Questions</button>
-            <button href="" class="btn btn-primary" ng-click="fetchUnansweredQuestions()">Unanswered Questions</button>
-            <button href="" class="btn btn-primary" ng-click="fetchAnsweredQuestions()">Answered Questions</button>
               <span class="pull-right">
                 <input type="text" ng-model="search" class="form-control" placeholder="Search">
               </span>
@@ -127,9 +118,7 @@
                     <!--Table head-->
                     <thead>
                       <tr>
-                        <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
+                        <th>Patient</th>
                         <th>Question</th>
                         <th>Answer</th>
                         <th>Action</th>
@@ -139,19 +128,53 @@
 
                     <!--Table body-->
                     <tbody>
-                      <tr dir-paginate="question in questions|orderBy:sortKey:reverse|filter:search|itemsPerPage:5">
-                        <td>{{ question.questionID }}</td>
-                        <td>{{ question.pFirstName }}</td>
-                        <td>{{ question.pLastName }}</td>
-                        <td>{{ question.question }}</td>
-                        <td>{{ question.answer }}</td>
-                        <td>
-                          <button type="button" class="btn btn-info" ng-click="showAnswerModal(); selectQuestion(question);"><i class="fa fa-info"></i> Answer</button>
-                          <button type="button" class="btn btn-success" ng-click="showEdit(); selectQuestion(question);"><i class="fa fa-edit"></i> Edit</button>
-                          <button type="button" class="btn btn-danger" ng-click="showDelete(); selectQuestion(question);"> <i class="fa fa-trash"></i> Delete</button>
-                        </td>
+                      <?php
+                      include("includes/db.php");
+                      $ref = "questions";
+                      $data = $database->getReference($ref)->getValue();
+                      $i = 0;
+                      foreach ($data as $key => $data1) {
+                        if ($_SESSION['user'] == $data1['ob']) {
+                          $i++;
+                          ?>
+                          <tr>
+                            <td><?php echo $data1['email']; ?></td>
+                            <td><?php echo $data1['question']; ?></td>
+                            <td><?php echo $data1['answer']; ?></td>
+                            <td>
+                              <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#modal">Answer</button>
+                              <a type="button" class="btn btn-danger" href="update_data.php?key=<?php echo $key; ?>">Delete</a>
+                              <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLabel">Answer Question</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <form action="update_question.php" method="post" enctype="multipart/form-data">
+                                        <div class="form-group">
+                                          <label for="exampleFormControlInput1">Question</label>
+                                          <input type="text" class="form-control" name="question" value="<?php echo $data1['question']; ?>" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                          <label for="exampleInputEmail1">Answer</label>
+                                          <input type="text" class="form-control" name="answer">
+                                        </div>
+                                        <input type="hidden" name="ref" value="questions/<?php echo $key; ?>">
+                                        <button type="submit" name="update" class="btn btn-primary">Submit</button>
+                                      </form>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
 
-                      </tr>
+                            </td>
+                          </tr>
+                      <?php
+                        }
+                      }
+                      ?>
                     </tbody>
                     <!--Table body-->
 
@@ -172,7 +195,6 @@
 
         <!-- your content here -->
       </div>
-      <?php include('questionModal.php'); ?>
     </div>
     <footer class="footer">
       <div class="container-fluid">

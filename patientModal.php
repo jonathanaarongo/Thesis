@@ -3,7 +3,7 @@
 	<div class="modalContainer">
 		<div class="modalHeader">
 			<span class="headerTitle">Add New Patient</span>
-			<button class="closeBtn pull-right" ng-click="AddPatientModal = false">		</button>
+			<button class="closeBtn pull-right" ng-click="AddPatientModal = false"></button>
 		</div>
 		<div class="modalBody">
 			<div class="form-group">
