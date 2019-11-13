@@ -12,7 +12,10 @@
 =========================================================
 
  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
+<?php session_start();
 
+$_SESSION['user'] = 'obsample@gmail.com';
+?>
 <!DOCTYPE html>
 <html lang="en" ng-app="app">
 
@@ -51,7 +54,7 @@
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item active">
-            <a class="nav-link" href="#0">
+            <a class="nav-link" href="dashboard.php">
               <i class="material-icons">language</i>
               <p>Dashboard</p>
             </a>
@@ -63,25 +66,25 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#0">
+            <a class="nav-link" href="viewPatientList.php">
               <i class="material-icons">pregnant_woman</i>
               <p>Manage Patient</p>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#0">
+            <a class="nav-link" href="labResults.php">
               <i class="material-icons">file_copy</i>
               <p>View Lab Results</p>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#0">
+            <a class="nav-link" href="viewAppointments.php">
               <i class="material-icons">event_note</i>
               <p>Manage Appointments</p>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#0">
+            <a class="nav-link" href="patientInquiries.php">
               <i class="material-icons">emoji_people</i>
               <p>Patient Inquiries</p>
             </a>
@@ -217,18 +220,29 @@
                 </div>
               </div>
             </div>
+            <?php
+                      include("includes/db.php");
+                      $ref = "questions";
+                      $data = $database->getReference($ref)->getValue();
+                      $i = 0;
+                      foreach ($data as $key => $data1) {
+                        if ($_SESSION['user'] == $data1['ob'] && $data1['answer'] == "") {
+                          $i++;
+                        }
+                      }
+                      ?>  
             <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="card card-stats">
                 <div class="card-header card-header-info card-header-icon">
                   <div class="card-icon">
-                    <i class="fa fa-twitter"></i>
+                    <i class="fa fa-question"></i>
                   </div>
-                  <p class="card-category">Unanswered Questions</p>
-                  <h3 class="card-title">2</h3>
+                  <p class="card-category"><a href="patientInquiries.php">Unanswered Questions</a></p>
+                  <h3 class="card-title"><?php echo $i;?></h3>
                 </div>
                 <div class="card-footer">
                   <div class="stats">
-                    <i class="material-icons">update</i> Just Updated
+                    
                   </div>
                 </div>
               </div>
@@ -242,41 +256,42 @@
                   <p class="card-category">Patients that require regular attendance</p>
                 </div>
                 <div class="card-body table-responsive">
-                  <table class="table table-hover" style="margin-top:10px;">
-                    <thead class="text-warning">
+                  <table class="table table-striped table-bordered">
+
+                    <!--Table head-->
+                    <thead>
                       <tr>
-                        <th ng-click="sort('pFirstName')" class="text-center">First Name
-                          <span class="pull-right">
-                            <i class="fa fa-sort gray" ng-show="sortKey!='pFirstName'"></i>
-                            <i class="fa fa-sort" ng-show="sortKey=='pFirstName'" ng-class="{'fa fa-sort-asc':reverse,'fa fa-sort-desc':!reverse}"></i>
-                          </span>
-                        </th>
-                        <th ng-click="sort('pLastName')" class="text-center">Last Name
-                          <span class="pull-right">
-                            <i class="fa fa-sort gray" ng-show="sortKey!='pLastName'"></i>
-                            <i class="fa fa-sort" ng-show="sortKey=='pLastName'" ng-class="{'fa fa-sort-asc':reverse,'fa fa-sort-desc':!reverse}"></i>
-                          </span>
-                        </th>
-                        <th ng-click="sort('address')" class="text-center">Address
-                          <span class="pull-right">
-                            <i class="fa fa-sort gray" ng-show="sortKey!='address'"></i>
-                            <i class="fa fa-sort" ng-show="sortKey=='address'" ng-class="{'fa fa-sort-asc':reverse,'fa fa-sort-desc':!reverse}"></i>
-                          </span>
-                        </th>
-                        <th class="text-center">Action</th>
+                        <th>#</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Patient Condition</th>
+                        <th>Action</th>
                       </tr>
                     </thead>
+                    <!--Table head-->
                     <tbody>
-                      <tr dir-paginate="patient in patients|orderBy:sortKey:reverse|filter:search|itemsPerPage:5">
-                        <td>{{ patient.pFirstName }}</td>
-                        <td>{{ patient.pLastName }}</td>
-                        <td>{{ patient.address }}</td>
-                        <td>
-                          <button type="button" class="btn btn-success" ng-click="showEdit(); selectPatient(patient);"><i class="fa fa-edit"></i> Edit</button>
-                          <button type="button" class="btn btn-danger" ng-click="showDelete(); selectPatient(patient);"> <i class="fa fa-trash"></i> Delete</button>
-                        </td>
-
-                      </tr>
+                      <?php
+                      include("includes/db.php");
+                      $ref = "patientdata";
+                      $data = $database->getReference($ref)->getValue();
+                      $i = 0;
+                      foreach ($data as $data1) {
+                        if ($_SESSION['user'] == $data1['ob'] && $data1['patType'] == "High Risk Patient") {
+                          $i++;
+                          ?>
+                          <tr>
+                            <th scope="row"><?php echo $i; ?></th>
+                            <td><?php echo $data1['f_name']; ?></td>
+                            <td><?php echo $data1['l_name']; ?></td>
+                            <td><?php echo $data1['status']; ?></td>
+                            <td>
+                              <a type="button" class="btn btn-success" href="patientProfile.php?email=<?php echo $data1['email']; ?>"><i class="fa fa-eye"></i> View</a>
+                            </td>
+                          </tr>
+                      <?php
+                        }
+                      }
+                      ?>
                     </tbody>
                   </table>
                 </div>
@@ -286,47 +301,41 @@
               <div class="card">
                 <div class="card-header card-header-warning">
                   <h4 class="card-title">Nearby Appointments</h4>
-                  <p class="card-category">Incoming appointments as of 15th September, 2016</p>
+                  <p class="card-category">Incoming appointments as of <?php echo date("Y-m-d");?></p>
                 </div>
                 <div class="card-body table-responsive">
-                  <table class="table table-hover">
-                    <thead class="text-warning">
-                      <th scope="col">Last Name</th>
-                      <th scope="col">First Name</th>
-                      <th scope="col">Appointment Date</th>
+                  <table class="table table-striped table-bordered">
+
+                    <!--Table head-->
+                    <thead>
+                      <tr>
+                      <th>Email</th>
+                        <th>Appointment Date</th>
+                        <th>Action</th>
                       </tr>
                     </thead>
+                    <!--Table head-->
                     <tbody>
-                      <tr>
-                        <td scope="row">Anders</td>
-                        <td>Maria </td>
-                        <td>04-22-2019</td>
-                      </tr>
-                      <tr>
-                        <td scope="row"> Chang</td>
-                        <td>Francisco</td>
-                        <td>04-22-2019</td>
-                      </tr>
-                      <tr>
-                        <td scope="row">Mendel</td>
-                        <td>Roland </td>
-                        <td>04-22-2019</td>
-                      </tr>
-                      <tr>
-                        <td scope="row"> Bennett</td>
-                        <td>Helen</td>
-                        <td>04-22-2019</td>
-                      </tr>
-                      <tr>
-                        <td scope="row"> Tannamuri</td>
-                        <td>Yoshi</td>
-                        <td>04-22-2019</td>
-                      </tr>
-                      <tr>
-                        <td scope="row">Rovelli</td>
-                        <td>Giovanni</td>
-                        <td>04-22-2019</td>
-                      </tr>
+                    <?php
+                      include("includes/db.php");
+                      $ref = "appointments";
+                      $data = $database->getReference($ref)->getValue();
+                      $i = 0;
+                      foreach ($data as $key => $data1) {
+                        if ($_SESSION['user'] == $data1['ob'] && $data1['nextAppt'] <= date("Y-m-d", strtotime("+1 week"))) {
+                          $i++;
+                          ?>
+                          <tr>
+                            <td><?php echo $data1['email']; ?></td>
+                            <td><?php echo $data1['nextAppt']; ?></td>
+                            <td>
+                              <a type="button" class="btn btn-info" href="patientConsult.php?email=<?php echo $data1['email']; ?>"><i class="material-icons">person</i> Consult</a>
+                            </td>
+                          </tr>
+                      <?php
+                        }
+                      }
+                      ?>
                     </tbody>
                   </table>
                 </div>

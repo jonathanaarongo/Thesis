@@ -1,4 +1,4 @@
-<?php session_start();?>
+<?php session_start(); ?>
 <!doctype html>
 <html lang="en">
 
@@ -148,247 +148,288 @@
         </div>
       </nav>
       <!-- End Navbar -->
-        
+
+      <?php
+      //getting id from url
+      $email = $_GET['email'];
+
+      //selecting data associated with this particular id
+      include("includes/db.php");
+      $ref = "patientdata";
+      $data = $database->getReference($ref)->getValue();
+      foreach ($data as $data1) {
+        if ($_SESSION['user'] == $data1['ob'] && $email == $data1['email']) {
+          $f_name = $data1['f_name'];
+          $l_name = $data1['l_name'];
+        }
+      }
+      ?>
+      <?php
+      //getting id from url
+      $email = $_GET['email'];
+
+      //selecting data associated with this particular id
+      include("includes/db.php");
+      $ref = "pefindings";
+      $data = $database->getReference($ref)->getValue();
+      foreach ($data as $data1) {
+        if ($_SESSION['user'] == $data1['ob'] && $email == $data1['email']) {
+          $date = date("Y-m-d");
+          $time = date("h:ia");
+          $reason = $data1['reason'];
+          $chiefComplaint = $data1['chiefComplaint'];
+          $peFindings = $data1['peFindings'];
+          $diagnosis = $data1['diagnosis'];
+          $nextAppt = $data1['nextAppt'];
+        }
+      }
+      ?>
+
       <body>
 
-        
+
         <div class="content">
-            <div class="container-fluid">
-                    
-                 <div class="col-md-12">
-                    <div class="card">
-                         <div class="card-header card-header-primary">
-                            <h3 class="card-title"><?php echo $_SESSION['f_name']. ' ' . $_SESSION['l_name']?>'s Patient Findings</h3>
-                        </div>
-        <div class="card-body">
-          <!-- Grid row -->
-          <form action="store_pe_findings.php" method="post" enctype="multipart/form-data">
-          <div class="form-row">
-            <!-- Default input -->
-            <div class="col-md-6">
-                <label for="date">Date Added</label>
-                <input type="date" class="form-control" id="date" name="date" value="<?php echo $_SESSION['date'] ?>" >
-              </div>
-              <div class="col-md-6">
-                <label for="nextAppt">Next Appointment</label>
-                <input type="date" class="form-control" id="nextAppt" name="nextAppt" value="<?php echo $_SESSION['nextAppt'] ?>">
-              </div>    
-            <!-- Default input -->
+        <button onclick="myFunction()">Print this page</button>
+          <div class="container-fluid">
+
             <div class="col-md-12">
-                <label for="adress">Reason for Visit</label>
-                <input type="text" class="form-control" id="reason" name="reason" value="<?php echo $_SESSION['reason'] ?>" >
-              </div>
-             <!-- Default input -->
-            <!-- Grid row-->
-              <!-- Default input -->
-              <div class="col-md-12">
-                <label for="chiefComplaint">Chief Complaint</label>
-                <textarea class="form-control" id="chiefComplaint" name="chiefComplaint" rows="3"><?php echo $_SESSION['chiefComplaint'] ?></textarea>
-              </div>
-              <!-- Default input -->
-              <div class="col-md-12">
-                <label for="peFindings">Physical Examination Findings</label>
-                <textarea class="form-control" id="peFindings" name="peFindings" rows="3"><?php echo $_SESSION['peFindings'] ?></textarea>
-              </div>
-              <!-- Default input -->
-              <div class="col-md-12">
-                <label for="diagnosis">Diagnosis</label>
-                <textarea class="form-control" id="diagnosis" name="diagnosis" rows="3"><?php echo $_SESSION['diagnosis'] ?></textarea>
-              </div>
-
-        
-         <!-- Grid row -->
-         <input type="submit" class="btn btn-primary btn-md" style="display: inline-block" id="addPatient" name="push" value="Add">
-        </form>
-
-
-
-
-
-
-
-      <script src="assets/js/core/jquery.min.js"></script>
-      <script src="assets/js/core/popper.min.js"></script>
-      <script src="assets/js/core/bootstrap-material-design.min.js"></script>
-      <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-      
-    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="assets/js/material-dashboard.js?v=2.1.1" type="text/javascript"></script>
-  <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-  <script src="assets/demo/demo.js"></script>
-    
-    <script>
-    $(document).ready(function() {
-      $().ready(function() {
-        $sidebar = $('.sidebar');
-
-        $sidebar_img_container = $sidebar.find('.sidebar-background');
-
-        $full_page = $('.full-page');
-
-        $sidebar_responsive = $('body > .navbar-collapse');
-
-        window_width = $(window).width();
-
-        fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
-
-        if (window_width > 767 && fixed_plugin_open == 'Dashboard') {
-          if ($('.fixed-plugin .dropdown').hasClass('show-dropdown')) {
-            $('.fixed-plugin .dropdown').addClass('open');
-          }
-
-        }
-
-        $('.fixed-plugin a').click(function(event) {
-          // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
-          if ($(this).hasClass('switch-trigger')) {
-            if (event.stopPropagation) {
-              event.stopPropagation();
-            } else if (window.event) {
-              window.event.cancelBubble = true;
-            }
-          }
-        });
-
-        $('.fixed-plugin .active-color span').click(function() {
-          $full_page_background = $('.full-page-background');
-
-          $(this).siblings().removeClass('active');
-          $(this).addClass('active');
-
-          var new_color = $(this).data('color');
-
-          if ($sidebar.length != 0) {
-            $sidebar.attr('data-color', new_color);
-          }
-
-          if ($full_page.length != 0) {
-            $full_page.attr('filter-color', new_color);
-          }
-
-          if ($sidebar_responsive.length != 0) {
-            $sidebar_responsive.attr('data-color', new_color);
-          }
-        });
-
-        $('.fixed-plugin .background-color .badge').click(function() {
-          $(this).siblings().removeClass('active');
-          $(this).addClass('active');
-
-          var new_color = $(this).data('background-color');
-
-          if ($sidebar.length != 0) {
-            $sidebar.attr('data-background-color', new_color);
-          }
-        });
-
-        $('.fixed-plugin .img-holder').click(function() {
-          $full_page_background = $('.full-page-background');
-
-          $(this).parent('li').siblings().removeClass('active');
-          $(this).parent('li').addClass('active');
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h3 class="card-title"><?php echo $f_name, ' ', $l_name; ?>'s Patient Findings</h3>
+                </div>
+                <div class="card-body">
+                  <!-- Grid row -->
+                  <form action="store_pe_findings.php" method="post" enctype="multipart/form-data">
+                    <div class="form-row">
+                      <!-- Default input -->
+                      <div class="col-md-6">
+                        <label for="date">Date Added</label>
+                        <input type="date" class="form-control" id="date" name="date" value="<?php echo $date ?>">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="nextAppt">Next Appointment</label>
+                        <input type="date" class="form-control" id="nextAppt" name="nextAppt" value="<?php echo $nextAppt ?>">
+                      </div>
+                      <!-- Default input -->
+                      <div class="col-md-12">
+                        <label for="adress">Reason for Visit</label>
+                        <input type="text" class="form-control" id="reason" name="reason" value="<?php echo $reason ?>">
+                      </div>
+                      <!-- Default input -->
+                      <!-- Grid row-->
+                      <!-- Default input -->
+                      <div class="col-md-12">
+                        <label for="chiefComplaint">Chief Complaint</label>
+                        <textarea class="form-control" id="chiefComplaint" name="chiefComplaint" rows="3"><?php echo $chiefComplaint ?></textarea>
+                      </div>
+                      <!-- Default input -->
+                      <div class="col-md-12">
+                        <label for="peFindings">Physical Examination Findings</label>
+                        <textarea class="form-control" id="peFindings" name="peFindings" rows="3"><?php echo $peFindings ?></textarea>
+                      </div>
+                      <!-- Default input -->
+                      <div class="col-md-12">
+                        <label for="diagnosis">Diagnosis</label>
+                        <textarea class="form-control" id="diagnosis" name="diagnosis" rows="3"><?php echo $diagnosis ?></textarea>
+                      </div>
 
 
-          var new_image = $(this).find("img").attr('src');
+                      <!-- Grid row -->
+                      <input type="submit" class="btn btn-primary btn-md" style="display: inline-block" id="addPatient" name="push" value="Edit">
+                  </form>
 
-          if ($sidebar_img_container.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
-            $sidebar_img_container.fadeOut('fast', function() {
-              $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
-              $sidebar_img_container.fadeIn('fast');
-            });
-          }
 
-          if ($full_page_background.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
-            var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
+                  <script>
+                    function myFunction() {
+                      window.print();
+                    }
+                  </script>
 
-            $full_page_background.fadeOut('fast', function() {
-              $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
-              $full_page_background.fadeIn('fast');
-            });
-          }
 
-          if ($('.switch-sidebar-image input:checked').length == 0) {
-            var new_image = $('.fixed-plugin li.active .img-holder').find("img").attr('src');
-            var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
 
-            $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
-            $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
-          }
 
-          if ($sidebar_responsive.length != 0) {
-            $sidebar_responsive.css('background-image', 'url("' + new_image + '")');
-          }
-        });
+                  <script src="assets/js/core/jquery.min.js"></script>
+                  <script src="assets/js/core/popper.min.js"></script>
+                  <script src="assets/js/core/bootstrap-material-design.min.js"></script>
+                  <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
 
-        $('.switch-sidebar-image input').change(function() {
-          $full_page_background = $('.full-page-background');
+                  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+                  <script src="assets/js/material-dashboard.js?v=2.1.1" type="text/javascript"></script>
+                  <!-- Material Dashboard DEMO methods, don't include it in your project! -->
+                  <script src="assets/demo/demo.js"></script>
 
-          $input = $(this);
+                  <script>
+                    $(document).ready(function() {
+                      $().ready(function() {
+                        $sidebar = $('.sidebar');
 
-          if ($input.is(':checked')) {
-            if ($sidebar_img_container.length != 0) {
-              $sidebar_img_container.fadeIn('fast');
-              $sidebar.attr('data-image', '#');
-            }
+                        $sidebar_img_container = $sidebar.find('.sidebar-background');
 
-            if ($full_page_background.length != 0) {
-              $full_page_background.fadeIn('fast');
-              $full_page.attr('data-image', '#');
-            }
+                        $full_page = $('.full-page');
 
-            background_image = true;
-          } else {
-            if ($sidebar_img_container.length != 0) {
-              $sidebar.removeAttr('data-image');
-              $sidebar_img_container.fadeOut('fast');
-            }
+                        $sidebar_responsive = $('body > .navbar-collapse');
 
-            if ($full_page_background.length != 0) {
-              $full_page.removeAttr('data-image', '#');
-              $full_page_background.fadeOut('fast');
-            }
+                        window_width = $(window).width();
 
-            background_image = false;
-          }
-        });
+                        fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
 
-        $('.switch-sidebar-mini input').change(function() {
-          $body = $('body');
+                        if (window_width > 767 && fixed_plugin_open == 'Dashboard') {
+                          if ($('.fixed-plugin .dropdown').hasClass('show-dropdown')) {
+                            $('.fixed-plugin .dropdown').addClass('open');
+                          }
 
-          $input = $(this);
+                        }
 
-          if (md.misc.sidebar_mini_active == true) {
-            $('body').removeClass('sidebar-mini');
-            md.misc.sidebar_mini_active = false;
+                        $('.fixed-plugin a').click(function(event) {
+                          // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
+                          if ($(this).hasClass('switch-trigger')) {
+                            if (event.stopPropagation) {
+                              event.stopPropagation();
+                            } else if (window.event) {
+                              window.event.cancelBubble = true;
+                            }
+                          }
+                        });
 
-            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+                        $('.fixed-plugin .active-color span').click(function() {
+                          $full_page_background = $('.full-page-background');
 
-          } else {
+                          $(this).siblings().removeClass('active');
+                          $(this).addClass('active');
 
-            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
+                          var new_color = $(this).data('color');
 
-            setTimeout(function() {
-              $('body').addClass('sidebar-mini');
+                          if ($sidebar.length != 0) {
+                            $sidebar.attr('data-color', new_color);
+                          }
 
-              md.misc.sidebar_mini_active = true;
-            }, 300);
-          }
+                          if ($full_page.length != 0) {
+                            $full_page.attr('filter-color', new_color);
+                          }
 
-          // we simulate the window Resize so the charts will get updated in realtime.
-          var simulateWindowResize = setInterval(function() {
-            window.dispatchEvent(new Event('resize'));
-          }, 180);
+                          if ($sidebar_responsive.length != 0) {
+                            $sidebar_responsive.attr('data-color', new_color);
+                          }
+                        });
 
-          // we stop the simulation of Window Resize after the animations are completed
-          setTimeout(function() {
-            clearInterval(simulateWindowResize);
-          }, 1000);
+                        $('.fixed-plugin .background-color .badge').click(function() {
+                          $(this).siblings().removeClass('active');
+                          $(this).addClass('active');
 
-        });
-      });
-    });
-  </script>
-    
-</body>
+                          var new_color = $(this).data('background-color');
+
+                          if ($sidebar.length != 0) {
+                            $sidebar.attr('data-background-color', new_color);
+                          }
+                        });
+
+                        $('.fixed-plugin .img-holder').click(function() {
+                          $full_page_background = $('.full-page-background');
+
+                          $(this).parent('li').siblings().removeClass('active');
+                          $(this).parent('li').addClass('active');
+
+
+                          var new_image = $(this).find("img").attr('src');
+
+                          if ($sidebar_img_container.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
+                            $sidebar_img_container.fadeOut('fast', function() {
+                              $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
+                              $sidebar_img_container.fadeIn('fast');
+                            });
+                          }
+
+                          if ($full_page_background.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
+                            var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
+
+                            $full_page_background.fadeOut('fast', function() {
+                              $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
+                              $full_page_background.fadeIn('fast');
+                            });
+                          }
+
+                          if ($('.switch-sidebar-image input:checked').length == 0) {
+                            var new_image = $('.fixed-plugin li.active .img-holder').find("img").attr('src');
+                            var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
+
+                            $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
+                            $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
+                          }
+
+                          if ($sidebar_responsive.length != 0) {
+                            $sidebar_responsive.css('background-image', 'url("' + new_image + '")');
+                          }
+                        });
+
+                        $('.switch-sidebar-image input').change(function() {
+                          $full_page_background = $('.full-page-background');
+
+                          $input = $(this);
+
+                          if ($input.is(':checked')) {
+                            if ($sidebar_img_container.length != 0) {
+                              $sidebar_img_container.fadeIn('fast');
+                              $sidebar.attr('data-image', '#');
+                            }
+
+                            if ($full_page_background.length != 0) {
+                              $full_page_background.fadeIn('fast');
+                              $full_page.attr('data-image', '#');
+                            }
+
+                            background_image = true;
+                          } else {
+                            if ($sidebar_img_container.length != 0) {
+                              $sidebar.removeAttr('data-image');
+                              $sidebar_img_container.fadeOut('fast');
+                            }
+
+                            if ($full_page_background.length != 0) {
+                              $full_page.removeAttr('data-image', '#');
+                              $full_page_background.fadeOut('fast');
+                            }
+
+                            background_image = false;
+                          }
+                        });
+
+                        $('.switch-sidebar-mini input').change(function() {
+                          $body = $('body');
+
+                          $input = $(this);
+
+                          if (md.misc.sidebar_mini_active == true) {
+                            $('body').removeClass('sidebar-mini');
+                            md.misc.sidebar_mini_active = false;
+
+                            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+
+                          } else {
+
+                            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
+
+                            setTimeout(function() {
+                              $('body').addClass('sidebar-mini');
+
+                              md.misc.sidebar_mini_active = true;
+                            }, 300);
+                          }
+
+                          // we simulate the window Resize so the charts will get updated in realtime.
+                          var simulateWindowResize = setInterval(function() {
+                            window.dispatchEvent(new Event('resize'));
+                          }, 180);
+
+                          // we stop the simulation of Window Resize after the animations are completed
+                          setTimeout(function() {
+                            clearInterval(simulateWindowResize);
+                          }, 1000);
+
+                        });
+                      });
+                    });
+                  </script>
+
+      </body>
 
 </html>

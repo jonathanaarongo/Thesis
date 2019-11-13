@@ -137,7 +137,7 @@ $_SESSION['user'] = 'obsample@gmail.com';
                       $ref = "appointments";
                       $data = $database->getReference($ref)->getValue();
                       $i = 0;
-                      foreach ($data as $key => $data1) {
+                      foreach ($data as $data1) {
                         if ($_SESSION['user'] == $data1['ob']) {
                           $i++;
                           ?>
@@ -145,7 +145,7 @@ $_SESSION['user'] = 'obsample@gmail.com';
                             <td><?php echo $data1['email']; ?></td>
                             <td><?php echo $data1['nextAppt']; ?></td>
                             <td>
-                              <a type="button" class="btn btn-info" href="patientConsult.php?key=<?php $_SESSION['key'] = $key; echo $key; ?>"><i class="material-icons">person</i> Consult</a>
+                              <a type="button" class="btn btn-info" href="patientConsult.php?email=<?php echo $data1['email']; ?>"><i class="material-icons">person</i> Consult</a>
                               <a type="button" class="btn btn-danger" href="update_data.php?key=<?php echo $key; ?>"><i class="fa fa-trash"></i> Delete</a>
                             </td>
                           </tr>

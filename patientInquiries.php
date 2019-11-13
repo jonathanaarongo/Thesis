@@ -39,7 +39,7 @@
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="#0">
+            <a class="nav-link" href="dashboard.php">
               <i class="material-icons">language</i>
               <p>Dashboard</p>
             </a>
@@ -69,7 +69,7 @@
             </a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="#0">
+            <a class="nav-link" href="patientInquiries.php">
               <i class="material-icons">emoji_people</i>
               <p>Patient Inquiries</p>
             </a>
@@ -143,7 +143,6 @@
                             <td><?php echo $data1['answer']; ?></td>
                             <td>
                               <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#modal">Answer</button>
-                              <a type="button" class="btn btn-danger" href="update_data.php?key=<?php echo $key; ?>">Delete</a>
                               <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                   <div class="modal-content">

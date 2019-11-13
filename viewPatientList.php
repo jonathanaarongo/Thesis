@@ -42,7 +42,7 @@ $_SESSION['user'] = 'obsample@gmail.com';
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="#0">
+            <a class="nav-link" href="dashboard.php">
               <i class="material-icons">language</i>
               <p>Dashboard</p>
             </a>
@@ -72,7 +72,7 @@ $_SESSION['user'] = 'obsample@gmail.com';
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="patientInquiries.php">
+            <a class="nav-link" href="pquiries.php">
               <i class="material-icons">emoji_people</i>
               <p>Patient Inquiries</p>
             </a>
@@ -143,38 +143,21 @@ $_SESSION['user'] = 'obsample@gmail.com';
                       $ref = "patientdata";
                       $data = $database->getReference($ref)->getValue();
                       $i = 0;
-                      foreach ($data as $key => $data1) {
+                      foreach ($data as $data1) {
                         if ($_SESSION['user'] == $data1['ob']) {
                           $i++;
                           ?>
                           <tr>
                             <th scope="row"><?php echo $i; ?></th>
-                            <td><?php $_SESSION['f_name'] = $data1['f_name'];
-                                    echo $data1['f_name']; ?></td>
-                            <td><?php $_SESSION['l_name'] = $data1['l_name'];
-                                    echo $data1['l_name']; ?></td>
-                            <td><?php $_SESSION['patType'] = $data1['patType'];
-                                    echo $data1['patType']; ?></td>
-                            <td><?php $_SESSION['status'] = $data1['status'];
-                                    echo $data1['status']; ?></td>
-                            <td><?php $_SESSION['contactNo'] = $data1['contactNo'];
-                                    echo $data1['contactNo']; ?></td>
-                            <td><?php $_SESSION['email'] = $data1['email'];
-                                    echo $data1['email']; ?></td>
-                            <td><?php $_SESSION['lastVisited'] = $data1['lastVisited'];
-                                    echo $data1['lastVisited']; ?></td>
-
-                            <?php
-                                $_SESSION['address'] = $data1['address'];
-                                $_SESSION['familyHistory'] = $data1['familyHistory'];
-                                $_SESSION['medicalHistory'] = $data1['medicalHistory'];
-                                $_SESSION['ob'] = $data1['ob'];
-                                $_SESSION['occupation'] = $data1['occupation'];
-                                $_SESSION['dateAdded'] = $data1['dateAdded']
-                                ?>
+                            <td><?php echo $data1['f_name']; ?></td>
+                            <td><?php echo $data1['l_name']; ?></td>
+                            <td><?php echo $data1['patType']; ?></td>
+                            <td><?php echo $data1['status']; ?></td>
+                            <td><?php echo $data1['contactNo']; ?></td>
+                            <td><?php echo $data1['email']; ?></td>
+                            <td><?php echo $data1['lastVisited']; ?></td>
                             <td>
-                              <a type="button" class="btn btn-success" href="patientDetails.php?key=<?php $_SESSION['key'] = $key; echo $key; ?>"><i class="fa fa-eye"></i> View</a>
-                              <a type="button" class="btn btn-info" href="patientConsult.php?key=<?php $_SESSION['key'] = $key; echo $key; ?>"><i class="material-icons">person</i> Consult</a>
+                              <a type="button" class="btn btn-success" href="patientProfile.php?email=<?php echo $data1['email']; ?>"><i class="fa fa-eye"></i> View</a>
                               <a type="button" class="btn btn-danger" href="update_data.php?key=<?php echo $key; ?>"><i class="fa fa-trash"></i> Delete</a>
                             </td>
                           </tr>

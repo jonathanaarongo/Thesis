@@ -33,7 +33,7 @@
   -->
             <div class="logo">
                 <a href="http://www.creative-tim.com" class="simple-text logo-mini">
-                    <?php echo $_SESSION['user']; ?>
+                    <?php echo $_SESSION['user'];?>
                 </a>
             </div>
             <div class="sidebar-wrapper">
@@ -105,29 +105,45 @@
                 if ($_SESSION['user'] == $data1['ob'] && $email == $data1['email']) {
                     $f_name = $data1['f_name'];
                     $l_name = $data1['l_name'];
+
                 }
             }
             ?>
             <div class="content">
-                
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-12">
+                            <div class="col-md-12">
                             <a href="patientProfile.php?email=<?php echo $email ?>" class="btn btn-primary"> General Data</a>
-                            <a href="patientConsult.php?email=<?php echo $email ?>" class="btn btn-primary"> Consultation History</a>
-                            <a href="patientVitals.php?email=<?php echo $email ?>" class="btn btn-primary"> Patient Vitals</a>
+                                <a href="patientConsult.php?email=<?php echo $email?>" class="btn btn-primary"> Consultation History</a>
+                                <a href="patientVitals.php?email=<?php echo $email?>" class="btn btn-primary"> Patient Vitals</a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="pull-right" style="margin-top:-30px;">
-                        <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
-                        </dir-pagination-controls>
-                    </div>
                     <div class="row">
-                        <a type="button" class="btn btn-info" href="patientFindingsAdd.php?email=<?php echo $email; ?>">Add Findings</a>
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-primary">
-                                    <h3 class="card-title"><?php echo $f_name, ' ', $l_name; ?>'s Patient Findings</h3>
+                                    <h3 class="card-title">Input Vitals</h3>
+                                </div>
+                                <div class="card-body">
+                                    <form class="navbar-form" action="store_vital.php" method="post" enctype="multipart/form-data">
+                                        <div class="input-group no-border">
+                                            <i class="material-icons">opacity</i><input type="number" class="form-control" name="systolic" placeholder="Systolic">
+                                            <i class="material-icons">invert_colors</i><input type="number" class="form-control" name="diastolic" placeholder="Diastolic">
+                                            <i class="material-icons">speed</i><input type="number" step="0.1" class="form-control" name="weight" placeholder="Weight (in lbs)">
+                                            <i class="material-icons">pregnant_woman</i><input type="number" step="0.1" class="form-control" name="waistSize" placeholder="Belly Size (in cm)">
+                                            <i class="material-icons">favorite</i><input type="number" class="form-control" name="fetalHeartTone" placeholder="Fetal Heart Tone">
+                                        </div>
+                                        <button type="submit" name="push" class="btn btn-info"><i class="material-icons">person</i> Submit</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header card-header-primary">
+                                    <h3 class="card-title"><?php echo $f_name, ' ', $l_name; ?>'s Patient Vitals</h3>
                                 </div>
                                 <div class="card-body">
 
@@ -138,11 +154,12 @@
                                             <!--Table head-->
                                             <thead>
                                                 <tr>
-                                                    <th>Reason</th>
-                                                    <th>Chief Complaint</th>
+                                                    <th>Blood Pressure</th>
+                                                    <th>Weight</th>
+                                                    <th>Belly Size</th>
+                                                    <th>Fetal Heart Tone</th>
                                                     <th>Date</th>
                                                     <th>Time</th>
-                                                    <th>Next Appointment</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -153,22 +170,23 @@
                                                 <?php
                                                 include("includes/db.php");
                                                 $email = $_GET['email'];
-                                                $ref = "pefindings";
+                                                $ref = "vitals";
                                                 $data = $database->getReference($ref)->getValue();
                                                 $i = 0;
-                                                foreach ($data as $data1) {
+                                                foreach ($data as $key => $data1) {
                                                     if ($_SESSION['user'] == $data1['ob'] && $email == $data1['email']) {
                                                         $i++;
                                                         ?>
                                                         <tr>
-                                                            <td><?php echo $data1['reason']; ?></td>
-                                                            <td><?php echo $data1['chiefComplaint']; ?></td>
+                                                            <td><?php echo $data1['systolic']; ?>/<?php echo $data1['diastolic'] ?> </a></td>
+                                                            <td><?php echo $data1['weight']; ?></td>
+                                                            <td><?php echo $data1['waistSize']; ?></td>
+                                                            <td><?php echo $data1['fetalHeartTone']; ?></td>
                                                             <td><?php echo $data1['date']; ?></td>
                                                             <td><?php echo $data1['time']; ?></td>
-                                                            <td><?php echo $data1['nextAppt']; ?></td>
                                                             <td>
-                                                                <a type="button" class="btn btn-primary" href="showpatientfindings.php?email=<?php echo $email; ?>">View</a>
-                                                                <a type="button" class="btn btn-danger" href="update_data.php?key=<?php ?>">Delete</a>
+                                                                <a type="button" class="btn btn-primary" href="showpatientdata.php?key=<?php echo $key; ?>">View</a>
+                                                                <a type="button" class="btn btn-danger" href="patientFindingsAdd.php?key=<?php echo $key; ?>">Delete</a>
                                                             </td>
                                                         </tr>
                                                 <?php
@@ -211,7 +229,6 @@
         </footer>
     </div>
     </div>
-
 
     <script src="dirPaginate.js"></script>
     <script src="angular.js"></script>
