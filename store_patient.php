@@ -17,6 +17,42 @@ if(isset($_POST['push'])){
     $occupation = $_POST['occupation'];
     $patType = $_POST['patType'];
     $status = $_POST['status'];
+    if (isset($_POST['conCounterCard'])){
+        $conCounterCard = true;
+    }
+    else{
+        $conCounterCard= false;
+    }
+    if (isset($_POST['kickCounterCard'])){
+        $kickCounterCard = true;
+    }
+    else{
+        $kickCounterCard = false;
+    }
+    if (isset($_POST['weightCard'])){
+        $weightCard = true;
+    }
+    else{
+        $weightCard = false;
+    }
+    if (isset($_POST['babyMeasureCard'])){
+        $babyMeasureCard = true;
+    }
+    else{
+        $babyMeasureCard = false;
+    }
+    if (isset($_POST['bloodPressureCard'])){
+        $bloodPressureCard= true;
+    }
+    else{
+        $bloodPressureCard = false;
+    }
+    if (isset($_POST['bloodSugarCard'])){
+        $bloodSugarCard = true;
+    }
+    else{
+        $bloodSugarCard = false;
+    }
     
     $data = [
         'ob' => $ob,
@@ -32,7 +68,14 @@ if(isset($_POST['push'])){
         'medicalHistory' => $medicalHistory,
         'occupation' => $occupation,
         'patType' => $patType,
-        'status' => $status
+        'status' => $status,
+        'conCounterCard' => $conCounterCard,
+        'kickCounterCard' => $kickCounterCard,
+        'weightCard' => $weightCard,
+        'babyMeasureCard' => $babyMeasureCard,
+        'bloodPressureCard' => $bloodPressureCard,
+        'bloodSugarCard' => $bloodSugarCard
+
     ];
     $ref = "patientdata/";
     $pushData = $database->getReference($ref)->push($data);
@@ -53,6 +96,42 @@ else{
     $occupation = $_POST['occupation'];
     $patType = $_POST['patType'];
     $status = $_POST['status'];
+    if (isset($_POST['conCounterCard'])){
+        $conCounterCard = true;
+    }
+    else{
+        $conCounterCard= false;
+    }
+    if (isset($_POST['kickCounterCard'])){
+        $kickCounterCard = true;
+    }
+    else{
+        $kickCounterCard = false;
+    }
+    if (isset($_POST['weightCard'])){
+        $weightCard = true;
+    }
+    else{
+        $weightCard = false;
+    }
+    if (isset($_POST['babyMeasureCard'])){
+        $babyMeasureCard = true;
+    }
+    else{
+        $babyMeasureCard = false;
+    }
+    if (isset($_POST['bloodPressureCard'])){
+        $bloodPressureCard= true;
+    }
+    else{
+        $bloodPressureCard = false;
+    }
+    if (isset($_POST['bloodSugarCard'])){
+        $bloodSugarCard = true;
+    }
+    else{
+        $bloodSugarCard = false;
+    }
     
     $data = [
         'ob' => $ob,
@@ -68,7 +147,13 @@ else{
         'medicalHistory' => $medicalHistory,
         'occupation' => $occupation,
         'patType' => $patType,
-        'status' => $status
+        'status' => $status,
+        'conCounterCard' => $conCounterCard,
+        'kickCounterCard' => $kickCounterCard,
+        'weightCard' => $weightCard,
+        'babyMeasureCard' => $babyMeasureCard,
+        'bloodPressureCard' => $bloodPressureCard,
+        'bloodSugarCard' => $bloodSugarCard
     ];
     $ref = "patientdata/";
     $pushData = $database->getReference($ref)->set($data);

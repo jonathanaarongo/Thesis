@@ -21,6 +21,245 @@
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="assets/demo/demo.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="style.css">
+
+
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <!--WEIGHT CHART FRONT END-->
+    <script type="text/javascript">
+        google.charts.load('current', {
+            'packages': ['corechart']
+        });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('date', 'Date');
+            data.addColumn('number', 'Weight');
+
+            data.addRows([
+                <?php
+                //getting id from url
+                $patientKey = $_GET['key'];
+
+                //selecting data associated with this particular id
+                include("includes/db.php");
+                $ref = "vitals";
+                $data = $database->getReference($ref)->getValue();
+                $i = 0;
+                foreach ($data as $key => $data1) {
+
+                    if ($_SESSION['user'] == $data1['ob'] && $_SESSION['email'] == $data1['email']) {
+                        $i++;
+                        ?>[new Date('<?php echo $data1['date']; ?>'), <?php echo $data1['weight']; ?>],
+
+                <?php
+                    }
+                }
+                ?>
+            ]);
+
+
+            var options = {
+                width: 1300,
+                height: 500,
+                hAxis: {
+                    format: 'MMM/dd/yy',
+                    gridlines: {
+                        count: 15
+                    }
+                },
+                vAxis: {
+                    gridlines: {
+                        color: 'none'
+                    },
+                    minValue: 0
+                }
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('line_weight_x'));
+
+            chart.draw(data, options);
+        }
+    </script>
+    <!--WAIST SIZE CHART FRONT END-->
+    <script type="text/javascript">
+        google.charts.load('current', {
+            'packages': ['corechart']
+        });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('date', 'Date');
+            data.addColumn('number', 'Waist Size');
+
+            data.addRows([
+                <?php
+                //getting id from url
+                $patientKey = $_GET['key'];
+
+                //selecting data associated with this particular id
+                include("includes/db.php");
+                $ref = "vitals";
+                $data = $database->getReference($ref)->getValue();
+                $i = 0;
+                foreach ($data as $key => $data1) {
+
+                    if ($_SESSION['user'] == $data1['ob'] && $_SESSION['email'] == $data1['email']) {
+                        $i++;
+                        ?>[new Date('<?php echo $data1['date']; ?>'), <?php echo $data1['waistSize']; ?>],
+
+                <?php
+                    }
+                }
+                ?>
+            ]);
+
+
+            var options = {
+                width: 1300,
+                height: 500,
+                hAxis: {
+                    format: 'MMM/dd/yy',
+                    gridlines: {
+                        count: 15
+                    }
+                },
+                vAxis: {
+                    gridlines: {
+                        color: 'none'
+                    },
+                    minValue: 0
+                }
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('line_bellysize_x'));
+
+            chart.draw(data, options);
+        }
+    </script>
+    <!--FETAL HEART TONE CHART FRONT END-->
+    <script type="text/javascript">
+        google.charts.load('current', {
+            'packages': ['corechart']
+        });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('date', 'Date');
+            data.addColumn('number', 'Fetal Heart Tone');
+
+            data.addRows([
+                <?php
+                //getting id from url
+                $patientKey = $_GET['key'];
+
+                //selecting data associated with this particular id
+                include("includes/db.php");
+                $ref = "vitals";
+                $data = $database->getReference($ref)->getValue();
+                $i = 0;
+                foreach ($data as $key => $data1) {
+
+                    if ($_SESSION['user'] == $data1['ob'] && $_SESSION['email'] == $data1['email']) {
+                        $i++;
+                        ?>[new Date('<?php echo $data1['date']; ?>'), <?php echo $data1['fetalHeartTone']; ?>],
+
+                <?php
+                    }
+                }
+                ?>
+            ]);
+
+
+            var options = {
+                width: 1300,
+                height: 500,
+                hAxis: {
+                    format: 'MMM/dd/yy',
+                    gridlines: {
+                        count: 15
+                    }
+                },
+                vAxis: {
+                    gridlines: {
+                        color: 'none'
+                    },
+                    minValue: 0
+                }
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('line_fetalhearttone_x'));
+
+            chart.draw(data, options);
+        }
+    </script>
+       <!--BLOOD PRESSURE CHART FRONT END-->
+       <script type="text/javascript">
+        google.charts.load('current', {
+            'packages': ['corechart']
+        });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('date', 'Date');
+            data.addColumn('number', 'Systolic');
+            data.addColumn('number', 'Diastolic');
+
+            data.addRows([
+                <?php
+                //getting id from url
+                $patientKey = $_GET['key'];
+
+                //selecting data associated with this particular id
+                include("includes/db.php");
+                $ref = "vitals";
+                $data = $database->getReference($ref)->getValue();
+                $i = 0;
+                foreach ($data as $key => $data1) {
+
+                    if ($_SESSION['user'] == $data1['ob'] && $_SESSION['email'] == $data1['email']) {
+                        $i++;
+                        ?>[new Date('<?php echo $data1['date']; ?>'), <?php echo $data1['systolic']; ?>, <?php echo $data1['diastolic']; ?>],
+
+                <?php
+                    }
+                }
+                ?>
+            ]);
+
+
+            var options = {
+                width: 1300,
+                height: 500,
+                hAxis: {
+                    format: 'MMM/dd/yy',
+                    gridlines: {
+                        count: 15
+                    }
+                },
+                vAxis: {
+                    gridlines: {
+                        color: 'none'
+                    },
+                    minValue: 0
+                }
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('line_bloodpressure_x'));
+
+            chart.draw(data, options);
+        }
+    </script> 
+
+
 </head>
 
 <body>
@@ -33,7 +272,7 @@
   -->
             <div class="logo">
                 <a href="http://www.creative-tim.com" class="simple-text logo-mini">
-                    <?php echo $_SESSION['user'];?>
+                    <?php echo $_SESSION['user']; ?>
                 </a>
             </div>
             <div class="sidebar-wrapper">
@@ -95,29 +334,86 @@
             <!-- End Navbar -->
             <?php
             //getting id from url
-            $email = $_GET['email'];
+            $patientKey = $_GET['key'];
 
             //selecting data associated with this particular id
             include("includes/db.php");
             $ref = "patientdata";
             $data = $database->getReference($ref)->getValue();
-            foreach ($data as $data1) {
-                if ($_SESSION['user'] == $data1['ob'] && $email == $data1['email']) {
+            foreach ($data as $key => $data1) {
+                if ($_SESSION['user'] == $data1['ob'] && $patientKey == $key) {
                     $f_name = $data1['f_name'];
                     $l_name = $data1['l_name'];
-
+                    $email = $data1['email'];
                 }
             }
             ?>
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
-                            <div class="col-md-12">
-                            <a href="patientProfile.php?email=<?php echo $email ?>" class="btn btn-primary"> General Data</a>
-                                <a href="patientConsult.php?email=<?php echo $email?>" class="btn btn-primary"> Consultation History</a>
-                                <a href="patientVitals.php?email=<?php echo $email?>" class="btn btn-primary"> Patient Vitals</a>
+                        <div class="col-md-12">
+                            <a href="patientProfile.php?key=<?php echo $patientKey ?>" class="btn btn-primary"> General Data</a>
+                            <a href="patientConsult.php?key=<?php echo $patientKey ?>" class="btn btn-primary"> Consultation History</a>
+                            <a href="patientVitals.php?key=<?php echo $patientKey ?>" class="btn btn-primary"> Patient Vitals</a>
+                            <a href="patientMedication.php?key=<?php echo $patientKey ?>" class="btn btn-primary"> Medications</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header card-header-primary">
+                                    <h3 class="card-title"><?php echo $f_name, ' ', $l_name; ?>'s Weight</h3>
+                                </div>
+
+                                <div class="card-body">
+                                    <!-- LINE CHART FOR WEIGHT -->
+                                    <div id="line_weight_x"></div>
+                                </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header card-header-primary">
+                                    <h3 class="card-title"><?php echo $f_name, ' ', $l_name; ?>'s Waist Size</h3>
+                                </div>
+
+                                <div class="card-body">
+                                    <!-- LINE CHART FOR BELLY SIZE -->
+                                    <div id="line_bellysize_x"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header card-header-primary">
+                                    <h3 class="card-title"><?php echo $f_name, ' ', $l_name; ?>'s Fetal Heart Tone</h3>
+                                </div>
+
+                                <div class="card-body">
+                                    <!-- LINE CHART FOR FETAL HEART TONE -->
+                                    <div id="line_fetalhearttone_x"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header card-header-primary">
+                                    <h3 class="card-title"><?php echo $f_name, ' ', $l_name; ?>'s Blood Pressure</h3>
+                                </div>
+
+                                <div class="card-body">
+                                    <!-- LINE CHART FOR BLOOD PRESSURE -->
+                                    <div id="line_bloodpressure_x"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
@@ -169,7 +465,6 @@
                                             <tbody>
                                                 <?php
                                                 include("includes/db.php");
-                                                $email = $_GET['email'];
                                                 $ref = "vitals";
                                                 $data = $database->getReference($ref)->getValue();
                                                 $i = 0;

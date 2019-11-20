@@ -3,13 +3,13 @@ session_start();
 include("includes/db.php");
 
 if(isset($_POST['push'])){
-    $ob = $_SESSION['ob'];
+    $ob = $_SESSION['user'];
     $email = $_POST['email'];
     $nextAppt = $_POST['nextAppt'];
     
     $data = [
-        $ob = 'ob',
-        $email = 'email',
+        'ob' => $ob,
+        'email' => $email,
         'nextAppt' => $nextAppt
     ];
 
@@ -18,13 +18,13 @@ if(isset($_POST['push'])){
     header("Location:viewAppointments.php");
 }
 else{
-    $ob = $_SESSION['ob'];
+    $ob = $_SESSION['user'];
     $email = $_POST['email'];
     $nextAppt = $_POST['nextAppt'];
     
     $data = [
-        $ob = 'ob',
-        $email = 'email',
+        'ob' => $ob,
+        'email' => $email,
         'nextAppt' => $nextAppt
     ];
 

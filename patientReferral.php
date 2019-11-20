@@ -174,73 +174,22 @@
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h3 class="card-title"><?php echo $f_name, ' ', $l_name; ?>'s Patient Findings</h3>
+                  <h3 class="card-title"><?php echo $f_name, ' ', $l_name; ?>'s Referral</h3>
                 </div>
                 <div class="card-body">
                   <!-- Grid row -->
-                  <form action="store_pe_findings.php" method="post" enctype="multipart/form-data">
+                  <form action="update_referral.php" method="post" enctype="multipart/form-data">
                     <div class="form-row">
                       <!-- Default input -->
                       <div class="col-md-6">
-                        <label for="date">Date</label>
-                        <input type="date" class="form-control" id="date" name="date" value="<?php date_default_timezone_set('Asia/Manila');
-                                                                                              echo date("Y-m-d"); ?>">
-                      </div>
-                      <div class="col-md-6">
-                        <label for="nextAppt">Next Appointment</label>
-                        <input type="date" class="form-control" id="nextAppt" name="nextAppt">
-                      </div>
-                      <!-- Default input -->
-                      <div class="col-md-12">
-                        <label for="adress">Reason for Visit</label>
-                        <input type="text" class="form-control" id="reason" name="reason">
-                      </div>
-                      <!-- Default input -->
-                      <!-- Grid row-->
-                      <!-- Default input -->
-                      <div class="col-md-12">
-                        <label for="chiefComplaint">Chief Complaint</label>
-                        <textarea class="form-control" id="chiefComplaint" name="chiefComplaint" rows="3"></textarea>
-                      </div>
-                      <!-- Default input -->
-                      <div class="col-md-12">
-                        <label for="peFindings">Physical Examination Findings</label>
-                        <textarea class="form-control" id="peFindings" name="peFindings" rows="3"></textarea>
-                      </div>
-                      <!-- Default input -->
-                      <div class="col-md-12">
-                        <label for="diagnosis">Diagnosis</label>
-                        <textarea class="form-control" id="diagnosis" name="diagnosis" rows="3"></textarea>
+                        <label for="date">Refer Patient To:</label>
+                        <input type="email" class="form-control" id="email" name="email">
                       </div>
 
 
-
+                      <input type="hidden" name="ref" value="patientdata/<?php echo $key; ?>">
                       <!-- Grid row -->
-                      <input type="submit" class="btn btn-primary btn-md" style="display: inline-block" id="addPatient" name="push" value="Add">
-                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal"><i class="fa fa-plus"></i> SUBMIT</button>
-                      <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel">Choose</h5>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="form-group">
-                                  <input type="radio" name="choose" value="isReferred" <?php if (isset($choose) && $choose=="isReferred") echo "checked";?>>
-                                  <label for="exampleFormControlInput1">Refer to Another Doctor</label>
-                                </div>
-                                <div class="form-group">
-                                  <input type="radio" name="choose" value="isPrescribed" <?php if (isset($choose) && $choose=="isPrescribed") echo "checked";?>>
-                                  <label for="exampleInputEmail1">Prescribe Medications</label>
-                                </div>
-                                
-                                <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close" data-toggle="modal" data-target="#modalChoose">Next</button>
-                                <button type="submit" name="push" class="btn btn-primary">Submit</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      <input type="submit" class="btn btn-primary btn-md" style="display: inline-block" id="updateReferral" name="update" value="Finish">
                   </form>
 
 

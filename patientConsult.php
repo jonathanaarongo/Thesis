@@ -95,16 +95,17 @@
             <!-- End Navbar -->
             <?php
             //getting id from url
-            $email = $_GET['email'];
+            $patientKey = $_GET['key'];
 
             //selecting data associated with this particular id
             include("includes/db.php");
             $ref = "patientdata";
             $data = $database->getReference($ref)->getValue();
-            foreach ($data as $data1) {
-                if ($_SESSION['user'] == $data1['ob'] && $email == $data1['email']) {
+            foreach ($data as $key => $data1) {
+                if ($_SESSION['user'] == $data1['ob'] && $patientKey == $key) {
                     $f_name = $data1['f_name'];
                     $l_name = $data1['l_name'];
+                    $email = $data1['email'];
                 }
             }
             ?>
@@ -113,9 +114,10 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <a href="patientProfile.php?email=<?php echo $email ?>" class="btn btn-primary"> General Data</a>
-                            <a href="patientConsult.php?email=<?php echo $email ?>" class="btn btn-primary"> Consultation History</a>
-                            <a href="patientVitals.php?email=<?php echo $email ?>" class="btn btn-primary"> Patient Vitals</a>
+                            <a href="patientProfile.php?key=<?php echo $patientKey ?>" class="btn btn-primary"> General Data</a>
+                            <a href="patientConsult.php?key=<?php echo $patientKey ?>" class="btn btn-primary"> Consultation History</a>
+                            <a href="patientVitals.php?key=<?php echo $patientKey ?>" class="btn btn-primary"> Patient Vitals</a>
+                            <a href="patientMedication.php?key=<?php echo $patientKey ?>" class="btn btn-primary"> Medications</a>
                         </div>
                     </div>
                     <div class="pull-right" style="margin-top:-30px;">
@@ -123,7 +125,7 @@
                         </dir-pagination-controls>
                     </div>
                     <div class="row">
-                        <a type="button" class="btn btn-info" href="patientFindingsAdd.php?email=<?php echo $email; ?>">Add Findings</a>
+                        <a type="button" class="btn btn-info" href="patientFindingsAdd.php?key=<?php echo $patientKey; ?>">Add Findings</a>
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-primary">
@@ -152,11 +154,10 @@
                                             <tbody>
                                                 <?php
                                                 include("includes/db.php");
-                                                $email = $_GET['email'];
                                                 $ref = "pefindings";
                                                 $data = $database->getReference($ref)->getValue();
                                                 $i = 0;
-                                                foreach ($data as $data1) {
+                                                foreach ($data as $key=> $data1) {
                                                     if ($_SESSION['user'] == $data1['ob'] && $email == $data1['email']) {
                                                         $i++;
                                                         ?>
@@ -167,7 +168,7 @@
                                                             <td><?php echo $data1['time']; ?></td>
                                                             <td><?php echo $data1['nextAppt']; ?></td>
                                                             <td>
-                                                                <a type="button" class="btn btn-primary" href="showpatientfindings.php?email=<?php echo $email; ?>">View</a>
+                                                                <a type="button" class="btn btn-primary" href="showpatientfindings.php?key=<?php echo $key; ?>">View</a>
                                                                 <a type="button" class="btn btn-danger" href="update_data.php?key=<?php ?>">Delete</a>
                                                             </td>
                                                         </tr>

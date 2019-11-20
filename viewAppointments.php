@@ -36,55 +36,55 @@ $_SESSION['user'] = 'obsample@gmail.com';
   -->
       <div class="logo">
         <a href="http://www.creative-tim.com" class="simple-text logo-mini">
-          <?php echo $_SESSION['user'];?>
+          <?php echo $_SESSION['user']; ?>
         </a>
       </div>
       <div class="sidebar-wrapper">
-        <ul class="nav">
-          <li class="nav-item">
-            <a class="nav-link" href="#0">
-              <i class="material-icons">language</i>
-              <p>Dashboard</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#0">
-              <i class="material-icons">add_box</i>
-              <p>Add Patient</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#0">
-              <i class="material-icons">pregnant_woman</i>
-              <p>Manage Patient</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="labResults.php">
-              <i class="material-icons">file_copy</i>
-              <p>View Lab Results</p>
-            </a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="#0">
-              <i class="material-icons">event_note</i>
-              <p>Manage Appointments</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="patientInquiries.php">
-              <i class="material-icons">emoji_people</i>
-              <p>Patient Inquiries</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#0">
-              <i class="material-icons">power_settings_new</i>
-              <p>Logout</p>
-            </a>
-          </li>
-          <!-- your sidebar here -->
-        </ul>
+      <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.php">
+                            <i class="material-icons">language</i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#0">
+                            <i class="material-icons">add_box</i>
+                            <p>Add Patient</p>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="viewPatientList.php">
+                            <i class="material-icons">pregnant_woman</i>
+                            <p>Manage Patient</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#0">
+                            <i class="material-icons">file_copy</i>
+                            <p>View Lab Results</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="viewAppointments.php">
+                            <i class="material-icons">event_note</i>
+                            <p>Manage Appointments</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="patientInquiries.php">
+                            <i class="material-icons">emoji_people</i>
+                            <p>Patient Inquiries</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#0">
+                            <i class="material-icons">power_settings_new</i>
+                            <p>Logout</p>
+                        </a>
+                    </li>
+                    <!-- your sidebar here -->
+                </ul>
       </div>
     </div>
     <div class="main-panel">
@@ -102,10 +102,33 @@ $_SESSION['user'] = 'obsample@gmail.com';
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
-              <a href="appointmentAdd.php" class="btn btn-primary"><i class="fa fa-plus"></i> Add Appointment</a>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal"><i class="fa fa-plus"></i> Add Appointment</button>
               <span class="pull-right">
                 <input type="text" ng-model="search" class="form-control" placeholder="Search">
               </span>
+              <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Add Appointment</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                      <form action="store_appointments.php" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">Email</label>
+                          <input type="email" class="form-control" name="email">
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Appointment Date</label>
+                          <input type="date" class="form-control" name="nextAppt">
+                        </div>
+                        <button type="submit" name="push" class="btn btn-primary">Set Appointment</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div class="col-md-12">

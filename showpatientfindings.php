@@ -150,30 +150,30 @@
       <!-- End Navbar -->
 
       <?php
-      //getting id from url
-      $email = $_GET['email'];
+            //getting id from url
+            $consultKey = $_GET['key'];
+            $patientKey = $_SESSION['key'];
 
-      //selecting data associated with this particular id
-      include("includes/db.php");
-      $ref = "patientdata";
-      $data = $database->getReference($ref)->getValue();
-      foreach ($data as $data1) {
-        if ($_SESSION['user'] == $data1['ob'] && $email == $data1['email']) {
-          $f_name = $data1['f_name'];
-          $l_name = $data1['l_name'];
-        }
-      }
-      ?>
+            //selecting data associated with this particular id
+            include("includes/db.php");
+            $ref = "patientdata";
+            $data = $database->getReference($ref)->getValue();
+            foreach ($data as $key => $data1) {
+                if ($_SESSION['user'] == $data1['ob'] && $patientKey == $key) {
+                    $f_name = $data1['f_name'];
+                    $l_name = $data1['l_name'];
+                    $email = $data1['email'];
+                }
+            }
+            ?>
       <?php
-      //getting id from url
-      $email = $_GET['email'];
 
       //selecting data associated with this particular id
       include("includes/db.php");
       $ref = "pefindings";
       $data = $database->getReference($ref)->getValue();
-      foreach ($data as $data1) {
-        if ($_SESSION['user'] == $data1['ob'] && $email == $data1['email']) {
+      foreach ($data as $key => $data1) {
+        if ($_SESSION['user'] == $data1['ob'] && $email == $data1['email'] && $consultKey == $key) {
           $date = date("Y-m-d");
           $time = date("h:ia");
           $reason = $data1['reason'];
@@ -181,6 +181,7 @@
           $peFindings = $data1['peFindings'];
           $diagnosis = $data1['diagnosis'];
           $nextAppt = $data1['nextAppt'];
+          $pres = $data1['prescription'];
         }
       }
       ?>
@@ -199,7 +200,7 @@
                 </div>
                 <div class="card-body">
                   <!-- Grid row -->
-                  <form action="store_pe_findings.php" method="post" enctype="multipart/form-data">
+                  <form action="update_pe_findings.php" method="post" enctype="multipart/form-data">
                     <div class="form-row">
                       <!-- Default input -->
                       <div class="col-md-6">
@@ -233,9 +234,14 @@
                         <textarea class="form-control" id="diagnosis" name="diagnosis" rows="3"><?php echo $diagnosis ?></textarea>
                       </div>
 
+                      <div class="col-md-12">
+                        <label for="diagnosis">Prescription</label>
+                        <textarea class="form-control" id="prescription" name="prescription" rows="3"><?php echo $pres ?></textarea>
+                      </div>
 
+                      <input type="hidden" name="ref" value="questions/<?php echo $key; ?>">
                       <!-- Grid row -->
-                      <input type="submit" class="btn btn-primary btn-md" style="display: inline-block" id="addPatient" name="push" value="Edit">
+                      <input type="submit" class="btn btn-primary btn-md" style="display: inline-block" id="editPatient" name="update" value="Edit">
                   </form>
 
 

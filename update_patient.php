@@ -17,6 +17,42 @@ if(isset($_POST['update'])){
     $patType = $_POST['patType'];
     $status = $_POST['status'];
     $ref = $_POST['ref'];
+    if (isset($_POST['conCounterCard'])){
+        $conCounterCard = true;
+    }
+    else{
+        $conCounterCard= false;
+    }
+    if (isset($_POST['kickCounterCard'])){
+        $kickCounterCard = true;
+    }
+    else{
+        $kickCounterCard = false;
+    }
+    if (isset($_POST['weightCard'])){
+        $weightCard = true;
+    }
+    else{
+        $weightCard = false;
+    }
+    if (isset($_POST['babyMeasureCard'])){
+        $babyMeasureCard = true;
+    }
+    else{
+        $babyMeasureCard = false;
+    }
+    if (isset($_POST['bloodPressureCard'])){
+        $bloodPressureCard= true;
+    }
+    else{
+        $bloodPressureCard = false;
+    }
+    if (isset($_POST['bloodSugarCard'])){
+        $bloodSugarCard = true;
+    }
+    else{
+        $bloodSugarCard = false;
+    }
 
     $data = [
         'address' => $address,
@@ -31,11 +67,17 @@ if(isset($_POST['update'])){
         'medicalHistory' => $medicalHistory,
         'occupation' => $occupation,
         'patType' => $patType,
-        'status' => $status
+        'status' => $status,
+        'conCounterCard' => $conCounterCard,
+        'kickCounterCard' => $kickCounterCard,
+        'weightCard' => $weightCard,
+        'babyMeasureCard' => $babyMeasureCard,
+        'bloodPressureCard' => $bloodPressureCard,
+        'bloodSugarCard' => $bloodSugarCard
     ];
 
     $pushData = $database->getReference($ref)->update($data);
-    header("Location:patientDetails.php".$_SESSION['key']);
+    header("Location:patientProfile.php?key=".$_SESSION['key']);
 }
 
 

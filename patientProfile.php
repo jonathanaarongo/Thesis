@@ -1,4 +1,5 @@
-<?php session_start(); ?>
+<?php
+session_start(); ?>
 <!doctype html>
 <html lang="en">
 
@@ -18,6 +19,245 @@
     <link href="assets/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="assets/demo/demo.css" rel="stylesheet" />
+
+
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <!--WEIGHT CHART FRONT END-->
+    <script type="text/javascript">
+        google.charts.load('current', {
+            'packages': ['corechart']
+        });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('date', 'Date');
+            data.addColumn('number', 'Weight');
+
+            data.addRows([
+                <?php
+                //getting id from url
+                $patientKey = $_GET['key'];
+
+                //selecting data associated with this particular id
+                include("includes/db.php");
+                $ref = "WeightAdd";
+                $data = $database->getReference($ref)->getValue();
+                $i = 0;
+                foreach ($data as $key => $data1) {
+
+                    if ($_SESSION['email'] == $data1['usermail']) {
+                        $date = str_replace('-', '/', $data1['date']);
+                        $newDate = date("Y-m-d", strtotime($date));
+                        ?>[new Date('<?php echo $newDate; ?>'), <?php echo $data1['weight']; ?>],
+
+                <?php
+                    }
+                }
+                ?>
+            ]);
+
+
+            var options = {
+                width: 1300,
+                height: 500,
+                hAxis: {
+                    format: 'MMM/dd/yy',
+                    gridlines: {
+                        count: 15
+                    }
+                },
+                vAxis: {
+                    gridlines: {
+                        color: 'none'
+                    },
+                    minValue: 0
+                }
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('line_weight_x'));
+
+            chart.draw(data, options);
+        }
+    </script>
+    <!--WAIST SIZE CHART FRONT END-->
+    <script type="text/javascript">
+        google.charts.load('current', {
+            'packages': ['corechart']
+        });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('date', 'Date');
+            data.addColumn('number', 'Waist Size');
+
+            data.addRows([
+                <?php
+                //getting id from url
+                $patientKey = $_GET['key'];
+
+                //selecting data associated with this particular id
+                include("includes/db.php");
+                $ref = "BabyMeasurementAdd";
+                $data = $database->getReference($ref)->getValue();
+                foreach ($data as $key => $data1) {
+
+                    if ($_SESSION['email'] == $data1['usermail']) {
+                        $date = str_replace('-', '/', $data1['date']);
+                        $newDate = date("Y-m-d", strtotime($date));
+                        ?>[new Date('<?php echo $newDate; ?>'), <?php echo $data1['measureField']; ?>],
+
+                <?php
+                    }
+                }
+                ?>
+            ]);
+
+
+            var options = {
+                width: 1300,
+                height: 500,
+                hAxis: {
+                    format: 'MMM/dd/yy',
+                    gridlines: {
+                        count: 15
+                    }
+                },
+                vAxis: {
+                    gridlines: {
+                        color: 'none'
+                    },
+                    minValue: 0
+                }
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('line_bellysize_x'));
+
+            chart.draw(data, options);
+        }
+    </script>
+    <!--BLOOD PRESSURE CHART FRONT END-->
+    <script type="text/javascript">
+        google.charts.load('current', {
+            'packages': ['corechart']
+        });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('date', 'Date');
+            data.addColumn('number', 'Systolic');
+            data.addColumn('number', 'Diastolic');
+
+            data.addRows([
+                <?php
+                //getting id from url
+                $patientKey = $_GET['key'];
+
+                //selecting data associated with this particular id
+                include("includes/db.php");
+                $ref = "BloodPressureAdd";
+                $data = $database->getReference($ref)->getValue();
+                foreach ($data as $key => $data1) {
+
+                    if ($_SESSION['email'] == $data1['usermail']) {
+                        $date = str_replace('-', '/', $data1['date']);
+                        $newDate = date("Y-m-d", strtotime($date));
+                        ?>[new Date('<?php echo $data1['date']; ?>'), <?php echo $data1['systolic']; ?>, <?php echo $data1['diastolic']; ?>],
+
+                <?php
+                    }
+                }
+                ?>
+            ]);
+
+
+            var options = {
+                width: 1300,
+                height: 500,
+                hAxis: {
+                    format: 'MMM/dd/yy',
+                    gridlines: {
+                        count: 15
+                    }
+                },
+                vAxis: {
+                    gridlines: {
+                        color: 'none'
+                    },
+                    minValue: 0
+                }
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('line_bloodpressure_x'));
+
+            chart.draw(data, options);
+        }
+    </script>
+    <!--BLOOD SUGAR CHART FRONT END-->
+    <script type="text/javascript">
+        google.charts.load('current', {
+            'packages': ['corechart']
+        });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('date', 'Date');
+            data.addColumn('number', 'Blood Sugar');
+
+            data.addRows([
+                <?php
+                //getting id from url
+                $patientKey = $_GET['key'];
+
+                //selecting data associated with this particular id
+                include("includes/db.php");
+                $ref = "BloodSugarAdd";
+                $data = $database->getReference($ref)->getValue();
+                foreach ($data as $key => $data1) {
+
+                    if ($_SESSION['email'] == $data1['usermail']) {
+                        $date = str_replace('-', '/', $data1['date']);
+                        $newDate = date("Y-m-d", strtotime($date));
+                        ?>[new Date('<?php echo $newDate; ?>'), <?php echo $data1['bsField']; ?>],
+
+                <?php
+                    }
+                }
+                ?>
+            ]);
+
+
+            var options = {
+                width: 1300,
+                height: 500,
+                hAxis: {
+                    format: 'MMM/dd/yy',
+                    gridlines: {
+                        count: 15
+                    }
+                },
+                vAxis: {
+                    gridlines: {
+                        color: 'none'
+                    },
+                    minValue: 0
+                }
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('line_bloodsugar_x'));
+
+            chart.draw(data, options);
+        }
+    </script>
+
 </head>
 
 <body>
@@ -48,7 +288,7 @@
                         </a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="#0">
+                        <a class="nav-link" href="viewPatientList.php">
                             <i class="material-icons">pregnant_woman</i>
                             <p>Manage Patient</p>
                         </a>
@@ -150,27 +390,34 @@
             <!-- End Navbar -->
             <?php
             //getting id from url
-            $email = $_GET['email'];
+            $patientKey = $_GET['key'];
+            $_SESSION['key'] = $patientKey;
 
             //selecting data associated with this particular id
             include("includes/db.php");
             $ref = "patientdata";
             $data = $database->getReference($ref)->getValue();
-            foreach ($data as $data1) {
-                if ($_SESSION['user'] == $data1['ob'] && $email == $data1['email']) {
+            foreach ($data as $key => $data1) {
+                if ($_SESSION['user'] == $data1['ob'] && $patientKey == $key) {
                     $address = $data1['address'];
                     $contactNo = $data1['contactNo'];
                     $dateAdded = $data1['dateAdded'];
                     $f_name = $data1['f_name'];
                     $familyHistory = $data1['familyHistory'];
                     $fdaymens = $data1['fdaymens'];
+                    $email = $data1['email'];
                     $l_name = $data1['l_name'];
-                    $lastVisited= $data1['lastVisited'];
+                    $lastVisited = $data1['lastVisited'];
                     $medicalHistory = $data1['medicalHistory'];
                     $occupation = $data1['occupation'];
                     $patType = $data1['patType'];
                     $status = $data1['status'];
-
+                    $conCounterCard = $data1['conCounterCard'];
+                    $kickCounterCard = $data1['kickCounterCard'];
+                    $weightCard = $data1['weightCard'];
+                    $babyMeasureCard = $data1['babyMeasureCard'];
+                    $bloodSugarCard = $data1['bloodSugarCard'];
+                    $bloodPressureCard = $data1['bloodPressureCard'];
                 }
             }
             ?>
@@ -181,346 +428,528 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
-                                <a href="patientProfile.php?email=<?php echo $email ?>" class="btn btn-primary"> General Data</a>
-                                <a href="patientConsult.php?email=<?php echo $email?>" class="btn btn-primary"> Consultation History</a>
-                                <a href="patientVitals.php?email=<?php echo $email?>" class="btn btn-primary"> Patient Vitals</a> 
+                                <a href="patientProfile.php?key=<?php echo $patientKey ?>" class="btn btn-primary"> General Data</a>
+                                <a href="patientConsult.php?key=<?php echo $patientKey ?>" class="btn btn-primary"> Consultation History</a>
+                                <a href="patientVitals.php?key=<?php echo $patientKey ?>" class="btn btn-primary"> Patient Vitals</a>
+                                <a href="patientMedication.php?key=<?php echo $patientKey ?>" class="btn btn-primary"> Medications</a>
                             </div>
                         </div>
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-header card-header-primary">
-                                    <h3 class="card-title"><?php echo $f_name, ' ', $l_name; ?>'s Patient Data</h3>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header card-header-primary">
+                                        <h3 class="card-title"><?php echo $f_name, ' ', $l_name; ?>'s Patient Data</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <!-- Grid row -->
+                                        <form action="update_patient.php" method="post" enctype="multipart/form-data">
+                                            <div class="form-row">
+                                                <!-- Default input -->
+                                                <div class="col-md-6">
+                                                    <label for="f_name">First Name</label>
+                                                    <input type="name" class="form-control" id="f_name" name="f_name" value="<?php echo $f_name ?>">
+                                                </div>
+                                                <!-- Default input -->
+                                                <div class="col-md-6">
+                                                    <label for="firstname">Last Name</label>
+                                                    <input type="name" class="form-control" id="l_name" name="l_name" value="<?php echo $l_name ?>">
+                                                </div>
+
+                                                <!-- Default input -->
+                                                <div class="col-md-12">
+                                                    <label for="adress">Address</label>
+                                                    <input type="text" class="form-control" id="address" name="address" value="<?php echo $address ?>">
+                                                </div>
+                                                <!-- Default input -->
+                                                <!-- Grid row-->
+                                                <!-- Default input -->
+                                                <div class="col-md-4">
+                                                    <label for="contactNo">Contact Number</label>
+                                                    <input type="text" class="form-control" id="contactNo" name="contactNo" value="<?php echo $contactNo ?>">
+                                                </div>
+                                                <!-- Default input -->
+                                                <div class="col-md-4">
+                                                    <label for="patType">Patient Type</label>
+                                                    <input type="text" class="form-control" id="patType" name="patType" value="<?php echo $patType ?>">
+                                                </div>
+                                                <!-- Default input -->
+                                                <div class="col-md-4">
+                                                    <label for="status">Patient Status</label>
+                                                    <input type="text" class="form-control" id="status" name="status" value="<?php echo $status ?>">
+                                                </div>
+
+                                                <!-- Grid row-->
+
+                                                <!-- Default input -->
+                                                <div class="col-md-4">
+                                                    <label for="dateAdded">Date Added</label>
+                                                    <input type="text" class="form-control" id="dateAdded" name="dateAdded" value="<?php echo $dateAdded ?>">
+                                                </div>
+                                                <!-- Default input -->
+                                                <div class="col-md-4">
+                                                    <label for="fdaymens">First Day of Last Menstration</label>
+                                                    <input type="date" class="form-control" id="fdaymens" name="fdaymens" value="<?php echo $fdaymens ?>">
+                                                </div>
+                                                <!-- Default input -->
+                                                <div class="col-md-4">
+                                                    <label for="lastVisited">Last Visited</label>
+                                                    <input type="text" class="form-control" id="lastVisited" name="lastVisited" value="<?php echo $lastVisited ?>">
+                                                </div>
+
+                                                <!-- Grid row-->
+                                                <!-- Default input -->
+                                                <div class="col-md-6">
+                                                    <label for="email">Email Address</label>
+                                                    <input type="text" class="form-control" id="email" name="email" value="<?php $_SESSION['email'] = $email;
+                                                                                                                            echo $_SESSION['email']; ?>">
+                                                </div>
+                                                <!-- Default input -->
+                                                <div class="col-md-6">
+                                                    <label for="occupation">Occupation</label>
+                                                    <input type="text" class="form-control" id="occupation" name="occupation" value="<?php echo $occupation ?>">
+                                                </div>
+
+
+                                                <!-- Grid row-->
+                                                <!-- Default input -->
+                                                <div class="col-md-12">
+                                                    <label for="medicalHistory">Medical History</label>
+                                                    <textarea class="form-control" id="medicalHistory" name="medicalHistory" rows="3"><?php echo $medicalHistory ?></textarea>
+                                                </div>
+                                                <!-- Default input -->
+                                                <div class="col-md-12">
+                                                    <label for="familyHistory">Family History</label>
+                                                    <textarea class="form-control" id="familyHistory" name="familyHistory" rows="3"><?php echo $familyHistory ?></textarea>
+                                                </div>
+
+                                                <h3>Assign What to Monitor</h3><br>
+                                                <div class="col-md-12">
+                                                    <input type="checkbox" id="conCounterCard" name="conCounterCard" <?php if ($conCounterCard == "true") echo "checked"; ?>> Contraction Counter<br>
+                                                    <input type="checkbox" id="kickCounterCard" name="kickCounterCard" <?php if ($kickCounterCard == "true") echo "checked"; ?>> Kick Counter <br>
+                                                    <input type="checkbox" id="weightCard" name="weightCard" <?php if ($weightCard == "true") echo "checked"; ?>> Weight<br>
+                                                    <input type="checkbox" id="babyMeasureCard" name="babyMeasureCard" <?php if ($babyMeasureCard == "true") echo "checked"; ?>> Baby Measurements<br>
+                                                    <input type="checkbox" id="bloodPressureCard" name="bloodPressureCard" <?php if ($bloodPressureCard == "true") echo "checked"; ?>> Blood Pressure <br>
+                                                    <input type="checkbox" id="bloodSugarCard" name="bloodSugarCard" <?php if ($bloodSugarCard == "true") echo "checked"; ?>> Blood Sugar<br>
+                                                </div>
+
+                                                <input type="hidden" name="ref" value="patientdata/<?php echo $patientKey; ?>">
+                                                <!-- Grid row -->
+                                                <input type="submit" class="btn btn-primary btn-md" name="update" style="display: inline-block" id="editDetails" value="Edit">
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
-                                <div class="card-body">
-                                    <!-- Grid row -->
-                                    <form action="store_patient.php" method="post" enctype="multipart/form-data">
-                                        <div class="form-row">
-                                            <!-- Default input -->
-                                            <div class="col-md-6">
-                                                <label for="f_name">First Name</label>
-                                                <input type="name" class="form-control" id="f_name" name="f_name" value="<?php echo $f_name?>" disabled>
-                                            </div>
-                                            <!-- Default input -->
-                                            <div class="col-md-6">
-                                                <label for="firstname">Last Name</label>
-                                                <input type="name" class="form-control" id="l_name" name="l_name" value="<?php echo $l_name?>" disabled>
-                                            </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header card-header-primary">
+                                        <h3 class="card-title"><?php echo $f_name, ' ', $l_name; ?>'s Contraction Counter</h3>
+                                    </div>
 
-                                            <!-- Default input -->
-                                            <div class="col-md-12">
-                                                <label for="adress">Address</label>
-                                                <input type="text" class="form-control" id="address" name="address" value="<?php echo $address?>" disabled>
-                                            </div>
-                                            <!-- Default input -->
-                                            <!-- Grid row-->
-                                            <!-- Default input -->
-                                            <div class="col-md-4">
-                                                <label for="contactNo">Contact Number</label>
-                                                <input type="text" class="form-control" id="contactNo" name="contactNo" value="<?php echo $contactNo?>" disabled>
-                                            </div>
-                                            <!-- Default input -->
-                                            <div class="col-md-4">
-                                                <label for="patType">Patient Type</label>
-                                                <input type="text" class="form-control" id="patType" name="patType" value="<?php echo $patType?>" disabled>
-                                            </div>
-                                            <!-- Default input -->
-                                            <div class="col-md-4">
-                                                <label for="status">Patient Status</label>
-                                                <input type="text" class="form-control" id="status" name="status" value="<?php echo $status?>" disabled>
-                                            </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive text-nowrap">
+                                            <!--Table-->
+                                            <table class="table table-striped table-bordered">
 
-                                            <!-- Grid row-->
+                                                <!--Table head-->
+                                                <thead>
+                                                    <tr>
+                                                        <th>Date</th>
+                                                        <th>Time</th>
+                                                        <th>Contraction</th>
+                                                    </tr>
+                                                </thead>
+                                                <!--Table head-->
 
-                                            <!-- Default input -->
-                                            <div class="col-md-4">
-                                                <label for="dateAdded">Date Added</label>
-                                                <input type="text" class="form-control" id="dateAdded" name="dateAdded" value="<?php echo $dateAdded?>" disabled>
-                                            </div>
-                                            <!-- Default input -->
-                                            <div class="col-md-4">
-                                                <label for="fdaymens">First Day of Last Menstration</label>
-                                                <input type="date" class="form-control" id="fdaymens" name="fdaymens" value="<?php echo $fdaymens?>" disabled>
-                                            </div>
-                                            <!-- Default input -->
-                                            <div class="col-md-4">
-                                                <label for="lastVisited">Last Visited</label>
-                                                <input type="text" class="form-control" id="lastVisited" name="lastVisited" value="<?php echo $lastVisited?>" disabled>
-                                            </div>
-
-                                            <!-- Grid row-->
-                                            <!-- Default input -->
-                                            <div class="col-md-6">
-                                                <label for="email">Email Address</label>
-                                                <input type="text" class="form-control" id="email" name="email" value="<?php echo $email?>" disabled>
-                                            </div>
-                                            <!-- Default input -->
-                                            <div class="col-md-6">
-                                                <label for="occupation">Occupation</label>
-                                                <input type="text" class="form-control" id="occupation" name="occupation" value="<?php echo $occupation?>" disabled>
-                                            </div>
-
-
-                                            <!-- Grid row-->
-                                            <!-- Default input -->
-                                            <div class="col-md-12">
-                                                <label for="medicalHistory">Medical History</label>
-                                                <textarea class="form-control" id="medicalHistory" name="medicalHistory" rows="3" disabled><?php echo $medicalHistory?></textarea>
-                                            </div>
-                                            <!-- Default input -->
-                                            <div class="col-md-12">
-                                                <label for="familyHistory">Family History</label>
-                                                <textarea class="form-control" id="familyHistory" name="familyHistory" rows="3" disabled><?php echo $familyHistory?></textarea>
-                                            </div>
-
-
-                                            <!-- Grid row -->
-                                            <input type="submit" class="btn btn-primary btn-md" name='update' style="display: inline-block" id="editDetails" value="<?php $buttonvalue = "Edit";
-                                                                                                                                                                    echo $buttonvalue ?>">
-                                    </form>
-
-                                    <script>
-                                        function myFunction() {
-                                            window.print();
-                                        }
-                                    </script>
-
-
-
-
-
-                                    <script src="assets/js/core/jquery.min.js"></script>
-                                    <script src="assets/js/core/popper.min.js"></script>
-                                    <script src="assets/js/core/bootstrap-material-design.min.js"></script>
-                                    <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-
-                                    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-                                    <script src="assets/js/material-dashboard.js?v=2.1.1" type="text/javascript"></script>
-                                    <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-                                    <script src="assets/demo/demo.js"></script>
-
-                                    <script>
-                                        $(document).ready(function() {
-
-                                            let editDetails = document.getElementById("editDetails")
-                                            let fname = document.getElementById("f_name");
-                                            let lname = document.getElementById("l_name");
-                                            let address = document.getElementById("address");
-                                            let contact = document.getElementById("contactNo");
-                                            let patType = document.getElementById("patType");
-                                            let status = document.getElementById("status");
-                                            let dateAdded = document.getElementById("dateAdded");
-                                            let fdaymens = document.getElementById("fdaymens");
-                                            let lastVisited = document.getElementById("lastVisited");
-                                            let email = document.getElementById("email");
-                                            let occupation = document.getElementById("occupation");
-                                            let medhis = document.getElementById("medicalHistory");
-                                            let famhis = document.getElementById("familyHistory")
-                                            editDetails.onclick = function() {
-                                                if (editDetails.value == 'Edit') {
-                                                    editDetails.value = 'Submit';
-                                                    <?php $buttonvalue = 'Submit'; ?>
-                                                    fname.disabled = false;
-                                                    lname.disabled = false;
-                                                    address.disabled = false;
-                                                    contact.disabled = false;
-                                                    patType.disabled = false;
-                                                    status.disabled = false;
-                                                    dateAdded.disabled = false;
-                                                    fdaymens.disabled = false;
-                                                    lastVisited.disabled = false;
-                                                    email.disabled = false;
-                                                    occupation.disabled = false;
-                                                    medhis.disabled = false;
-                                                    famhis.disabled = false;
-
-                                                } else {
-                                                    editDetails.value = 'Edit';
-                                                    <?php $buttonvalue = 'Edit'; ?>
-                                                    fname.disabled = true;
-                                                    lname.disabled = true;
-                                                    address.disabled = true;
-                                                    contact.disabled = true;
-                                                    patType.disabled = true;
-                                                    status.disabled = true;
-                                                    dateAdded.disabled = true;
-                                                    fdaymens.disabled = true;
-                                                    lastVisited.disabled = true;
-                                                    email.disabled = true;
-                                                    occupation.disabled = true;
-                                                    medhis.disabled = true;
-                                                    famhis.disabled = true;
-                                                }
-                                            }
-
-                                            $().ready(function() {
-                                                $sidebar = $('.sidebar');
-
-                                                $sidebar_img_container = $sidebar.find('.sidebar-background');
-
-                                                $full_page = $('.full-page');
-
-                                                $sidebar_responsive = $('body > .navbar-collapse');
-
-                                                window_width = $(window).width();
-
-                                                fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
-
-                                                if (window_width > 767 && fixed_plugin_open == 'Dashboard') {
-                                                    if ($('.fixed-plugin .dropdown').hasClass('show-dropdown')) {
-                                                        $('.fixed-plugin .dropdown').addClass('open');
-                                                    }
-
-                                                }
-
-                                                $('.fixed-plugin a').click(function(event) {
-                                                    // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
-                                                    if ($(this).hasClass('switch-trigger')) {
-                                                        if (event.stopPropagation) {
-                                                            event.stopPropagation();
-                                                        } else if (window.event) {
-                                                            window.event.cancelBubble = true;
+                                                <!--Table body-->
+                                                <tbody>
+                                                    <?php
+                                                    include("includes/db.php");
+                                                    $ref = "ContractionAdd";
+                                                    $data = $database->getReference($ref)->getValue();
+                                                    $i = 0;
+                                                    foreach ($data as $key => $data1) {
+                                                        if ($email == $data1['usermail']) {
+                                                            $i++;
+                                                            ?>
+                                                            <tr>
+                                                                <td><?php echo $data1['date']; ?></td>
+                                                                <td><?php echo $data1['time']; ?></td>
+                                                                <td><?php echo $data1['contraction']; ?></td>
+                                                            </tr>
+                                                    <?php
                                                         }
                                                     }
-                                                });
+                                                    ?>
+                                                </tbody>
+                                                <!--Table body-->
+                                            </table>
+                                            <!--Table-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header card-header-primary">
+                                        <h3 class="card-title"><?php echo $f_name, ' ', $l_name; ?>'s Kick Counter</h3>
+                                    </div>
 
-                                                $('.fixed-plugin .active-color span').click(function() {
-                                                    $full_page_background = $('.full-page-background');
+                                    <div class="card-body">
+                                        <div class="table-responsive text-nowrap">
+                                            <!--Table-->
+                                            <table class="table table-striped table-bordered">
 
-                                                    $(this).siblings().removeClass('active');
-                                                    $(this).addClass('active');
+                                                <!--Table head-->
+                                                <thead>
+                                                    <tr>
+                                                        <th>Date</th>
+                                                        <th>Duration</th>
+                                                        <th>Kicks</th>
+                                                    </tr>
+                                                </thead>
+                                                <!--Table head-->
 
-                                                    var new_color = $(this).data('color');
-
-                                                    if ($sidebar.length != 0) {
-                                                        $sidebar.attr('data-color', new_color);
-                                                    }
-
-                                                    if ($full_page.length != 0) {
-                                                        $full_page.attr('filter-color', new_color);
-                                                    }
-
-                                                    if ($sidebar_responsive.length != 0) {
-                                                        $sidebar_responsive.attr('data-color', new_color);
-                                                    }
-                                                });
-
-                                                $('.fixed-plugin .background-color .badge').click(function() {
-                                                    $(this).siblings().removeClass('active');
-                                                    $(this).addClass('active');
-
-                                                    var new_color = $(this).data('background-color');
-
-                                                    if ($sidebar.length != 0) {
-                                                        $sidebar.attr('data-background-color', new_color);
-                                                    }
-                                                });
-
-                                                $('.fixed-plugin .img-holder').click(function() {
-                                                    $full_page_background = $('.full-page-background');
-
-                                                    $(this).parent('li').siblings().removeClass('active');
-                                                    $(this).parent('li').addClass('active');
-
-
-                                                    var new_image = $(this).find("img").attr('src');
-
-                                                    if ($sidebar_img_container.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
-                                                        $sidebar_img_container.fadeOut('fast', function() {
-                                                            $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
-                                                            $sidebar_img_container.fadeIn('fast');
-                                                        });
-                                                    }
-
-                                                    if ($full_page_background.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
-                                                        var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
-
-                                                        $full_page_background.fadeOut('fast', function() {
-                                                            $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
-                                                            $full_page_background.fadeIn('fast');
-                                                        });
-                                                    }
-
-                                                    if ($('.switch-sidebar-image input:checked').length == 0) {
-                                                        var new_image = $('.fixed-plugin li.active .img-holder').find("img").attr('src');
-                                                        var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
-
-                                                        $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
-                                                        $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
-                                                    }
-
-                                                    if ($sidebar_responsive.length != 0) {
-                                                        $sidebar_responsive.css('background-image', 'url("' + new_image + '")');
-                                                    }
-                                                });
-
-                                                $('.switch-sidebar-image input').change(function() {
-                                                    $full_page_background = $('.full-page-background');
-
-                                                    $input = $(this);
-
-                                                    if ($input.is(':checked')) {
-                                                        if ($sidebar_img_container.length != 0) {
-                                                            $sidebar_img_container.fadeIn('fast');
-                                                            $sidebar.attr('data-image', '#');
+                                                <!--Table body-->
+                                                <tbody>
+                                                    <?php
+                                                    include("includes/db.php");
+                                                    $ref = "KickAdd";
+                                                    $data = $database->getReference($ref)->getValue();
+                                                    $i = 0;
+                                                    foreach ($data as $key => $data1) {
+                                                        if ($email == $data1['usermail']) {
+                                                            $i++;
+                                                            ?>
+                                                            <tr>
+                                                                <td><?php echo $data1['date']; ?></td>
+                                                                <td><?php echo $data1['time']; ?></td>
+                                                                <td><?php echo $data1['kick']; ?></td>
+                                                            </tr>
+                                                    <?php
                                                         }
-
-                                                        if ($full_page_background.length != 0) {
-                                                            $full_page_background.fadeIn('fast');
-                                                            $full_page.attr('data-image', '#');
-                                                        }
-
-                                                        background_image = true;
-                                                    } else {
-                                                        if ($sidebar_img_container.length != 0) {
-                                                            $sidebar.removeAttr('data-image');
-                                                            $sidebar_img_container.fadeOut('fast');
-                                                        }
-
-                                                        if ($full_page_background.length != 0) {
-                                                            $full_page.removeAttr('data-image', '#');
-                                                            $full_page_background.fadeOut('fast');
-                                                        }
-
-                                                        background_image = false;
                                                     }
-                                                });
+                                                    ?>
+                                                </tbody>
+                                                <!--Table body-->
+                                            </table>
+                                            <!--Table-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header card-header-primary">
+                                        <h3 class="card-title"><?php echo $f_name, ' ', $l_name; ?>'s Weight</h3>
+                                    </div>
 
-                                                $('.switch-sidebar-mini input').change(function() {
-                                                    $body = $('body');
+                                    <div class="card-body">
+                                        <!-- LINE CHART FOR FETAL WEIGHT -->
+                                        <div id="line_weight_x"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header card-header-primary">
+                                        <h3 class="card-title"><?php echo $f_name, ' ', $l_name; ?>'s Waist Size</h3>
+                                    </div>
 
-                                                    $input = $(this);
+                                    <div class="card-body">
+                                        <!-- LINE CHART FOR WAIST SIZE -->
+                                        <div id="line_bellysize_x"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header card-header-primary">
+                                        <h3 class="card-title"><?php echo $f_name, ' ', $l_name; ?>'s Blood Pressure</h3>
+                                    </div>
 
-                                                    if (md.misc.sidebar_mini_active == true) {
-                                                        $('body').removeClass('sidebar-mini');
-                                                        md.misc.sidebar_mini_active = false;
+                                    <div class="card-body">
+                                        <!-- LINE CHART FOR BLOOD PRESSURE -->
+                                        <div id="line_bloodpressure_x"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header card-header-primary">
+                                        <h3 class="card-title"><?php echo $f_name, ' ', $l_name; ?>'s Blood Sugar</h3>
+                                    </div>
 
-                                                        $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+                                    <div class="card-body">
+                                        <!-- LINE CHART FOR BLOOD SUGAR -->
+                                        <div id="line_bloodsugar_x"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                                                    } else {
+                <script>
+                    function myFunction() {
+                        window.print();
+                    }
+                </script>
 
-                                                        $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
 
-                                                        setTimeout(function() {
-                                                            $('body').addClass('sidebar-mini');
 
-                                                            md.misc.sidebar_mini_active = true;
-                                                        }, 300);
-                                                    }
 
-                                                    // we simulate the window Resize so the charts will get updated in realtime.
-                                                    var simulateWindowResize = setInterval(function() {
-                                                        window.dispatchEvent(new Event('resize'));
-                                                    }, 180);
 
-                                                    // we stop the simulation of Window Resize after the animations are completed
-                                                    setTimeout(function() {
-                                                        clearInterval(simulateWindowResize);
-                                                    }, 1000);
+                <script src="assets/js/core/jquery.min.js"></script>
+                <script src="assets/js/core/popper.min.js"></script>
+                <script src="assets/js/core/bootstrap-material-design.min.js"></script>
+                <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
 
-                                                });
-                                            });
-                                        });
-                                    </script>
+                <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+                <script src="assets/js/material-dashboard.js?v=2.1.1" type="text/javascript"></script>
+                <!-- Material Dashboard DEMO methods, don't include it in your project! -->
+                <script src="assets/demo/demo.js"></script>
+
+                <script>
+                    $(document).ready(function() {
+                        /*
+                                                                    let editDetails = document.getElementById("editDetails")
+                                                                    let fname = document.getElementById("f_name");
+                                                                    let lname = document.getElementById("l_name");
+                                                                    let address = document.getElementById("address");
+                                                                    let contact = document.getElementById("contactNo");
+                                                                    let patType = document.getElementById("patType");
+                                                                    let status = document.getElementById("status");
+                                                                    let dateAdded = document.getElementById("dateAdded");
+                                                                    let fdaymens = document.getElementById("fdaymens");
+                                                                    let lastVisited = document.getElementById("lastVisited");
+                                                                    let email = document.getElementById("email");
+                                                                    let occupation = document.getElementById("occupation");
+                                                                    let medhis = document.getElementById("medicalHistory");
+                                                                    let famhis = document.getElementById("familyHistory")
+                                                                    editDetails.onclick = function() {
+                                                                        if (editDetails.value == 'Edit') {
+                                                                            editDetails.value = 'Submit';
+                                                                            editDetails.setAttribute("name", "update"); 
+                                                                            <?php $buttonvalue = 'Submit';
+                                                                            $buttonname = 'update' ?>
+                                                                            fname.disabled = false;
+                                                                            lname.disabled = false;
+                                                                            address.disabled = false;
+                                                                            contact.disabled = false;
+                                                                            patType.disabled = false;
+                                                                            status.disabled = false;
+                                                                            dateAdded.disabled = false;
+                                                                            fdaymens.disabled = false;
+                                                                            lastVisited.disabled = false;
+                                                                            email.disabled = false;
+                                                                            occupation.disabled = false;
+                                                                            medhis.disabled = false;
+                                                                            famhis.disabled = false;
+
+                                                                        } else {
+                                                                            editDetails.value = 'Edit';
+                                                                            editDetails.setAttribute("name", "change"); 
+                                                                            <?php $buttonvalue = 'Edit';
+                                                                            $buttonname = 'change' ?>
+                                                                            fname.disabled = true;
+                                                                            lname.disabled = true;
+                                                                            address.disabled = true;
+                                                                            contact.disabled = true;
+                                                                            patType.disabled = true;
+                                                                            status.disabled = true;
+                                                                            dateAdded.disabled = true;
+                                                                            fdaymens.disabled = true;
+                                                                            lastVisited.disabled = true;
+                                                                            email.disabled = true;
+                                                                            occupation.disabled = true;
+                                                                            medhis.disabled = true;
+                                                                            famhis.disabled = true;
+                                                                        }
+                                                                    }
+                                                                    */
+
+                        $().ready(function() {
+                            $sidebar = $('.sidebar');
+
+                            $sidebar_img_container = $sidebar.find('.sidebar-background');
+
+                            $full_page = $('.full-page');
+
+                            $sidebar_responsive = $('body > .navbar-collapse');
+
+                            window_width = $(window).width();
+
+                            fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
+
+                            if (window_width > 767 && fixed_plugin_open == 'Dashboard') {
+                                if ($('.fixed-plugin .dropdown').hasClass('show-dropdown')) {
+                                    $('.fixed-plugin .dropdown').addClass('open');
+                                }
+
+                            }
+
+                            $('.fixed-plugin a').click(function(event) {
+                                // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
+                                if ($(this).hasClass('switch-trigger')) {
+                                    if (event.stopPropagation) {
+                                        event.stopPropagation();
+                                    } else if (window.event) {
+                                        window.event.cancelBubble = true;
+                                    }
+                                }
+                            });
+
+                            $('.fixed-plugin .active-color span').click(function() {
+                                $full_page_background = $('.full-page-background');
+
+                                $(this).siblings().removeClass('active');
+                                $(this).addClass('active');
+
+                                var new_color = $(this).data('color');
+
+                                if ($sidebar.length != 0) {
+                                    $sidebar.attr('data-color', new_color);
+                                }
+
+                                if ($full_page.length != 0) {
+                                    $full_page.attr('filter-color', new_color);
+                                }
+
+                                if ($sidebar_responsive.length != 0) {
+                                    $sidebar_responsive.attr('data-color', new_color);
+                                }
+                            });
+
+                            $('.fixed-plugin .background-color .badge').click(function() {
+                                $(this).siblings().removeClass('active');
+                                $(this).addClass('active');
+
+                                var new_color = $(this).data('background-color');
+
+                                if ($sidebar.length != 0) {
+                                    $sidebar.attr('data-background-color', new_color);
+                                }
+                            });
+
+                            $('.fixed-plugin .img-holder').click(function() {
+                                $full_page_background = $('.full-page-background');
+
+                                $(this).parent('li').siblings().removeClass('active');
+                                $(this).parent('li').addClass('active');
+
+
+                                var new_image = $(this).find("img").attr('src');
+
+                                if ($sidebar_img_container.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
+                                    $sidebar_img_container.fadeOut('fast', function() {
+                                        $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
+                                        $sidebar_img_container.fadeIn('fast');
+                                    });
+                                }
+
+                                if ($full_page_background.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
+                                    var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
+
+                                    $full_page_background.fadeOut('fast', function() {
+                                        $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
+                                        $full_page_background.fadeIn('fast');
+                                    });
+                                }
+
+                                if ($('.switch-sidebar-image input:checked').length == 0) {
+                                    var new_image = $('.fixed-plugin li.active .img-holder').find("img").attr('src');
+                                    var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
+
+                                    $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
+                                    $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
+                                }
+
+                                if ($sidebar_responsive.length != 0) {
+                                    $sidebar_responsive.css('background-image', 'url("' + new_image + '")');
+                                }
+                            });
+
+                            $('.switch-sidebar-image input').change(function() {
+                                $full_page_background = $('.full-page-background');
+
+                                $input = $(this);
+
+                                if ($input.is(':checked')) {
+                                    if ($sidebar_img_container.length != 0) {
+                                        $sidebar_img_container.fadeIn('fast');
+                                        $sidebar.attr('data-image', '#');
+                                    }
+
+                                    if ($full_page_background.length != 0) {
+                                        $full_page_background.fadeIn('fast');
+                                        $full_page.attr('data-image', '#');
+                                    }
+
+                                    background_image = true;
+                                } else {
+                                    if ($sidebar_img_container.length != 0) {
+                                        $sidebar.removeAttr('data-image');
+                                        $sidebar_img_container.fadeOut('fast');
+                                    }
+
+                                    if ($full_page_background.length != 0) {
+                                        $full_page.removeAttr('data-image', '#');
+                                        $full_page_background.fadeOut('fast');
+                                    }
+
+                                    background_image = false;
+                                }
+                            });
+
+                            $('.switch-sidebar-mini input').change(function() {
+                                $body = $('body');
+
+                                $input = $(this);
+
+                                if (md.misc.sidebar_mini_active == true) {
+                                    $('body').removeClass('sidebar-mini');
+                                    md.misc.sidebar_mini_active = false;
+
+                                    $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+
+                                } else {
+
+                                    $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
+
+                                    setTimeout(function() {
+                                        $('body').addClass('sidebar-mini');
+
+                                        md.misc.sidebar_mini_active = true;
+                                    }, 300);
+                                }
+
+                                // we simulate the window Resize so the charts will get updated in realtime.
+                                var simulateWindowResize = setInterval(function() {
+                                    window.dispatchEvent(new Event('resize'));
+                                }, 180);
+
+                                // we stop the simulation of Window Resize after the animations are completed
+                                setTimeout(function() {
+                                    clearInterval(simulateWindowResize);
+                                }, 1000);
+
+                            });
+                        });
+                    });
+                </script>
 
             </body>
 

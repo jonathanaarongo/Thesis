@@ -13,6 +13,10 @@ if(isset($_POST['push'])){
     $peFindings = $_POST['peFindings'];
     $diagnosis = $_POST['diagnosis'];
     $nextAppt = $_POST['nextAppt'];
+    $choose = $_POST['choose'];
+    $prescription = "";
+    $referral = "";
+
     
     $data = [
         'ob' => $ob,
@@ -23,11 +27,19 @@ if(isset($_POST['push'])){
         'chiefComplaint' => $chiefComplaint,
         'peFindings' => $peFindings,
         'diagnosis' => $diagnosis,
-        'nextAppt' => $nextAppt
+        'nextAppt' => $nextAppt,
+        'choose' => $choose,
+        'prescription' => $prescription,
+        'referral' => $referral
     ];
     $ref = "pefindings/";
-    $pushData = $database->getReference($ref)->push($data);
-    header("Location:patientConsult.php?key=".$_SESSION['key']);
+    $pushData = $database->getReference($ref)->push($data)->getKey();
+    if($choose == "isReferred"){
+        header("Location:patientReferral.php?key=".$_SESSION['key']);
+    }
+    else{
+        header("Location:patientPrescription.php?key=".$pushData);
+    }
 }
 else{
     $ob = $_SESSION['user'];
@@ -39,6 +51,9 @@ else{
     $peFindings = $_POST['peFindings'];
     $diagnosis = $_POST['diagnosis'];
     $nextAppt = $_POST['nextAppt'];
+    $choose = $_POST['choose'];
+    $prescription = "";
+    $referral = "";
     
     $data = [
         'ob' => $ob,
@@ -49,7 +64,10 @@ else{
         'chiefComplaint' => $chiefComplaint,
         'peFindings' => $peFindings,
         'diagnosis' => $diagnosis,
-        'nextAppt' => $nextAppt
+        'nextAppt' => $nextAppt,
+        'choose' => $choose,
+        'prescription' => $prescription,
+        'referral' => $referral
     ];
     $ref = "pefindings/";
     $pushData = $database->getReference($ref)->set($data);

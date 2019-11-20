@@ -27,7 +27,7 @@ if(isset($_POST['push'])){
     ];
     $ref = "vitals/";
     $pushData = $database->getReference($ref)->push($data);
-    header("Location:patientConsult.php?key=".$_SESSION['key']);
+    header("Location:patientVitals.php?key=".$_SESSION['key']);
 }
 else{
     $ob = $_SESSION['user'];

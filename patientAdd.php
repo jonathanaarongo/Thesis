@@ -1,4 +1,4 @@
-<?php session_start();?>
+<?php session_start(); ?>
 <!doctype html>
 <html lang="en">
 
@@ -30,7 +30,7 @@
   -->
       <div class="logo">
         <a href="http://www.creative-tim.com" class="simple-text logo-mini">
-        <?php echo $_SESSION['user'];?>
+          <?php echo $_SESSION['user']; ?>
         </a>
       </div>
       <div class="sidebar-wrapper">
@@ -148,292 +148,302 @@
         </div>
       </nav>
       <!-- End Navbar -->
-        
+
       <body>
 
-        
+
         <div class="content">
-            <div class="container-fluid">
-                    
-                 <div class="col-md-12">
-                    <div class="card">
-                         <div class="card-header card-header-primary">
-                            <h3 class="card-title">Add Patient</h3>
-                        </div>
-        <div class="card-body">
-          <!-- Grid row -->
-          <form action="store_patient.php" method="post" enctype="multipart/form-data">
-          <div class="form-row">
-            <!-- Default input -->
-            <div class="col-md-6">
-              <label for="f_name">First Name</label>
-                <input type="name" class="form-control" id="f_name" name="f_name">
-          </div>
-            <!-- Default input -->
-            <div class="col-md-6">
-              <label for="firstname">Last Name</label>
-              <input type="name" class="form-control" id="l_name" name="l_name">
-            </div>
-        
-            <!-- Default input -->
+          <div class="container-fluid">
+
             <div class="col-md-12">
-                <label for="adress">Address</label>
-                <input type="text" class="form-control" id="address" name="address" >
-              </div>
-             <!-- Default input -->
-            <!-- Grid row-->
-            <!-- Default input -->
-            <div class="col-md-4">
-                <label for="contactNo">Contact Number</label>
-                <input type="text" class="form-control" id="contactNo" name="contactNo">
-              </div>
-             <!-- Default input -->
-             <div class="col-md-4">
-                <label for="patType">Patient Type</label>
-                <input type="text" class="form-control" id="patType" name="patType">
-              </div>
-             <!-- Default input -->
-             <div class="col-md-4">
-                <label for="status">Patient Status</label>
-                <input type="text" class="form-control" id="status" name="status">
-              </div>
-        
-                <!-- Grid row-->
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h3 class="card-title">Add Patient</h3>
+                </div>
+                <div class="card-body">
+                  <!-- Grid row -->
+                  <form action="store_patient.php" method="post" enctype="multipart/form-data">
+                    <div class="form-row">
+                      <!-- Default input -->
+                      <div class="col-md-6">
+                        <label for="f_name">First Name</label>
+                        <input type="name" class="form-control" id="f_name" name="f_name">
+                      </div>
+                      <!-- Default input -->
+                      <div class="col-md-6">
+                        <label for="firstname">Last Name</label>
+                        <input type="name" class="form-control" id="l_name" name="l_name">
+                      </div>
 
-            <!-- Default input -->
-            <div class="col-md-4">
-                <label for="dateAdded">Date Added</label>
-                <input type="text" class="form-control" id="dateAdded" name="dateAdded" value="<?php date_default_timezone_set('Asia/Manila'); echo date("Y-m-d"); ?>">
-              </div>
-              <!-- Default input -->
-            <div class="col-md-4">
-                <label for="fdaymens">First Day of Last Menstration</label>
-                  <input type="date" class="form-control" id="fdaymens" name="fdaymens">
-            </div>
-              <!-- Default input -->
-              <div class="col-md-4">
-                <label for="lastVisited">Last Visited</label>
-                <input type="date" class="form-control" id="lastVisited" name="lastVisited" value="<?php date_default_timezone_set('Asia/Manila'); echo date("Y-m-d"); ?>">
-              </div>
+                      <!-- Default input -->
+                      <div class="col-md-12">
+                        <label for="adress">Address</label>
+                        <input type="text" class="form-control" id="address" name="address">
+                      </div>
+                      <!-- Default input -->
+                      <!-- Grid row-->
+                      <!-- Default input -->
+                      <div class="col-md-4">
+                        <label for="contactNo">Contact Number</label>
+                        <input type="text" class="form-control" id="contactNo" name="contactNo">
+                      </div>
+                      <!-- Default input -->
+                      <div class="col-md-4">
+                        <label for="patType">Patient Type</label>
+                        <input type="text" class="form-control" id="patType" name="patType">
+                      </div>
+                      <!-- Default input -->
+                      <div class="col-md-4">
+                        <label for="status">Patient Status</label>
+                        <input type="text" class="form-control" id="status" name="status">
+                      </div>
 
-              <!-- Grid row-->
-              <!-- Default input -->
-            <div class="col-md-6">
-                <label for="email">Email Address</label>
-                  <input type="email" class="form-control" id="email" name="email">
-            </div>
-              <!-- Default input -->
-              <div class="col-md-6">
-                <label for="occupation">Occupation</label>
-                <input type="text" class="form-control" id="occupation" name="occupation">
-              </div>
-        
-        
-              <!-- Grid row-->
-              <!-- Default input -->
-            <div class="col-md-12">
-                <label for="medicalHistory">Medical History</label>
-                <textarea class="form-control" id="medicalHistory" name="medicalHistory" rows="3"></textarea>
-            </div>
-              <!-- Default input -->
-              <div class="col-md-12">
-                <label for="familyHistory">Family History</label>
-                <textarea class="form-control" id="familyHistory" name="familyHistory" rows="3"></textarea>
-              </div>
-        
-        
-         <!-- Grid row -->
-         <input type="submit" class="btn btn-primary btn-md" style="display: inline-block" id="addPatient" name="push" value="Add">
-        </form>
+                      <!-- Grid row-->
 
+                      <!-- Default input -->
+                      <div class="col-md-4">
+                        <label for="dateAdded">Date Added</label>
+                        <input type="text" class="form-control" id="dateAdded" name="dateAdded" value="<?php date_default_timezone_set('Asia/Manila');
+                                                                                                        echo date("Y-m-d"); ?>">
+                      </div>
+                      <!-- Default input -->
+                      <div class="col-md-4">
+                        <label for="fdaymens">First Day of Last Menstration</label>
+                        <input type="date" class="form-control" id="fdaymens" name="fdaymens">
+                      </div>
+                      <!-- Default input -->
+                      <div class="col-md-4">
+                        <label for="lastVisited">Last Visited</label>
+                        <input type="date" class="form-control" id="lastVisited" name="lastVisited" value="<?php date_default_timezone_set('Asia/Manila');
+                                                                                                            echo date("Y-m-d"); ?>">
+                      </div>
 
-
-
-
-
-
-      <script src="assets/js/core/jquery.min.js"></script>
-      <script src="assets/js/core/popper.min.js"></script>
-      <script src="assets/js/core/bootstrap-material-design.min.js"></script>
-      <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-      
-    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="assets/js/material-dashboard.js?v=2.1.1" type="text/javascript"></script>
-  <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-  <script src="assets/demo/demo.js"></script>
-    
-    <script>
-    $(document).ready(function() {
-      $().ready(function() {
-        $sidebar = $('.sidebar');
-
-        $sidebar_img_container = $sidebar.find('.sidebar-background');
-
-        $full_page = $('.full-page');
-
-        $sidebar_responsive = $('body > .navbar-collapse');
-
-        window_width = $(window).width();
-
-        fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
-
-        if (window_width > 767 && fixed_plugin_open == 'Dashboard') {
-          if ($('.fixed-plugin .dropdown').hasClass('show-dropdown')) {
-            $('.fixed-plugin .dropdown').addClass('open');
-          }
-
-        }
-
-        $('.fixed-plugin a').click(function(event) {
-          // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
-          if ($(this).hasClass('switch-trigger')) {
-            if (event.stopPropagation) {
-              event.stopPropagation();
-            } else if (window.event) {
-              window.event.cancelBubble = true;
-            }
-          }
-        });
-
-        $('.fixed-plugin .active-color span').click(function() {
-          $full_page_background = $('.full-page-background');
-
-          $(this).siblings().removeClass('active');
-          $(this).addClass('active');
-
-          var new_color = $(this).data('color');
-
-          if ($sidebar.length != 0) {
-            $sidebar.attr('data-color', new_color);
-          }
-
-          if ($full_page.length != 0) {
-            $full_page.attr('filter-color', new_color);
-          }
-
-          if ($sidebar_responsive.length != 0) {
-            $sidebar_responsive.attr('data-color', new_color);
-          }
-        });
-
-        $('.fixed-plugin .background-color .badge').click(function() {
-          $(this).siblings().removeClass('active');
-          $(this).addClass('active');
-
-          var new_color = $(this).data('background-color');
-
-          if ($sidebar.length != 0) {
-            $sidebar.attr('data-background-color', new_color);
-          }
-        });
-
-        $('.fixed-plugin .img-holder').click(function() {
-          $full_page_background = $('.full-page-background');
-
-          $(this).parent('li').siblings().removeClass('active');
-          $(this).parent('li').addClass('active');
+                      <!-- Grid row-->
+                      <!-- Default input -->
+                      <div class="col-md-6">
+                        <label for="email">Email Address</label>
+                        <input type="email" class="form-control" id="email" name="email">
+                      </div>
+                      <!-- Default input -->
+                      <div class="col-md-6">
+                        <label for="occupation">Occupation</label>
+                        <input type="text" class="form-control" id="occupation" name="occupation">
+                      </div>
 
 
-          var new_image = $(this).find("img").attr('src');
+                      <!-- Grid row-->
+                      <!-- Default input -->
+                      <div class="col-md-12">
+                        <label for="medicalHistory">Medical History</label>
+                        <textarea class="form-control" id="medicalHistory" name="medicalHistory" rows="3"></textarea>
+                      </div>
+                      <!-- Default input -->
+                      <div class="col-md-12">
+                        <label for="familyHistory">Family History</label>
+                        <textarea class="form-control" id="familyHistory" name="familyHistory" rows="3"></textarea>
+                      </div>
 
-          if ($sidebar_img_container.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
-            $sidebar_img_container.fadeOut('fast', function() {
-              $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
-              $sidebar_img_container.fadeIn('fast');
-            });
-          }
+                      <h3>Assign What to Monitor</h3><br>
+                      <div class="col-md-12">
+                        <input type="checkbox" id="conCounterCard" name="conCounterCard"> Contraction Counter<br>
+                        <input type="checkbox" id="kickCounterCard" name="kickCounterCard"> Kick Counter <br>
+                        <input type="checkbox" id="weightCard" name="weightCard"> Weight<br>
+                        <input type="checkbox" id="babyMeasureCard" name="babyMeasureCard"> Baby Measurements<br>
+                        <input type="checkbox" id="bloodPressureCard" name="bloodPressureCard"> Blood Pressure <br>
+                        <input type="checkbox" id="bloodSugarCard" name="bloodSugarCard"> Blood Sugar<br>
+                      </div>
+                      <!-- Grid row -->
+                      <input type="submit" class="btn btn-primary btn-md" style="display: inline-block" id="addPatient" name="push" value="Add">
+                  </form>
 
-          if ($full_page_background.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
-            var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
 
-            $full_page_background.fadeOut('fast', function() {
-              $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
-              $full_page_background.fadeIn('fast');
-            });
-          }
 
-          if ($('.switch-sidebar-image input:checked').length == 0) {
-            var new_image = $('.fixed-plugin li.active .img-holder').find("img").attr('src');
-            var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
 
-            $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
-            $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
-          }
 
-          if ($sidebar_responsive.length != 0) {
-            $sidebar_responsive.css('background-image', 'url("' + new_image + '")');
-          }
-        });
 
-        $('.switch-sidebar-image input').change(function() {
-          $full_page_background = $('.full-page-background');
 
-          $input = $(this);
+                  <script src="assets/js/core/jquery.min.js"></script>
+                  <script src="assets/js/core/popper.min.js"></script>
+                  <script src="assets/js/core/bootstrap-material-design.min.js"></script>
+                  <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
 
-          if ($input.is(':checked')) {
-            if ($sidebar_img_container.length != 0) {
-              $sidebar_img_container.fadeIn('fast');
-              $sidebar.attr('data-image', '#');
-            }
+                  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+                  <script src="assets/js/material-dashboard.js?v=2.1.1" type="text/javascript"></script>
+                  <!-- Material Dashboard DEMO methods, don't include it in your project! -->
+                  <script src="assets/demo/demo.js"></script>
 
-            if ($full_page_background.length != 0) {
-              $full_page_background.fadeIn('fast');
-              $full_page.attr('data-image', '#');
-            }
+                  <script>
+                    $(document).ready(function() {
+                      $().ready(function() {
+                        $sidebar = $('.sidebar');
 
-            background_image = true;
-          } else {
-            if ($sidebar_img_container.length != 0) {
-              $sidebar.removeAttr('data-image');
-              $sidebar_img_container.fadeOut('fast');
-            }
+                        $sidebar_img_container = $sidebar.find('.sidebar-background');
 
-            if ($full_page_background.length != 0) {
-              $full_page.removeAttr('data-image', '#');
-              $full_page_background.fadeOut('fast');
-            }
+                        $full_page = $('.full-page');
 
-            background_image = false;
-          }
-        });
+                        $sidebar_responsive = $('body > .navbar-collapse');
 
-        $('.switch-sidebar-mini input').change(function() {
-          $body = $('body');
+                        window_width = $(window).width();
 
-          $input = $(this);
+                        fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
 
-          if (md.misc.sidebar_mini_active == true) {
-            $('body').removeClass('sidebar-mini');
-            md.misc.sidebar_mini_active = false;
+                        if (window_width > 767 && fixed_plugin_open == 'Dashboard') {
+                          if ($('.fixed-plugin .dropdown').hasClass('show-dropdown')) {
+                            $('.fixed-plugin .dropdown').addClass('open');
+                          }
 
-            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+                        }
 
-          } else {
+                        $('.fixed-plugin a').click(function(event) {
+                          // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
+                          if ($(this).hasClass('switch-trigger')) {
+                            if (event.stopPropagation) {
+                              event.stopPropagation();
+                            } else if (window.event) {
+                              window.event.cancelBubble = true;
+                            }
+                          }
+                        });
 
-            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
+                        $('.fixed-plugin .active-color span').click(function() {
+                          $full_page_background = $('.full-page-background');
 
-            setTimeout(function() {
-              $('body').addClass('sidebar-mini');
+                          $(this).siblings().removeClass('active');
+                          $(this).addClass('active');
 
-              md.misc.sidebar_mini_active = true;
-            }, 300);
-          }
+                          var new_color = $(this).data('color');
 
-          // we simulate the window Resize so the charts will get updated in realtime.
-          var simulateWindowResize = setInterval(function() {
-            window.dispatchEvent(new Event('resize'));
-          }, 180);
+                          if ($sidebar.length != 0) {
+                            $sidebar.attr('data-color', new_color);
+                          }
 
-          // we stop the simulation of Window Resize after the animations are completed
-          setTimeout(function() {
-            clearInterval(simulateWindowResize);
-          }, 1000);
+                          if ($full_page.length != 0) {
+                            $full_page.attr('filter-color', new_color);
+                          }
 
-        });
-      });
-    });
-  </script>
-    
-</body>
+                          if ($sidebar_responsive.length != 0) {
+                            $sidebar_responsive.attr('data-color', new_color);
+                          }
+                        });
+
+                        $('.fixed-plugin .background-color .badge').click(function() {
+                          $(this).siblings().removeClass('active');
+                          $(this).addClass('active');
+
+                          var new_color = $(this).data('background-color');
+
+                          if ($sidebar.length != 0) {
+                            $sidebar.attr('data-background-color', new_color);
+                          }
+                        });
+
+                        $('.fixed-plugin .img-holder').click(function() {
+                          $full_page_background = $('.full-page-background');
+
+                          $(this).parent('li').siblings().removeClass('active');
+                          $(this).parent('li').addClass('active');
+
+
+                          var new_image = $(this).find("img").attr('src');
+
+                          if ($sidebar_img_container.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
+                            $sidebar_img_container.fadeOut('fast', function() {
+                              $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
+                              $sidebar_img_container.fadeIn('fast');
+                            });
+                          }
+
+                          if ($full_page_background.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
+                            var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
+
+                            $full_page_background.fadeOut('fast', function() {
+                              $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
+                              $full_page_background.fadeIn('fast');
+                            });
+                          }
+
+                          if ($('.switch-sidebar-image input:checked').length == 0) {
+                            var new_image = $('.fixed-plugin li.active .img-holder').find("img").attr('src');
+                            var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
+
+                            $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
+                            $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
+                          }
+
+                          if ($sidebar_responsive.length != 0) {
+                            $sidebar_responsive.css('background-image', 'url("' + new_image + '")');
+                          }
+                        });
+
+                        $('.switch-sidebar-image input').change(function() {
+                          $full_page_background = $('.full-page-background');
+
+                          $input = $(this);
+
+                          if ($input.is(':checked')) {
+                            if ($sidebar_img_container.length != 0) {
+                              $sidebar_img_container.fadeIn('fast');
+                              $sidebar.attr('data-image', '#');
+                            }
+
+                            if ($full_page_background.length != 0) {
+                              $full_page_background.fadeIn('fast');
+                              $full_page.attr('data-image', '#');
+                            }
+
+                            background_image = true;
+                          } else {
+                            if ($sidebar_img_container.length != 0) {
+                              $sidebar.removeAttr('data-image');
+                              $sidebar_img_container.fadeOut('fast');
+                            }
+
+                            if ($full_page_background.length != 0) {
+                              $full_page.removeAttr('data-image', '#');
+                              $full_page_background.fadeOut('fast');
+                            }
+
+                            background_image = false;
+                          }
+                        });
+
+                        $('.switch-sidebar-mini input').change(function() {
+                          $body = $('body');
+
+                          $input = $(this);
+
+                          if (md.misc.sidebar_mini_active == true) {
+                            $('body').removeClass('sidebar-mini');
+                            md.misc.sidebar_mini_active = false;
+
+                            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+
+                          } else {
+
+                            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
+
+                            setTimeout(function() {
+                              $('body').addClass('sidebar-mini');
+
+                              md.misc.sidebar_mini_active = true;
+                            }, 300);
+                          }
+
+                          // we simulate the window Resize so the charts will get updated in realtime.
+                          var simulateWindowResize = setInterval(function() {
+                            window.dispatchEvent(new Event('resize'));
+                          }, 180);
+
+                          // we stop the simulation of Window Resize after the animations are completed
+                          setTimeout(function() {
+                            clearInterval(simulateWindowResize);
+                          }, 1000);
+
+                        });
+                      });
+                    });
+                  </script>
+
+      </body>
 
 </html>

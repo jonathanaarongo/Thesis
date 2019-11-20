@@ -8,7 +8,7 @@ use Kreait\Firebase\ServiceAccount;
 
 // This assumes that you have placed the Firebase credentials in the same directory
 // as this PHP file.
-$serviceAccount = ServiceAccount::fromJsonFile(__DIR__.'/fir-test-c339f-firebase-adminsdk-0a34f-bd32325457.json');
+$serviceAccount = ServiceAccount::fromJsonFile(__DIR__.'/thesisdb-fe122-firebase-adminsdk-sbyej-5feaaab60b.json');
 
 //$storage = (new Factory())->createStorage();
 
@@ -21,7 +21,7 @@ $firebase = (new Factory)
     // The following line is optional if the project id in your credentials file
     // is identical to the subdomain of your Firebase project. If you need it,
     // make sure to replace the URL with the URL of your project.
-    ->withDatabaseUri('https://fir-test-c339f.firebaseio.com/')
+    ->withDatabaseUri('https://thesisdb-fe122.firebaseio.com/')
     ->create();
 
 $database = $firebase->getDatabase();

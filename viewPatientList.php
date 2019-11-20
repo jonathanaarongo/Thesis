@@ -130,7 +130,7 @@ $_SESSION['user'] = 'obsample@gmail.com';
                         <th>Patient Condition</th>
                         <th>Contact Number</th>
                         <th>Email</th>
-                        <th>Last Visit</th>
+                        <th>First Day Menstrual</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -143,7 +143,7 @@ $_SESSION['user'] = 'obsample@gmail.com';
                       $ref = "patientdata";
                       $data = $database->getReference($ref)->getValue();
                       $i = 0;
-                      foreach ($data as $data1) {
+                      foreach ($data as $key=> $data1) {
                         if ($_SESSION['user'] == $data1['ob']) {
                           $i++;
                           ?>
@@ -155,9 +155,9 @@ $_SESSION['user'] = 'obsample@gmail.com';
                             <td><?php echo $data1['status']; ?></td>
                             <td><?php echo $data1['contactNo']; ?></td>
                             <td><?php echo $data1['email']; ?></td>
-                            <td><?php echo $data1['lastVisited']; ?></td>
+                            <td><?php echo $data1['fdaymens']; ?></td>
                             <td>
-                              <a type="button" class="btn btn-success" href="patientProfile.php?email=<?php echo $data1['email']; ?>"><i class="fa fa-eye"></i> View</a>
+                              <a type="button" class="btn btn-success" href="patientProfile.php?key=<?php echo $key; ?>"><i class="fa fa-eye"></i> View</a>
                               <a type="button" class="btn btn-danger" href="update_data.php?key=<?php echo $key; ?>"><i class="fa fa-trash"></i> Delete</a>
                             </td>
                           </tr>
