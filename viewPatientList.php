@@ -72,7 +72,7 @@ $_SESSION['user'] = 'obsample@gmail.com';
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="pquiries.php">
+            <a class="nav-link" href="patientInquiries.php">
               <i class="material-icons">emoji_people</i>
               <p>Patient Inquiries</p>
             </a>

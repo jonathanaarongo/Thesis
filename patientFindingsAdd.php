@@ -48,7 +48,7 @@
             </a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="#0">
+            <a class="nav-link" href="viewPatientList.php">
               <i class="material-icons">pregnant_woman</i>
               <p>Manage Patient</p>
             </a>
@@ -60,13 +60,13 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#0">
+            <a class="nav-link" href="viewAppointments.php">
               <i class="material-icons">event_note</i>
               <p>Manage Appointments</p>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#0">
+            <a class="nav-link" href="patientInquiries.php">
               <i class="material-icons">emoji_people</i>
               <p>Patient Inquiries</p>
             </a>
@@ -157,7 +157,7 @@
             $ref = "patientdata";
             $data = $database->getReference($ref)->getValue();
             foreach ($data as $key => $data1) {
-                if ($_SESSION['user'] == $data1['ob'] && $patientKey == $key) {
+                if ($patientKey == $key) {
                     $f_name = $data1['f_name'];
                     $l_name = $data1['l_name'];
                     $email = $data1['email'];
@@ -216,8 +216,7 @@
 
 
                       <!-- Grid row -->
-                      <input type="submit" class="btn btn-primary btn-md" style="display: inline-block" id="addPatient" name="push" value="Add">
-                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal"><i class="fa fa-plus"></i> SUBMIT</button>
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal">Next</button>
                       <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                           <div class="modal-content">
@@ -235,8 +234,7 @@
                                   <label for="exampleInputEmail1">Prescribe Medications</label>
                                 </div>
                                 
-                                <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close" data-toggle="modal" data-target="#modalChoose">Next</button>
-                                <button type="submit" name="push" class="btn btn-primary">Submit</button>
+                                <button type="submit" name="push" class="btn btn-primary">Next</button>
                             </div>
                           </div>
                         </div>

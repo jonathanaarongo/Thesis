@@ -102,7 +102,7 @@
             $ref = "patientdata";
             $data = $database->getReference($ref)->getValue();
             foreach ($data as $key => $data1) {
-                if ($_SESSION['user'] == $data1['ob'] && $patientKey == $key) {
+                if ($patientKey == $key) {
                     $f_name = $data1['f_name'];
                     $l_name = $data1['l_name'];
                     $email = $data1['email'];
@@ -110,7 +110,7 @@
             }
             ?>
             <div class="content">
-                
+
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
@@ -125,10 +125,13 @@
                         </dir-pagination-controls>
                     </div>
                     <div class="row">
-                        <a type="button" class="btn btn-info" href="patientFindingsAdd.php?key=<?php echo $patientKey; ?>">Add Findings</a>
+
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-primary">
+                                    <span class="pull-right">
+                                        <a type="button" class="btn btn-info" href="patientFindingsAdd.php?key=<?php echo $patientKey; ?>">Add Findings</a>
+                                    </span>
                                     <h3 class="card-title"><?php echo $f_name, ' ', $l_name; ?>'s Patient Findings</h3>
                                 </div>
                                 <div class="card-body">
@@ -157,8 +160,8 @@
                                                 $ref = "pefindings";
                                                 $data = $database->getReference($ref)->getValue();
                                                 $i = 0;
-                                                foreach ($data as $key=> $data1) {
-                                                    if ($_SESSION['user'] == $data1['ob'] && $email == $data1['email']) {
+                                                foreach ($data as $key => $data1) {
+                                                    if ($email == $data1['email']) {
                                                         $i++;
                                                         ?>
                                                         <tr>

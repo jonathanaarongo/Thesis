@@ -159,7 +159,7 @@ session_start(); ?>
             $ref = "patientdata";
             $data = $database->getReference($ref)->getValue();
             foreach ($data as $key => $data1) {
-                if ($_SESSION['user'] == $data1['ob'] && $patientKey == $key) {
+                if ($patientKey == $key) {
                     $f_name = $data1['f_name'];
                     $email = $data1['email'];
                     $l_name = $data1['l_name'];
@@ -210,15 +210,15 @@ session_start(); ?>
                                                 $ref = "pefindings";
                                                 $data = $database->getReference($ref)->getValue();
                                                 $i = 0;
-                                                foreach ($data as $data1) {
-                                                    if ($_SESSION['user'] == $data1['ob'] && $email == $data1['email']) {
+                                                foreach ($data as $key => $data1) {
+                                                    if ($email == $data1['email']) {
                                                         $i++;
                                                         ?>
                                                         <tr>
                                                             <td><?php echo $data1['date']; ?></td>
                                                             <td><?php echo $data1['prescription']; ?></td>
                                                             <td>
-                                                                <a type="button" class="btn btn-info" href="showpatientfindings.php?key=<?php echo $_SESSION['key']; ?>"><i class="material-icons">person</i> View</a>
+                                                                <a type="button" class="btn btn-info" href="showpatientfindings.php?key=<?php echo $key; ?>"><i class="material-icons">person</i> View</a>
                                                         </tr>
                                                 <?php
                                                     }

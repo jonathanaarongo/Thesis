@@ -48,7 +48,7 @@
             </a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="#0">
+            <a class="nav-link" href="viewPatientList.php">
               <i class="material-icons">pregnant_woman</i>
               <p>Manage Patient</p>
             </a>
@@ -60,13 +60,13 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#0">
+            <a class="nav-link" href="viewAppointments.php">
               <i class="material-icons">event_note</i>
               <p>Manage Appointments</p>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#0">
+            <a class="nav-link" href="patientInquiries.php">
               <i class="material-icons">emoji_people</i>
               <p>Patient Inquiries</p>
             </a>
@@ -158,7 +158,7 @@
             $ref = "patientdata";
             $data = $database->getReference($ref)->getValue();
             foreach ($data as $key => $data1) {
-                if ($_SESSION['user'] == $data1['ob'] && $patientKey == $key) {
+                if ($patientKey == $key) {
                     $f_name = $data1['f_name'];
                     $l_name = $data1['l_name'];
                     $email = $data1['email'];

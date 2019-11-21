@@ -50,7 +50,7 @@
                 $i = 0;
                 foreach ($data as $key => $data1) {
 
-                    if ($_SESSION['user'] == $data1['ob'] && $_SESSION['email'] == $data1['email']) {
+                    if ($_SESSION['email'] == $data1['email']) {
                         $i++;
                         ?>[new Date('<?php echo $data1['date']; ?>'), <?php echo $data1['weight']; ?>],
 
@@ -108,7 +108,7 @@
                 $i = 0;
                 foreach ($data as $key => $data1) {
 
-                    if ($_SESSION['user'] == $data1['ob'] && $_SESSION['email'] == $data1['email']) {
+                    if ( $_SESSION['email'] == $data1['email']) {
                         $i++;
                         ?>[new Date('<?php echo $data1['date']; ?>'), <?php echo $data1['waistSize']; ?>],
 
@@ -166,7 +166,7 @@
                 $i = 0;
                 foreach ($data as $key => $data1) {
 
-                    if ($_SESSION['user'] == $data1['ob'] && $_SESSION['email'] == $data1['email']) {
+                    if ($_SESSION['email'] == $data1['email']) {
                         $i++;
                         ?>[new Date('<?php echo $data1['date']; ?>'), <?php echo $data1['fetalHeartTone']; ?>],
 
@@ -225,7 +225,7 @@
                 $i = 0;
                 foreach ($data as $key => $data1) {
 
-                    if ($_SESSION['user'] == $data1['ob'] && $_SESSION['email'] == $data1['email']) {
+                    if ($_SESSION['email'] == $data1['email']) {
                         $i++;
                         ?>[new Date('<?php echo $data1['date']; ?>'), <?php echo $data1['systolic']; ?>, <?php echo $data1['diastolic']; ?>],
 
@@ -341,7 +341,7 @@
             $ref = "patientdata";
             $data = $database->getReference($ref)->getValue();
             foreach ($data as $key => $data1) {
-                if ($_SESSION['user'] == $data1['ob'] && $patientKey == $key) {
+                if ($patientKey == $key) {
                     $f_name = $data1['f_name'];
                     $l_name = $data1['l_name'];
                     $email = $data1['email'];
@@ -469,7 +469,7 @@
                                                 $data = $database->getReference($ref)->getValue();
                                                 $i = 0;
                                                 foreach ($data as $key => $data1) {
-                                                    if ($_SESSION['user'] == $data1['ob'] && $email == $data1['email']) {
+                                                    if ($email == $data1['email']) {
                                                         $i++;
                                                         ?>
                                                         <tr>

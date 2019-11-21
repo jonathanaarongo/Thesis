@@ -95,7 +95,7 @@
       <!-- End Navbar -->
 
       <div class="content">
-        <?php echo date("Y-m-d", strtotime("+1 week"));?>
+        <?php echo date("Y-m-d", strtotime("+40 weeks"));?>
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">

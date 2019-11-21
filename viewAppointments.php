@@ -53,7 +53,7 @@ $_SESSION['user'] = 'obsample@gmail.com';
                             <p>Add Patient</p>
                         </a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="viewPatientList.php">
                             <i class="material-icons">pregnant_woman</i>
                             <p>Manage Patient</p>
@@ -65,7 +65,7 @@ $_SESSION['user'] = 'obsample@gmail.com';
                             <p>View Lab Results</p>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="viewAppointments.php">
                             <i class="material-icons">event_note</i>
                             <p>Manage Appointments</p>

@@ -398,7 +398,7 @@ session_start(); ?>
             $ref = "patientdata";
             $data = $database->getReference($ref)->getValue();
             foreach ($data as $key => $data1) {
-                if ($_SESSION['user'] == $data1['ob'] && $patientKey == $key) {
+                if ($patientKey == $key) {
                     $address = $data1['address'];
                     $contactNo = $data1['contactNo'];
                     $dateAdded = $data1['dateAdded'];
