@@ -8,12 +8,67 @@ $_SESSION['user'] = 'obsample@gmail.com';
 <head>
   <meta charset="utf-8" />
 
+
+  <!-------- calendar dependencies ----->
+  
+  <script src="https://momentjs.com/downloads/moment.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <script src='assets/js/plugins/moment.min.js'></script>
+
+  <link href='node_modules/@fullcalendar/core/main.css' rel='stylesheet' />
+  <link href='node_modules/@fullcalendar/daygrid/main.css' rel='stylesheet' />
+
+  <script src='http://fullcalendar.io/js/fullcalendar-2.1.1/lib/moment.min.js'></script>
+  <script src='http://fullcalendar.io/js/fullcalendar-2.1.1/lib/jquery.min.js'></script>
+  <script src="http://fullcalendar.io/js/fullcalendar-2.1.1/lib/jquery-ui.custom.min.js"></script>
+  <script src='http://fullcalendar.io/js/fullcalendar-2.1.1/fullcalendar.min.js'></script>  
+
+  <script src='node_modules/@fullcalendar/core/main.js'></script>
+  <script src='node_modules/@fullcalendar/daygrid/main.js'></script>
+
+  <script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var calendarEl = document.getElementById('calendar');
+
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        plugins: [ 'dayGrid' ],
+        defaultView: 'dayGridMonth',
+        header: {                         
+          left: "today, prevYear, prev, next, nextYear",
+          center: "title",
+          right: "dayGridMonth, dayGridDay, dayGridWeek"
+                                          
+                                          },
+                                            events: [
+                                          {
+                                            title  : 'event1',
+                                            start  : '2019-11-11'
+                                          },
+                                          {
+                                            title  : 'event2',
+                                            start  : '2019-11-12'
+                                          },
+                                          {
+                                            title  : 'event3',
+                                            start  : '2019-11-20',
+                                            allDay : false // will make the time show
+                                          }
+                                        ]
+      });
+
+      calendar.render();
+    });
+
+    </script>
+
   <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    Template
+   AGAPAY
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -29,62 +84,57 @@ $_SESSION['user'] = 'obsample@gmail.com';
 <body>
   <div class="wrapper">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="..assets/img/sidebar-1.jpg">
-      <!--
-      Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
-
-      Tip 2: you can also add an image using data-image tag
-  -->
       <div class="logo">
         <a href="http://www.creative-tim.com" class="simple-text logo-mini">
           <?php echo $_SESSION['user']; ?>
         </a>
       </div>
       <div class="sidebar-wrapper">
-      <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="dashboard.php">
-                            <i class="material-icons">language</i>
-                            <p>Dashboard</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#0">
-                            <i class="material-icons">add_box</i>
-                            <p>Add Patient</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="viewPatientList.php">
-                            <i class="material-icons">pregnant_woman</i>
-                            <p>Manage Patient</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#0">
-                            <i class="material-icons">file_copy</i>
-                            <p>View Lab Results</p>
-                        </a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="viewAppointments.php">
-                            <i class="material-icons">event_note</i>
-                            <p>Manage Appointments</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="patientInquiries.php">
-                            <i class="material-icons">emoji_people</i>
-                            <p>Patient Inquiries</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#0">
-                            <i class="material-icons">power_settings_new</i>
-                            <p>Logout</p>
-                        </a>
-                    </li>
-                    <!-- your sidebar here -->
-                </ul>
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="#0">
+              <i class="material-icons">language</i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#0">
+              <i class="material-icons">add_box</i>
+              <p>Add Patient</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#0">
+              <i class="material-icons">pregnant_woman</i>
+              <p>Manage Patient</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="labResults.php">
+              <i class="material-icons">file_copy</i>
+              <p>View Lab Results</p>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="#0">
+              <i class="material-icons">event_note</i>
+              <p>Manage Appointments</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="patientInquiries.php">
+              <i class="material-icons">emoji_people</i>
+              <p>Patient Inquiries</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#0">
+              <i class="material-icons">power_settings_new</i>
+              <p>Logout</p>
+            </a>
+          </li>
+          <!-- your sidebar here -->
+        </ul>
       </div>
     </div>
     <div class="main-panel">
@@ -103,34 +153,55 @@ $_SESSION['user'] = 'obsample@gmail.com';
           <div class="row">
             <div class="col-md-12">
               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal"><i class="fa fa-plus"></i> Add Appointment</button>
-              <span class="pull-right">
-                <input type="text" ng-model="search" class="form-control" placeholder="Search">
-              </span>
-              <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Add Appointment</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    </div>
-                    <div class="modal-body">
-                      <form action="store_appointments.php" method="post" enctype="multipart/form-data">
-                        <div class="form-group">
-                          <label for="exampleFormControlInput1">Email</label>
-                          <input type="email" class="form-control" name="email">
-                        </div>
-                        <div class="form-group">
-                          <label for="exampleInputEmail1">Appointment Date</label>
-                          <input type="date" class="form-control" name="nextAppt">
-                        </div>
-                        <button type="submit" name="push" class="btn btn-primary">Set Appointment</button>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <br>
+      
             </div>
           </div>
+          
+          <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header card-header-primary">
+                                <h3 class="card-title">My Calendar</h3>
+                                </div>
+                                <!--calendar display --> 
+                                <div class="card-body">
+                                   <div id='calendar'>
+                                  <!--script src="calendarFunctions.js"></script-->
+                                   <!--script>
+                                      $('#calendar').fullCalendar({
+                                        hiddenDays: [0], //hide sunday
+                                        header: {
+                                          right: "month, agendaWeek, agendaDay",
+                                          left: "title",
+                                          center: "today, prevYear, prev, next, nextYear"
+                                          },
+                                          buttonText: {
+                                            prevYear: new moment().year() - 1,
+                                            nextYear: new moment().year() + 1
+                                          },
+                                        events: [
+                                          {
+                                            title  : 'event1',
+                                            start  : '2019-11-11'
+                                          },
+                                          {
+                                            title  : 'event2',
+                                            start  : '2019-11-12'
+                                          },
+                                          {
+                                            title  : 'event3',
+                                            start  : '2019-11-13',
+                                            allDay : false // will make the time show
+                                          }
+                                        ]
+                                      });
+                                    
+                                      </script-->
+                                </div>
+                            </div>
+                        </div>
+                            
           <div class="col-md-12">
             <div class="card">
               <div class="card-header card-header-primary">
@@ -169,7 +240,7 @@ $_SESSION['user'] = 'obsample@gmail.com';
                             <td><?php echo $data1['nextAppt']; ?></td>
                             <td>
                               <a type="button" class="btn btn-info" href="patientConsult.php?email=<?php echo $data1['email']; ?>"><i class="material-icons">person</i> Consult</a>
-                              <a type="button" class="btn btn-danger" href="update_data.php?key=<?php echo $key; ?>"><i class="fa fa-trash"></i> Delete</a>
+                              <a type="button" class="btn btn-danger" href="update_data.php?key="><i class="fa fa-trash"></i> Delete</a>
                             </td>
                           </tr>
                       <?php
@@ -196,6 +267,29 @@ $_SESSION['user'] = 'obsample@gmail.com';
 
         <!-- your content here -->
       </div>
+      <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Add Appointment</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                  <form action="appointmentAdd.php" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                      <label for="email">Patient Email</label>
+                      <input type="email" class="form-control" name="email">
+                    </div>
+                    <div class="form-group">
+                      <label for="nextAppt">Next Appointment</label>
+                      <input type="date" class="form-control" name="nextAppt">
+                    </div>
+                    <button type="submit" name="push" class="btn btn-primary">Set Appointment</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
 
     </div>
     <footer class="footer">
@@ -220,7 +314,6 @@ $_SESSION['user'] = 'obsample@gmail.com';
   </div>
 
   <script src="dirPaginate.js"></script>
-  <script src="angular.js"></script>
   <script src="assets/js/core/jquery.min.js"></script>
   <script src="assets/js/core/popper.min.js"></script>
   <script src="assets/js/core/bootstrap-material-design.min.js"></script>

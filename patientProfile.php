@@ -23,6 +23,122 @@ session_start(); ?>
 
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <!--CONTRACTION COUNTER CHART FRONT END-->
+    <script type="text/javascript">
+        <?php
+        include("includes/db.php");
+        $ref = "ContractionAdd";
+        $data = $database->getReference($ref)->getValue();
+        $soft = array();
+        $mild = array();
+        $hard = array();
+        foreach ($data as $key => $data1) {
+
+            if ($_SESSION['email'] == $data1['usermail']) {
+                if ($data1['contraction'] == "Soft") {
+                    array_push($soft, $data1['contraction']);
+                } else if ($data1['contraction'] == "Mild") {
+                    array_push($mild, $data1['contraction']);
+                } else if ($data1['contraction'] == "Hard") {
+                    array_push($hard, $data1['contraction']);
+                }
+            }
+        }
+
+        ?>
+        google.charts.load('current', {
+            'packages': ['corechart']
+        });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var data = google.visualization.arrayToDataTable([
+                ['Contraction Type', 'Contraction Type No.'],
+                ['Soft', <?php echo count($soft); ?>],
+                ['Mild', <?php echo count($mild); ?>],
+                ['Hard', <?php echo count($hard); ?>]
+            ]);
+
+            var options = {
+                title: ''
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('pie_contraction'));
+
+            chart.draw(data, options);
+        }
+    </script>
+    <!--KICK COUNTER CHART FRONT END-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {
+            'packages': ['bar']
+        });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Date', 'Kick Counter', 'Total Time (in seconds)'],
+                <?php
+                //getting id from url
+                $patientKey = $_GET['key'];
+
+                //selecting data associated with this particular id
+                include("includes/db.php");
+                $ref = "KickAdd";
+                $data = $database->getReference($ref)->getValue();
+                $kickarray = array();
+                $timearray = array();
+                $startdate = "2019-11-04";
+                function getSecondsFromHMS($time)
+                {
+                    $timeArr = array_reverse(explode(":", $time));
+                    $seconds = 0;
+                    foreach ($timeArr as $key => $value) {
+                        if ($key > 2)
+                            break;
+                        $seconds += pow(60, $key) * $value;
+                    }
+                    return $seconds;
+                }
+                foreach ($data as $key => $data1) {
+                    $date = str_replace('-', '/', $data1['date']);
+                    $newDate = date("Y-m-d", strtotime($date));
+
+                    if ($_SESSION['email'] == $data1['usermail']) {
+                        
+                        if ($startdate == $newDate) { 
+                            array_push($kickarray, $data1['kick']);
+                            array_push($timearray, getSecondsFromHMS($data1['time']));
+                        } else { 
+                            ?>
+                            [new Date('<?php echo $startdate; ?>'), <?php echo array_sum($kickarray); ?>, <?php echo array_sum($timearray); ?>],
+                <?php 
+                            $kickarray = array();
+                            $timearray = array();
+                            array_push($kickarray, $data1['kick']);
+                            array_push($timearray, getSecondsFromHMS($data1['time']));
+                            $startdate = $newDate;
+                        }
+                    }
+                }
+                ?>
+                [new Date('<?php echo $startdate; ?>'), <?php echo array_sum($kickarray); ?>, <?php echo array_sum($timearray); ?>]
+            ]);
+
+            var options = {
+                chart: {
+                    title: '',
+                    subtitle: '',
+                }
+            };
+
+            var chart = new google.charts.Bar(document.getElementById('columnchart_kickcounter'));
+
+            chart.draw(data, google.charts.Bar.convertOptions(options));
+        }
+    </script>
     <!--WEIGHT CHART FRONT END-->
     <script type="text/javascript">
         google.charts.load('current', {
@@ -549,45 +665,8 @@ session_start(); ?>
                                     </div>
 
                                     <div class="card-body">
-                                        <div class="table-responsive text-nowrap">
-                                            <!--Table-->
-                                            <table class="table table-striped table-bordered">
-
-                                                <!--Table head-->
-                                                <thead>
-                                                    <tr>
-                                                        <th>Date</th>
-                                                        <th>Time</th>
-                                                        <th>Contraction</th>
-                                                    </tr>
-                                                </thead>
-                                                <!--Table head-->
-
-                                                <!--Table body-->
-                                                <tbody>
-                                                    <?php
-                                                    include("includes/db.php");
-                                                    $ref = "ContractionAdd";
-                                                    $data = $database->getReference($ref)->getValue();
-                                                    $i = 0;
-                                                    foreach ($data as $key => $data1) {
-                                                        if ($email == $data1['usermail']) {
-                                                            $i++;
-                                                            ?>
-                                                            <tr>
-                                                                <td><?php echo $data1['date']; ?></td>
-                                                                <td><?php echo $data1['time']; ?></td>
-                                                                <td><?php echo $data1['contraction']; ?></td>
-                                                            </tr>
-                                                    <?php
-                                                        }
-                                                    }
-                                                    ?>
-                                                </tbody>
-                                                <!--Table body-->
-                                            </table>
-                                            <!--Table-->
-                                        </div>
+                                        <!-- PIE CHART FOR CONTRACTION COUNTER -->
+                                        <div id="pie_contraction" style="width: 1500px; height: 500px;"></div>
                                     </div>
                                 </div>
                             </div>
@@ -600,45 +679,8 @@ session_start(); ?>
                                     </div>
 
                                     <div class="card-body">
-                                        <div class="table-responsive text-nowrap">
-                                            <!--Table-->
-                                            <table class="table table-striped table-bordered">
-
-                                                <!--Table head-->
-                                                <thead>
-                                                    <tr>
-                                                        <th>Date</th>
-                                                        <th>Duration</th>
-                                                        <th>Kicks</th>
-                                                    </tr>
-                                                </thead>
-                                                <!--Table head-->
-
-                                                <!--Table body-->
-                                                <tbody>
-                                                    <?php
-                                                    include("includes/db.php");
-                                                    $ref = "KickAdd";
-                                                    $data = $database->getReference($ref)->getValue();
-                                                    $i = 0;
-                                                    foreach ($data as $key => $data1) {
-                                                        if ($email == $data1['usermail']) {
-                                                            $i++;
-                                                            ?>
-                                                            <tr>
-                                                                <td><?php echo $data1['date']; ?></td>
-                                                                <td><?php echo $data1['time']; ?></td>
-                                                                <td><?php echo $data1['kick']; ?></td>
-                                                            </tr>
-                                                    <?php
-                                                        }
-                                                    }
-                                                    ?>
-                                                </tbody>
-                                                <!--Table body-->
-                                            </table>
-                                            <!--Table-->
-                                        </div>
+                                        <!-- BAR CHART FOR KICK COUNTER -->
+                                        <div id="columnchart_kickcounter" style="width: 800px; height: 500px;"></div>
                                     </div>
                                 </div>
                             </div>
