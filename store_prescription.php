@@ -11,6 +11,52 @@ if(isset($_POST['push'])){
         'prescription' => $pres
     ];
     $pushData = $database->getReference($ref)->update($data);
+
+    $days = $_POST['days'] + 2;
+    $date = date("m-d-Y", strtotime("+".$days. " days"));
+    $ob = $_SESSION['user'];
+    $reason = "Medication";
+    $status = "Approved";
+    $usermail = $_SESSION['email'];
+    $comment_status = 0;
+    $sendBy = "ob";
+
+    $data = [
+        'comment_status' => $comment_status,
+        'date' => $date,
+        'ob' => $ob,
+        'reason' => $reason,
+        'sendBy' => $sendBy,
+        'status' => $status,
+        'usermail' => $usermail
+    ];
+
+    $ref = "Calendar/";
+    $pushData = $database->getReference($ref)->push($data);
+    header("Location:patientConsult.php?key=".$_SESSION['key']);
+}
+else{
+    $days = $_POST['days'] + 2;
+    $date = date("m-d-Y", strtotime("+".$days. " days"));
+    $ob = $_SESSION['user'];
+    $reason = "Medication";
+    $status = "Approved";
+    $usermail = $_SESSION['email'];
+    $comment_status = 0;
+    $sendBy = "ob";
+
+    $data = [
+        'comment_status' => $comment_status,
+        'date' => $date,
+        'ob' => $ob,
+        'reason' => $reason,
+        'sendBy' => $sendBy,
+        'status' => $status,
+        'usermail' => $usermail
+    ];
+
+    $ref = "Calendar/";
+    $pushData = $database->getReference($ref)->set($data);
     header("Location:patientConsult.php?key=".$_SESSION['key']);
 }
 

@@ -1,5 +1,45 @@
 <?php
-session_start(); ?>
+session_start();
+date_default_timezone_set('Asia/Manila'); ?>
+
+<?php
+//getting id from url
+$patientKey = $_GET['key'];
+$_SESSION['key'] = $patientKey;
+
+//selecting data associated with this particular id
+include("includes/db.php");
+$ref = "patientdata";
+$data = $database->getReference($ref)->getValue();
+foreach ($data as $key => $data1) {
+    if ($patientKey == $key) {
+        $address = $data1['address'];
+        $contactNo = $data1['contactNo'];
+        $dateAdded = $data1['dateAdded'];
+        $f_name = $data1['f_name'];
+        $familyHistory = $data1['familyHistory'];
+        $fdaymens = $data1['fdaymens'];
+        $email = $data1['email'];
+        $l_name = $data1['l_name'];
+        $medicalHistory = $data1['medicalHistory'];
+        $occupation = $data1['occupation'];
+        $patType = $data1['patType'];
+        $status = $data1['status'];
+        $conCounterCard = $data1['conCounterCard'];
+        $kickCounterCard = $data1['kickCounterCard'];
+        $weightCard = $data1['weightCard'];
+        $babyMeasureCard = $data1['babyMeasureCard'];
+        $bloodSugarCard = $data1['bloodSugarCard'];
+        $bloodPressureCard = $data1['bloodPressureCard'];
+
+        $_SESSION['email'] = $email;
+
+        $date1 = date_create($data1['fdaymens']);
+        $date2 = date_create(date("Y-m-d"));
+        $diff = date_diff($date1, $date2);
+    }
+}
+?>
 <!doctype html>
 <html lang="en">
 
@@ -56,8 +96,8 @@ session_start(); ?>
             var data = google.visualization.arrayToDataTable([
                 ['Contraction Type', 'Contraction Type No.'],
                 ['Soft', <?php echo count($soft); ?>],
-                ['Mild', <?php echo count($mild); ?>],
-                ['Hard', <?php echo count($hard); ?>]
+                ['Hard', <?php echo count($hard); ?>],
+                ['Mild', <?php echo count($mild); ?>]
             ]);
 
             var options = {
@@ -90,7 +130,7 @@ session_start(); ?>
                 $data = $database->getReference($ref)->getValue();
                 $kickarray = array();
                 $timearray = array();
-                $startdate = "2019-11-04";
+                $startdate = date('Y-m-d');
                 function getSecondsFromHMS($time)
                 {
                     $timeArr = array_reverse(explode(":", $time));
@@ -102,19 +142,19 @@ session_start(); ?>
                     }
                     return $seconds;
                 }
+
                 foreach ($data as $key => $data1) {
                     $date = str_replace('-', '/', $data1['date']);
                     $newDate = date("Y-m-d", strtotime($date));
 
                     if ($_SESSION['email'] == $data1['usermail']) {
-                        
-                        if ($startdate == $newDate) { 
+
+                        if ($startdate == $newDate) {
                             array_push($kickarray, $data1['kick']);
                             array_push($timearray, getSecondsFromHMS($data1['time']));
-                        } else { 
-                            ?>
-                            [new Date('<?php echo $startdate; ?>'), <?php echo array_sum($kickarray); ?>, <?php echo array_sum($timearray); ?>],
-                <?php 
+                        } else {
+                            ?>[new Date('<?php echo $startdate; ?>'), <?php echo array_sum($kickarray); ?>, <?php echo array_sum($timearray); ?>],
+                <?php
                             $kickarray = array();
                             $timearray = array();
                             array_push($kickarray, $data1['kick']);
@@ -123,8 +163,7 @@ session_start(); ?>
                         }
                     }
                 }
-                ?>
-                [new Date('<?php echo $startdate; ?>'), <?php echo array_sum($kickarray); ?>, <?php echo array_sum($timearray); ?>]
+                ?>[new Date('<?php echo $startdate; ?>'), <?php echo array_sum($kickarray); ?>, <?php echo array_sum($timearray); ?>]
             ]);
 
             var options = {
@@ -504,39 +543,6 @@ session_start(); ?>
                 </div>
             </nav>
             <!-- End Navbar -->
-            <?php
-            //getting id from url
-            $patientKey = $_GET['key'];
-            $_SESSION['key'] = $patientKey;
-
-            //selecting data associated with this particular id
-            include("includes/db.php");
-            $ref = "patientdata";
-            $data = $database->getReference($ref)->getValue();
-            foreach ($data as $key => $data1) {
-                if ($patientKey == $key) {
-                    $address = $data1['address'];
-                    $contactNo = $data1['contactNo'];
-                    $dateAdded = $data1['dateAdded'];
-                    $f_name = $data1['f_name'];
-                    $familyHistory = $data1['familyHistory'];
-                    $fdaymens = $data1['fdaymens'];
-                    $email = $data1['email'];
-                    $l_name = $data1['l_name'];
-                    $lastVisited = $data1['lastVisited'];
-                    $medicalHistory = $data1['medicalHistory'];
-                    $occupation = $data1['occupation'];
-                    $patType = $data1['patType'];
-                    $status = $data1['status'];
-                    $conCounterCard = $data1['conCounterCard'];
-                    $kickCounterCard = $data1['kickCounterCard'];
-                    $weightCard = $data1['weightCard'];
-                    $babyMeasureCard = $data1['babyMeasureCard'];
-                    $bloodSugarCard = $data1['bloodSugarCard'];
-                    $bloodPressureCard = $data1['bloodPressureCard'];
-                }
-            }
-            ?>
 
             <body>
                 <div class="content">
@@ -561,6 +567,9 @@ session_start(); ?>
                                         <form action="update_patient.php" method="post" enctype="multipart/form-data">
                                             <div class="form-row">
                                                 <!-- Default input -->
+                                                <div class="col-md-12">
+                                                    <h1>WEEK <?php echo floor($diff->format("%a") / 7); ?> OF PREGNANT PATIENT'S PREGNANCY</h1>
+                                                </div>
                                                 <div class="col-md-6">
                                                     <label for="f_name">First Name</label>
                                                     <input type="name" class="form-control" id="f_name" name="f_name" value="<?php echo $f_name ?>">
@@ -608,22 +617,26 @@ session_start(); ?>
                                                 </div>
                                                 <!-- Default input -->
                                                 <div class="col-md-4">
-                                                    <label for="lastVisited">Last Visited</label>
-                                                    <input type="text" class="form-control" id="lastVisited" name="lastVisited" value="<?php echo $lastVisited ?>">
+                                                    <label for="occupation">Occupation</label>
+                                                    <input type="text" class="form-control" id="occupation" name="occupation" value="<?php echo $occupation ?>">
                                                 </div>
 
                                                 <!-- Grid row-->
                                                 <!-- Default input -->
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <label for="email">Email Address</label>
                                                     <input type="text" class="form-control" id="email" name="email" value="<?php $_SESSION['email'] = $email;
                                                                                                                             echo $_SESSION['email']; ?>">
                                                 </div>
-                                                <!-- Default input -->
-                                                <div class="col-md-6">
-                                                    <label for="occupation">Occupation</label>
-                                                    <input type="text" class="form-control" id="occupation" name="occupation" value="<?php echo $occupation ?>">
+                                                <div class="col-md-4">
+                                                    <label for="passW">Password</label>
+                                                    <input type="password" class="form-control" id="password" name="password" value="<?php  echo $_SESSION['passW']; ?>">
                                                 </div>
+                                                <div class="col-md-4">
+                                                    <label for="conpass">Confirm Password</label>
+                                                    <input type="password" class="form-control" id="conpass" name="conpass" value="<?php echo $_SESSION['conpass']; ?>">
+                                                </div>
+
 
 
                                                 <!-- Grid row-->

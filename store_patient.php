@@ -12,10 +12,11 @@ if(isset($_POST['push'])){
     $familyHistory = $_POST['familyHistory'];
     $fdaymens = $_POST['fdaymens'];
     $l_name = $_POST['l_name'];
-    $lastVisited= $_POST['lastVisited'];
     $medicalHistory = $_POST['medicalHistory'];
     $occupation = $_POST['occupation'];
     $patType = $_POST['patType'];
+    $passW = password_hash($_POST['passW'], PASSWORD_DEFAULT);
+    $conpass = password_hash($_POST['conpass'], PASSWORD_DEFAULT);
     $status = $_POST['status'];
     if (isset($_POST['conCounterCard'])){
         $conCounterCard = true;
@@ -68,6 +69,8 @@ if(isset($_POST['push'])){
         'medicalHistory' => $medicalHistory,
         'occupation' => $occupation,
         'patType' => $patType,
+        'passW' => $passW,
+        'conpass' => $conpass,
         'status' => $status,
         'conCounterCard' => $conCounterCard,
         'kickCounterCard' => $kickCounterCard,
@@ -95,6 +98,8 @@ else{
     $medicalHistory = $_POST['medicalHistory'];
     $occupation = $_POST['occupation'];
     $patType = $_POST['patType'];
+    $passW = password_hash($_POST['passW'], PASSWORD_DEFAULT);
+    $conpass = password_hash($_POST['conpass'], PASSWORD_DEFAULT);
     $status = $_POST['status'];
     if (isset($_POST['conCounterCard'])){
         $conCounterCard = true;
@@ -147,6 +152,8 @@ else{
         'medicalHistory' => $medicalHistory,
         'occupation' => $occupation,
         'patType' => $patType,
+        'passW' => $passW,
+        'conpass' => $conpass,
         'status' => $status,
         'conCounterCard' => $conCounterCard,
         'kickCounterCard' => $kickCounterCard,

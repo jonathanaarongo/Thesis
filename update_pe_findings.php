@@ -9,7 +9,6 @@ if(isset($_POST['update'])){
     $chiefComplaint = $_POST['chiefComplaint'];
     $peFindings = $_POST['peFindings'];
     $diagnosis = $_POST['diagnosis'];
-    $nextAppt = $_POST['nextAppt'];
     $ref = $_POST['ref'];
     
     $data = [
@@ -20,8 +19,7 @@ if(isset($_POST['update'])){
         'reason' => $reason,
         'chiefComplaint' => $chiefComplaint,
         'peFindings' => $peFindings,
-        'diagnosis' => $diagnosis,
-        'nextAppt' => $nextAppt
+        'diagnosis' => $diagnosis
     ];
 
     $pushData = $database->getReference($ref)->update($data);

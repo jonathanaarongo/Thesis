@@ -1,9 +1,11 @@
-<?php session_start();
+<?php
+
+session_start();
 
 $_SESSION['user'] = 'obsample@gmail.com';
 ?>
 <!doctype html>
-<html lang="en">
+<html>
 
 <head>
   <meta charset="utf-8" />
@@ -24,6 +26,21 @@ $_SESSION['user'] = 'obsample@gmail.com';
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="assets/demo/demo.css" rel="stylesheet" />
   <link rel="stylesheet" type="text/css" href="style.css">
+
+  <style>
+    #alert_popover {
+      display: block;
+      position: absolute;
+      bottom: 50px;
+      right: 50px;
+    }
+
+    .alert_default {
+      color: black;
+      background-color: #ffcccb;
+      border-color: black;
+    }
+  </style>
 </head>
 
 <body>
@@ -36,7 +53,7 @@ $_SESSION['user'] = 'obsample@gmail.com';
   -->
       <div class="logo">
         <a href="http://www.creative-tim.com" class="simple-text logo-mini">
-          <?php echo $_SESSION['user'];?>
+          <?php echo $_SESSION['user']; ?>
         </a>
       </div>
       <div class="sidebar-wrapper">
@@ -85,6 +102,11 @@ $_SESSION['user'] = 'obsample@gmail.com';
           </li>
           <!-- your sidebar here -->
         </ul>
+        <div id="alert_popover">
+            <div class="cont">
+
+            </div>
+        </div>
       </div>
     </div>
     <div class="main-panel">
@@ -108,71 +130,73 @@ $_SESSION['user'] = 'obsample@gmail.com';
               </span>
             </div>
           </div>
-          <div class="col-md-12">
-            <div class="card">
-              <div class="card-header card-header-primary">
-                <h3 class="card-title">Patient List</h3>
-              </div>
-
-              <div class="card-body">
-
-                <div class="table-responsive text-nowrap">
-                  <!--Table-->
-                  <table class="table table-striped table-bordered">
-
-                    <!--Table head-->
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Patient Status</th>
-                        <th>Patient Condition</th>
-                        <th>Contact Number</th>
-                        <th>Email</th>
-                        <th>First Day Menstrual</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <!--Table head-->
-
-                    <!--Table body-->
-                    <tbody>
-                      <?php
-                      include("includes/db.php");
-                      $ref = "patientdata";
-                      $data = $database->getReference($ref)->getValue();
-                      $i = 0;
-                      foreach ($data as $key=> $data1) {
-                        if ($_SESSION['user'] == $data1['ob']) {
-                          $i++;
-                          ?>
-                          <tr>
-                            <th scope="row"><?php echo $i; ?></th>
-                            <td><?php echo $data1['f_name']; ?></td>
-                            <td><?php echo $data1['l_name']; ?></td>
-                            <td><?php echo $data1['patType']; ?></td>
-                            <td><?php echo $data1['status']; ?></td>
-                            <td><?php echo $data1['contactNo']; ?></td>
-                            <td><?php echo $data1['email']; ?></td>
-                            <td><?php echo $data1['fdaymens']; ?></td>
-                            <td>
-                              <a type="button" class="btn btn-success" href="patientProfile.php?key=<?php echo $key; ?>"><i class="fa fa-eye"></i> View</a>
-                              <a type="button" class="btn btn-danger" href="update_data.php?key=<?php echo $key; ?>"><i class="fa fa-trash"></i> Delete</a>
-                            </td>
-                          </tr>
-                      <?php
-                        }
-                      }
-                      ?>
-                    </tbody>
-                    <!--Table body-->
-
-
-                  </table>
-                  <!--Table-->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h3 class="card-title">Patient List</h3>
                 </div>
 
+                <div class="card-body">
+
+                  <div class="table-responsive text-nowrap">
+                    <!--Table-->
+                    <table class="table table-striped table-bordered">
+
+                      <!--Table head-->
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>First Name</th>
+                          <th>Last Name</th>
+                          <th>Patient Status</th>
+                          <th>Patient Condition</th>
+                          <th>Contact Number</th>
+                          <th>Email</th>
+                          <th>First Day Menstrual</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <!--Table head-->
+
+                      <!--Table body-->
+                      <tbody>
+                        <?php
+                        include("includes/db.php");
+                        $ref = "patientdata";
+                        $data = $database->getReference($ref)->getValue();
+                        $i = 0;
+                        foreach ($data as $key => $data1) {
+                          if ($_SESSION['user'] == $data1['ob']) {
+                            $i++;
+                            ?>
+                            <tr>
+                              <th scope="row"><?php echo $i; ?></th>
+                              <td><?php echo $data1['f_name']; ?></td>
+                              <td><?php echo $data1['l_name']; ?></td>
+                              <td><?php echo $data1['patType']; ?></td>
+                              <td><?php echo $data1['status']; ?></td>
+                              <td><?php echo $data1['contactNo']; ?></td>
+                              <td><?php echo $data1['email']; ?></td>
+                              <td><?php echo $data1['fdaymens']; ?></td>
+                              <td>
+                                <a type="button" class="btn btn-success" href="patientProfile.php?key=<?php echo $key; ?>"><i class="fa fa-eye"></i> View</a>
+                                <a type="button" class="btn btn-danger" href="update_data.php?key=<?php echo $key; ?>"><i class="fa fa-trash"></i> Delete</a>
+                              </td>
+                            </tr>
+                        <?php
+                          }
+                        }
+                        ?>
+                      </tbody>
+                      <!--Table body-->
+
+
+                    </table>
+                    <!--Table-->
+                  </div>
+
+                </div>
               </div>
             </div>
           </div>
@@ -180,6 +204,7 @@ $_SESSION['user'] = 'obsample@gmail.com';
             <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
             </dir-pagination-controls>
           </div>
+
         </div>
 
 
@@ -196,6 +221,7 @@ $_SESSION['user'] = 'obsample@gmail.com';
             </li>
           </ul>
         </nav>
+
         <div class="copyright float-right">
           &copy;
           <script>
@@ -218,3 +244,22 @@ $_SESSION['user'] = 'obsample@gmail.com';
 </body>
 
 </html>
+
+<script>
+  $(document).ready(function() {
+
+    setInterval(function() {
+      load_last_notification();
+    }, 5000);
+
+    function load_last_notification() {
+      $.ajax({
+        url: "notification.php",
+        method: "POST",
+        success: function(data) {
+          $('.cont').html(data);
+        }
+      })
+    }
+  });
+</script>

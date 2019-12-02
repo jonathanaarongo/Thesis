@@ -12,7 +12,6 @@ if(isset($_POST['push'])){
     $chiefComplaint = $_POST['chiefComplaint'];
     $peFindings = $_POST['peFindings'];
     $diagnosis = $_POST['diagnosis'];
-    $nextAppt = $_POST['nextAppt'];
     $choose = $_POST['choose'];
     $prescription = "";
     $referral = "";
@@ -27,7 +26,6 @@ if(isset($_POST['push'])){
         'chiefComplaint' => $chiefComplaint,
         'peFindings' => $peFindings,
         'diagnosis' => $diagnosis,
-        'nextAppt' => $nextAppt,
         'choose' => $choose,
         'prescription' => $prescription,
         'referral' => $referral
@@ -50,7 +48,6 @@ else{
     $chiefComplaint = $_POST['chiefComplaint'];
     $peFindings = $_POST['peFindings'];
     $diagnosis = $_POST['diagnosis'];
-    $nextAppt = $_POST['nextAppt'];
     $choose = $_POST['choose'];
     $prescription = "";
     $referral = "";
@@ -64,7 +61,6 @@ else{
         'chiefComplaint' => $chiefComplaint,
         'peFindings' => $peFindings,
         'diagnosis' => $diagnosis,
-        'nextAppt' => $nextAppt,
         'choose' => $choose,
         'prescription' => $prescription,
         'referral' => $referral

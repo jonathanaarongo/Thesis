@@ -187,6 +187,11 @@
                         <textarea class="form-control" id="prescription" name="prescription" rows="3"></textarea>
                       </div>
 
+                      <div class="col-md-2">
+                        <label for="date">Number of days to take:</label>
+                        <input type="number" class="form-control" id="days" name="days">
+                      </div>
+                      *Note: An appointment will automatically set 2 days after the number of days the patient will take
                       <input type="hidden" name="ref" value="pefindings/<?php echo $consultKey; ?>">
                       <!-- Grid row -->
                       <input type="submit" class="btn btn-primary btn-md" style="display: inline-block" id="updateReferral" name="push" value="Finish">

@@ -17,7 +17,7 @@
 $_SESSION['user'] = 'obsample@gmail.com';
 ?>
 <!DOCTYPE html>
-<html lang="en" ng-app="app">
+<html lang="en">
 
 <head>
   <meta charset="utf-8" />
@@ -36,9 +36,25 @@ $_SESSION['user'] = 'obsample@gmail.com';
   <link href="../assets/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <style>
+    #alert_popover {
+      display: block;
+      position: absolute;
+      bottom: 50px;
+      right: 50px;
+    }
+
+    .alert_default {
+      color: black;
+      background-color: #ffcccb;
+      border-color: black;
+    }
+  </style>
 </head>
 
-<body class="" ng-controller="patientdata" ng-init="fetchHighRiskPatients()">
+<body>
   <div class="wrapper">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar.png">
       <!--
@@ -97,6 +113,11 @@ $_SESSION['user'] = 'obsample@gmail.com';
           </li>
           <!-- your sidebar here -->
         </ul>
+        <div id="alert_popover">
+          <div class="cont">
+
+          </div>
+        </div>
       </div>
     </div>
     <div class="main-panel">
@@ -122,7 +143,7 @@ $_SESSION['user'] = 'obsample@gmail.com';
                 </button>
               </div>
             </form>
-            <ul class="navbar-nav">
+            <nav class="navbar-nav">
               <li class="nav-item">
                 <a class="nav-link" href="#pablo">
                   <i class="material-icons">dashboard</i>
@@ -132,19 +153,87 @@ $_SESSION['user'] = 'obsample@gmail.com';
                 </a>
               </li>
               <li class="nav-item dropdown">
+                <?php
+                include("includes/db.php");
+                $ref = "BabyMeasurementAdd";
+                $data = $database->getReference($ref)->getValue();
+                $count = 0;
+                foreach ($data as $key => $data1) {
+                  if ($data1['comment_status'] == 0) {
+                    $count++;
+                  }
+                }
+                $ref = "WeightAdd";
+                $data = $database->getReference($ref)->getValue();
+                foreach ($data as $key => $data1) {
+                  if ($data1['comment_status'] == 0) {
+                    $count++;
+                  }
+                }
+                $ref = "BloodSugarAdd";
+                $data = $database->getReference($ref)->getValue();
+                foreach ($data as $key => $data1) {
+                  if ($data1['comment_status'] == 0) {
+                    $count++;
+                  }
+                }
+                $ref = "BloodPressureAdd";
+                $data = $database->getReference($ref)->getValue();
+                foreach ($data as $key => $data1) {
+                  if ($data1['comment_status'] == 0) {
+                    $count++;
+                  }
+                }
+                ?>
+
                 <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons">notifications</i>
-                  <span class="notification">5</span>
+                  <span class="notification"><?php echo $count ?></span>
                   <p class="d-lg-none d-md-block">
                     Some Actions
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="#">Mike John responded to your email</a>
-                  <a class="dropdown-item" href="#">You have 5 new tasks</a>
-                  <a class="dropdown-item" href="#">You're now friend with Andrew</a>
-                  <a class="dropdown-item" href="#">Another Notification</a>
-                  <a class="dropdown-item" href="#">Another One</a>
+                  <?php
+                  include("includes/db.php");
+                  $ref = "BabyMeasurementAdd";
+                  $data = $database->getReference($ref)->orderByKey()->limitToLast(2)->getSnapshot()->getValue();
+                  foreach ($data as $key => $data1) {
+                    ?>
+                    <a class="dropdown-item" href="#">Patient <?php echo $data1['usermail']; ?> has reached a waist line of <br><?php echo $data1['measureField']; ?> cm</a>
+                  <?php
+                  }
+                  ?>
+                  <?php
+                  include("includes/db.php");
+                  $ref = "BloodSugarAdd";
+                  $data = $database->getReference($ref)->orderByKey()->limitToLast(2)->getSnapshot()->getValue();
+                  foreach ($data as $key => $data1) {
+                    ?>
+                    <a class="dropdown-item" href="#">Patient <?php echo $data1['usermail']; ?> has reached a blood sugar level of <br><?php echo $data1['bsField']; ?></a>
+                  <?php
+                  }
+                  ?>
+                  <?php
+                  include("includes/db.php");
+                  $ref = "BloodPressureAdd";
+                  $data = $database->getReference($ref)->orderByKey()->limitToLast(2)->getSnapshot()->getValue();
+                  foreach ($data as $key => $data1) {
+                    ?>
+                    <a class="dropdown-item" href="#">Patient <?php echo $data1['usermail']; ?> has reached a blood pressure of <br><?php echo $data1['systolic']; ?></a>
+                  <?php
+                  }
+                  ?>
+                  <?php
+                  include("includes/db.php");
+                  $ref = "WeightAdd";
+                  $data = $database->getReference($ref)->orderByKey()->limitToLast(2)->getSnapshot()->getValue();
+                  foreach ($data as $key => $data1) {
+                    ?>
+                    <a class="dropdown-item" href="#">Patient <?php echo $data1['usermail']; ?> has reached a weight of <br><?php echo $data1['weight']; ?> pounds</a>
+                  <?php
+                  }
+                  ?>
                 </div>
               </li>
               <li class="nav-item dropdown">
@@ -161,7 +250,7 @@ $_SESSION['user'] = 'obsample@gmail.com';
                   <a class="dropdown-item" href="#">Log out</a>
                 </div>
               </li>
-            </ul>
+            </nav>
           </div>
         </div>
       </nav>
@@ -221,16 +310,16 @@ $_SESSION['user'] = 'obsample@gmail.com';
               </div>
             </div>
             <?php
-                      include("includes/db.php");
-                      $ref = "questions";
-                      $data = $database->getReference($ref)->getValue();
-                      $i = 0;
-                      foreach ($data as $key => $data1) {
-                        if ($_SESSION['user'] == $data1['ob'] && $data1['answer'] == "") {
-                          $i++;
-                        }
-                      }
-                      ?>  
+            include("includes/db.php");
+            $ref = "questions";
+            $data = $database->getReference($ref)->getValue();
+            $i = 0;
+            foreach ($data as $key => $data1) {
+              if ($_SESSION['user'] == $data1['ob'] && $data1['answer'] == "") {
+                $i++;
+              }
+            }
+            ?>
             <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="card card-stats">
                 <div class="card-header card-header-info card-header-icon">
@@ -238,11 +327,11 @@ $_SESSION['user'] = 'obsample@gmail.com';
                     <i class="fa fa-question"></i>
                   </div>
                   <p class="card-category"><a href="patientInquiries.php">Unanswered Questions</a></p>
-                  <h3 class="card-title"><?php echo $i;?></h3>
+                  <h3 class="card-title"><?php echo $i; ?></h3>
                 </div>
                 <div class="card-footer">
                   <div class="stats">
-                    
+
                   </div>
                 </div>
               </div>
@@ -301,7 +390,7 @@ $_SESSION['user'] = 'obsample@gmail.com';
               <div class="card">
                 <div class="card-header card-header-warning">
                   <h4 class="card-title">Nearby Appointments</h4>
-                  <p class="card-category">Incoming appointments as of <?php echo date("Y-m-d");?></p>
+                  <p class="card-category">Incoming appointments as of <?php echo date("Y-m-d"); ?></p>
                 </div>
                 <div class="card-body table-responsive">
                   <table class="table table-striped table-bordered">
@@ -309,14 +398,14 @@ $_SESSION['user'] = 'obsample@gmail.com';
                     <!--Table head-->
                     <thead>
                       <tr>
-                      <th>Email</th>
+                        <th>Email</th>
                         <th>Appointment Date</th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <!--Table head-->
                     <tbody>
-                    <?php
+                      <?php
                       include("includes/db.php");
                       $ref = "appointments";
                       $data = $database->getReference($ref)->getValue();
@@ -644,6 +733,7 @@ $_SESSION['user'] = 'obsample@gmail.com';
               </div>
             </div>
           </div>
+
         </div>
       </div>
       <footer class="footer">
@@ -679,6 +769,7 @@ $_SESSION['user'] = 'obsample@gmail.com';
             </script>, made with <i class="material-icons">favorite</i> by
             <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
           </div>
+
         </div>
       </footer>
     </div>
@@ -798,6 +889,21 @@ $_SESSION['user'] = 'obsample@gmail.com';
   <script src="../assets/demo/demo.js"></script>
   <script>
     $(document).ready(function() {
+
+      setInterval(function() {
+      load_last_notification();
+    }, 5000);
+
+    function load_last_notification() {
+      $.ajax({
+        url: "notification.php",
+        method: "POST",
+        success: function(data) {
+          $('.cont').html(data);
+        }
+      })
+    }
+
       $().ready(function() {
         $sidebar = $('.sidebar');
 

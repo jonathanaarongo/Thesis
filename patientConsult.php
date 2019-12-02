@@ -147,7 +147,6 @@
                                                     <th>Chief Complaint</th>
                                                     <th>Date</th>
                                                     <th>Time</th>
-                                                    <th>Next Appointment</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -169,7 +168,6 @@
                                                             <td><?php echo $data1['chiefComplaint']; ?></td>
                                                             <td><?php echo $data1['date']; ?></td>
                                                             <td><?php echo $data1['time']; ?></td>
-                                                            <td><?php echo $data1['nextAppt']; ?></td>
                                                             <td>
                                                                 <a type="button" class="btn btn-primary" href="showpatientfindings.php?key=<?php echo $key; ?>">View</a>
                                                                 <a type="button" class="btn btn-danger" href="update_data.php?key=<?php ?>">Delete</a>

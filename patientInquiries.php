@@ -95,7 +95,10 @@
       <!-- End Navbar -->
 
       <div class="content">
-        <?php echo date("Y-m-d", strtotime("+40 weeks"));?>
+        <?php
+        $i = 40;
+        $date = "2019-11-06";
+        echo date("Y-m-d", strtotime($date. " +".$i. " weeks"));;?>
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
@@ -118,6 +121,7 @@
                     <!--Table head-->
                     <thead>
                       <tr>
+                        <th>Date and Time</th>
                         <th>Patient</th>
                         <th>Question</th>
                         <th>Answer</th>
@@ -130,7 +134,7 @@
                     <tbody>
                       <?php
                       include("includes/db.php");
-                      $ref = "questions";
+                      $ref = "AskAdd";
                       $data = $database->getReference($ref)->getValue();
                       $i = 0;
                       foreach ($data as $key => $data1) {
@@ -138,7 +142,8 @@
                           $i++;
                           ?>
                           <tr>
-                            <td><?php echo $data1['email']; ?></td>
+                            <td><?php echo $data1['date']. ' '. $data1['time']; ?></td>
+                            <td><?php echo $data1['usermail']; ?></td>
                             <td><?php echo $data1['question']; ?></td>
                             <td><?php echo $data1['answer']; ?></td>
                             <td>

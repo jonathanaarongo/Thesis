@@ -5,6 +5,8 @@ require __DIR__.'/vendor/autoload.php';
 
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\ServiceAccount;
+use Kreait\Firebase\Firebase;
+use Kreait\Firebase\Query;
 
 // This assumes that you have placed the Firebase credentials in the same directory
 // as this PHP file.
@@ -23,6 +25,8 @@ $firebase = (new Factory)
     // make sure to replace the URL with the URL of your project.
     ->withDatabaseUri('https://thesisdb-fe122.firebaseio.com/')
     ->create();
+
+
 
 $database = $firebase->getDatabase();
 

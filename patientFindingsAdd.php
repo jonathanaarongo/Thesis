@@ -186,10 +186,6 @@
                         <input type="date" class="form-control" id="date" name="date" value="<?php date_default_timezone_set('Asia/Manila');
                                                                                               echo date("Y-m-d"); ?>">
                       </div>
-                      <div class="col-md-6">
-                        <label for="nextAppt">Next Appointment</label>
-                        <input type="date" class="form-control" id="nextAppt" name="nextAppt">
-                      </div>
                       <!-- Default input -->
                       <div class="col-md-12">
                         <label for="adress">Reason for Visit</label>

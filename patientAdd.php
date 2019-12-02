@@ -213,22 +213,25 @@
                       </div>
                       <!-- Default input -->
                       <div class="col-md-4">
-                        <label for="lastVisited">Last Visited</label>
-                        <input type="date" class="form-control" id="lastVisited" name="lastVisited" value="<?php date_default_timezone_set('Asia/Manila');
-                                                                                                            echo date("Y-m-d"); ?>">
+                        <label for="occupation">Occupation</label>
+                        <input type="text" class="form-control" id="occupation" name="occupation">
                       </div>
 
                       <!-- Grid row-->
                       <!-- Default input -->
-                      <div class="col-md-6">
+                      <div class="col-md-4">
                         <label for="email">Email Address</label>
                         <input type="email" class="form-control" id="email" name="email">
                       </div>
-                      <!-- Default input -->
-                      <div class="col-md-6">
-                        <label for="occupation">Occupation</label>
-                        <input type="text" class="form-control" id="occupation" name="occupation">
+                      <div class="col-md-4">
+                        <label for="passW">Password</label>
+                        <input type="password" class="form-control" id="password" name="password">
                       </div>
+                      <div class="col-md-4">
+                        <label for="conpass">Confirm Password</label>
+                        <input type="password" class="form-control" id="conpass" name="conpass">
+                      </div>
+
 
 
                       <!-- Grid row-->

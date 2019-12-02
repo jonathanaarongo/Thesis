@@ -11,10 +11,11 @@ if(isset($_POST['update'])){
     $familyHistory = $_POST['familyHistory'];
     $fdaymens = $_POST['fdaymens'];
     $l_name = $_POST['l_name'];
-    $lastVisited= $_POST['lastVisited'];
     $medicalHistory = $_POST['medicalHistory'];
     $occupation = $_POST['occupation'];
     $patType = $_POST['patType'];
+    $passW = password_hash($_POST['passW'], PASSWORD_DEFAULT);
+    $conpass = password_hash($_POST['conpass'], PASSWORD_DEFAULT);
     $status = $_POST['status'];
     $ref = $_POST['ref'];
     if (isset($_POST['conCounterCard'])){
@@ -67,6 +68,8 @@ if(isset($_POST['update'])){
         'medicalHistory' => $medicalHistory,
         'occupation' => $occupation,
         'patType' => $patType,
+        'passW' => $passW,
+        'conpass' => $conpass,
         'status' => $status,
         'conCounterCard' => $conCounterCard,
         'kickCounterCard' => $kickCounterCard,
