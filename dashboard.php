@@ -13,7 +13,7 @@
 
  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
 <?php session_start();
-
+date_default_timezone_set('Asia/Manila');
 $_SESSION['user'] = 'obsample@gmail.com';
 ?>
 <!DOCTYPE html>

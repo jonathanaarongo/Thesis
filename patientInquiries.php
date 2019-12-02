@@ -1,4 +1,5 @@
-<?php session_start();?>
+<?php session_start();
+date_default_timezone_set('Asia/Manila');?>
 <!doctype html>
 <html lang="en">
 
@@ -123,6 +124,7 @@
                       <tr>
                         <th>Date and Time</th>
                         <th>Patient</th>
+                        <th>Subject</th>
                         <th>Question</th>
                         <th>Answer</th>
                         <th>Action</th>
@@ -138,12 +140,13 @@
                       $data = $database->getReference($ref)->getValue();
                       $i = 0;
                       foreach ($data as $key => $data1) {
-                        if ($_SESSION['user'] == $data1['ob']) {
+                        if ($_SESSION['user'] == $data1['ob'] && $data1['answer'] == "") {
                           $i++;
                           ?>
                           <tr>
                             <td><?php echo $data1['date']. ' '. $data1['time']; ?></td>
                             <td><?php echo $data1['usermail']; ?></td>
+                            <td><?php echo $data1['subject']; ?></td>
                             <td><?php echo $data1['question']; ?></td>
                             <td><?php echo $data1['answer']; ?></td>
                             <td>

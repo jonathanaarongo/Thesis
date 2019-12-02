@@ -1,4 +1,5 @@
-<?php session_start(); ?>
+<?php session_start(); 
+date_default_timezone_set('Asia/Manila');?>
 <!doctype html>
 <html lang="en">
 

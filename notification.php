@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('Asia/Manila');
 //NOTIFICATION FOR WEIGHT
 include("includes/db.php");
 $ref = "WeightAdd";
@@ -111,14 +112,16 @@ foreach ($data as $key => $data1) {
         if ($startdate == $newDate) {
             array_push($kickarray, $data1['kick']);
         } else {
-            ?>
-            <div class="alert alert_default">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <p><strong>Patient with email <?php echo $data1["usermail"]; ?></strong>
-                    <small><em>has only received <?php array_sum($kickarray); ?> kicks today. </em></small>
-                </p>
-            </div>
+            if (array_sum($kickarray) <= 9) {
+                ?>
+                <div class="alert alert_default">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <p><strong>Patient with email <?php echo $data1["usermail"]; ?></strong>
+                        <small><em>has only received <?php array_sum($kickarray); ?> kicks today. </em></small>
+                    </p>
+                </div>
     <?php
+                }
                 $kickarray = array();
                 $timearray = array();
                 array_push($kickarray, $data1['kick']);
@@ -131,7 +134,7 @@ foreach ($data as $key => $data1) {
 
         $pushData = $database->getReference("KickAdd/" . $key)->update($data);
     }
-    if (array_sum($kickarray) <= 9) {
+    if (array_sum($kickarray) <= 9 && $startdate > date("Y-m-d")) {
         ?>
     <div class="alert alert_default">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -140,6 +143,11 @@ foreach ($data as $key => $data1) {
         </p>
     </div>
 <?php
+    $data = [
+        'comment_status' => 1
+    ];
+
+    $pushData = $database->getReference("KickAdd/" . $key)->update($data);
 }
 ?>
 
@@ -152,7 +160,7 @@ $data = $database->getReference($ref)->getValue();
 $output = '';
 foreach ($data as $key => $data1) {
     if ($data1['comment_status'] == 0 && $data1['sendBy'] == "patient") {
-        if(date("Y-m-d") == date("Y-m-d", strtotime($data1['date']. " -3 days")) || date("Y-m-d") == date("Y-m-d", strtotime($data1['date']. " -2 days")) || date("Y-m-d") == date("Y-m-d", strtotime($data1['date']. " -1 days"))){
+        if (date("Y-m-d") == date("Y-m-d", strtotime($data1['date'] . " -3 days")) || date("Y-m-d") == date("Y-m-d", strtotime($data1['date'] . " -2 days")) || date("Y-m-d") == date("Y-m-d", strtotime($data1['date'] . " -1 days"))) {
             ?>
             <div class="alert alert_default">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -160,10 +168,10 @@ foreach ($data as $key => $data1) {
                     <small><em>has a nearby appointment on <?php echo $data1["date"]; ?> </em></small>
                 </p>
             </div>
-            <?php
-        }
-        if ($data1['status'] == "Pending") {
-            ?>
+        <?php
+                }
+                if ($data1['status'] == "Pending") {
+                    ?>
             <div class="alert alert_default">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 <p><strong>Patient with email <?php echo $data1["usermail"]; ?></strong>
