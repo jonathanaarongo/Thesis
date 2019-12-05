@@ -5,6 +5,7 @@ include("includes/db.php");
 
 if(isset($_POST['update'])){
     $address = $_POST['address'];
+    $bday = $_POST['birthday'];
     $contactNo = $_POST['contactNo'];
     $dateAdded = $_POST['dateAdded'];
     $email = $_POST['email'];
@@ -13,6 +14,7 @@ if(isset($_POST['update'])){
     $fdaymens = $_POST['fdaymens'];
     $l_name = $_POST['l_name'];
     $medicalHistory = $_POST['medicalHistory'];
+    $noOfBaby = $_POST['noOfBaby'];
     $occupation = $_POST['occupation'];
     $patType = $_POST['patType'];
     $passW = password_hash($_POST['passW'], PASSWORD_DEFAULT);
@@ -58,6 +60,7 @@ if(isset($_POST['update'])){
 
     $data = [
         'address' => $address,
+        'bday' => $bday,
         'contactNo' => $contactNo,
         'dateAdded' => $dateAdded,
         'email' => $email,
@@ -67,6 +70,7 @@ if(isset($_POST['update'])){
         'l_name' => $l_name,
         'lastVisited' => $lastVisited,
         'medicalHistory' => $medicalHistory,
+        'noOfBaby' => $noOfBaby,
         'occupation' => $occupation,
         'patType' => $patType,
         'passW' => $passW,

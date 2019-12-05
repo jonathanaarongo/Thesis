@@ -22,6 +22,7 @@ foreach ($data as $key => $data1) {
         $email = $data1['email'];
         $l_name = $data1['l_name'];
         $medicalHistory = $data1['medicalHistory'];
+        $noOfBaby = $data1['noOfBaby'];
         $occupation = $data1['occupation'];
         $patType = $data1['patType'];
         $status = $data1['status'];
@@ -592,15 +593,57 @@ foreach ($data as $key => $data1) {
                                                     <label for="contactNo">Contact Number</label>
                                                     <input type="text" class="form-control" id="contactNo" name="contactNo" value="<?php echo $contactNo ?>">
                                                 </div>
-                                                <!-- Default input -->
+
                                                 <div class="col-md-4">
                                                     <label for="patType">Patient Type</label>
-                                                    <input type="text" class="form-control" id="patType" name="patType" value="<?php echo $patType ?>">
+                                                    <select name="patType" class="form-control">
+                                                        <?php if ($patType == "Normal") {
+                                                            ?>
+                                                            <option value="Normal">Normal</option>
+                                                            <option value="High Risk Patient">High Risk Patient</option>
+                                                        <?php
+                                                        } else {  ?>
+                                                            <option value="Normal">Normal</option>
+                                                            <option value="High Risk Patient">High Risk Patient</option>
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                    </select>
                                                 </div>
                                                 <!-- Default input -->
                                                 <div class="col-md-4">
-                                                    <label for="status">Patient Status</label>
-                                                    <input type="text" class="form-control" id="status" name="status" value="<?php echo $status ?>">
+                                                    <label for="status">Patient Condition</label>
+                                                    <select name="status" class="form-control">
+                                                        <?php if ($status == "Normal") {
+                                                            ?>
+                                                            <option value="Normal">Normal</option>
+                                                            <option value="Gestational Diabetes">Gestational Diabetes</option>
+                                                            <option value="Gestational Hypertension">Gestational Hypertension</option>
+                                                            <option value="Others">Others</option>
+                                                        <?php
+                                                        } else if ($status == "Gestational Diabetes") {
+                                                            ?>
+                                                            <option value="Gestational Diabetes">Gestational Diabetes</option>
+                                                            <option value="Normal">Normal</option>
+                                                            <option value="Gestational Hypertension">Gestational Hypertension</option>
+                                                            <option value="Others">Others</option>
+                                                        <?php
+                                                        } else if ($status == "Gestational Hypertension") {
+                                                            ?>
+                                                            <option value="Gestational Hypertension">Gestational Hypertension</option>
+                                                            <option value="Normal">Normal</option>
+                                                            <option value="Gestational Diabetes">Gestational Diabetes</option>
+                                                            <option value="Others">Others</option>
+                                                        <?php
+                                                        } else {
+                                                            ?>
+                                                            <option value="Others">Others</option>
+                                                            <option value="Normal">Normal</option>
+                                                            <option value="Gestational Diabetes">Gestational Diabetes</option>
+                                                            <option value="Gestational Hypertension">Gestational Hypertension</option>
+                                                        <?php
+                                                        } ?>
+                                                    </select>
                                                 </div>
 
                                                 <!-- Grid row-->
@@ -630,7 +673,7 @@ foreach ($data as $key => $data1) {
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label for="passW">Password</label>
-                                                    <input type="password" class="form-control" id="password" name="password" value="<?php  echo $_SESSION['passW']; ?>">
+                                                    <input type="password" class="form-control" id="password" name="password" value="<?php echo $_SESSION['passW']; ?>">
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label for="conpass">Confirm Password</label>
@@ -651,8 +694,13 @@ foreach ($data as $key => $data1) {
                                                     <textarea class="form-control" id="familyHistory" name="familyHistory" rows="3"><?php echo $familyHistory ?></textarea>
                                                 </div>
 
-                                                <h3>Assign What to Monitor</h3><br>
+                                                <div class="col-md-1">
+                                                    <label for="noOfBaby">Number of Babies</label>
+                                                    <input type="number" class="form-control" id="noOfBaby" name="noOfBaby" value="<?php echo $noOfBaby; ?>">
+                                                </div>
+
                                                 <div class="col-md-12">
+                                                    <h3>Assign What to Monitor</h3><br>
                                                     <input type="checkbox" id="conCounterCard" name="conCounterCard" <?php if ($conCounterCard == "true") echo "checked"; ?>> Contraction Counter<br>
                                                     <input type="checkbox" id="kickCounterCard" name="kickCounterCard" <?php if ($kickCounterCard == "true") echo "checked"; ?>> Kick Counter <br>
                                                     <input type="checkbox" id="weightCard" name="weightCard" <?php if ($weightCard == "true") echo "checked"; ?>> Weight<br>

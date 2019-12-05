@@ -181,7 +181,12 @@ date_default_timezone_set('Asia/Manila');?>
           $chiefComplaint = $data1['chiefComplaint'];
           $peFindings = $data1['peFindings'];
           $diagnosis = $data1['diagnosis'];
-          $nextAppt = $data1['nextAppt'];
+          if(!isset($data1['nextAppt'])){
+            $nextAppt = "";
+          }
+          else{
+            $nextAppt = $data1['nextAppt'];
+          }
           $pres = $data1['prescription'];
         }
       }
@@ -207,6 +212,10 @@ date_default_timezone_set('Asia/Manila');?>
                       <div class="col-md-6">
                         <label for="date">Date Added</label>
                         <input type="date" class="form-control" id="date" name="date" value="<?php echo $date ?>">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="nextAppt">Next Appointment</label>
+                        <input type="date" class="form-control" id="date" name="date" value="<?php echo $nextAppt ?>">
                       </div>
                       <!-- Default input -->
                       <div class="col-md-12">

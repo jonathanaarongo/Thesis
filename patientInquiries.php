@@ -99,7 +99,7 @@ date_default_timezone_set('Asia/Manila');?>
         <?php
         $i = 40;
         $date = "2019-11-06";
-        echo date("Y-m-d", strtotime($date. " +".$i. " weeks"));;?>
+        echo date("Y-m-d", strtotime($date. " +".$i. " weeks"));?>
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">

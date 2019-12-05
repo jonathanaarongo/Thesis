@@ -6,6 +6,7 @@ include("includes/db.php");
 if(isset($_POST['push'])){
     $ob = $_SESSION['user'];
     $address = $_POST['address'];
+    $bday = $_POST['birthday'];
     $contactNo = $_POST['contactNo'];
     $dateAdded = $_POST['dateAdded'];
     $email = $_POST['email'];
@@ -14,6 +15,7 @@ if(isset($_POST['push'])){
     $fdaymens = $_POST['fdaymens'];
     $l_name = $_POST['l_name'];
     $medicalHistory = $_POST['medicalHistory'];
+    $noOfBaby = $_POST['noOfBaby'];
     $occupation = $_POST['occupation'];
     $patType = $_POST['patType'];
     $passW = password_hash($_POST['passW'], PASSWORD_DEFAULT);
@@ -59,6 +61,7 @@ if(isset($_POST['push'])){
     $data = [
         'ob' => $ob,
         'address' => $address,
+        'bday' => $bday,
         'contactNo' => $contactNo,
         'dateAdded' => $dateAdded,
         'email' => $email,
@@ -68,6 +71,7 @@ if(isset($_POST['push'])){
         'l_name' => $l_name,
         'lastVisited' => $lastVisited,
         'medicalHistory' => $medicalHistory,
+        'noOfBaby' => $noOfBaby,
         'occupation' => $occupation,
         'patType' => $patType,
         'passW' => $passW,
@@ -83,11 +87,46 @@ if(isset($_POST['push'])){
     ];
     $ref = "patientdata/";
     $pushData = $database->getReference($ref)->push($data);
+
+    $date1 = date("Y-m-d", strtotime($fdaymens. " +27 weeks"));
+    $date2 = date("Y-m-d", strtotime($fdaymens. " +36 weeks"));
+    $immunName = "Tdap Vaccine";
+    $status = "Not done";
+    $recommend = "$date1 to $date2";
+
+    $data = [
+        'email' => $email,
+        'immunName' => $immunName,
+        'status' => $status,
+        'recommend' => $recommend
+    ];
+
+    $ref = "immunization/";
+    $pushData = $database->getReference($ref)->push($data);
+
+    $immunName = "Flu shot";
+    $status = "Not done";
+    $recommend = "November to March";
+
+    $data = [
+        'email' => $email,
+        'immunName' => $immunName,
+        'status' => $status,
+        'recommend' => $recommend
+    ];
+
+    $ref = "immunization/";
+    $pushData = $database->getReference($ref)->push($data);
+
     header("Location:viewPatientList.php");
+
+
+
 }
 else{
     $ob = $_SESSION['ob'];
     $address =$_SESSION['user'];
+    $bday = $_POST['birthday'];
     $contactNo = $_POST['contactNo'];
     $dateAdded = $_POST['dateAdded'];
     $email = $_POST['email'];
@@ -97,6 +136,7 @@ else{
     $l_name = $_POST['l_name'];
     $lastVisited= $_POST['lastVisited'];
     $medicalHistory = $_POST['medicalHistory'];
+    $noOfBaby = $_POST['noOfBaby'];
     $occupation = $_POST['occupation'];
     $patType = $_POST['patType'];
     $passW = password_hash($_POST['passW'], PASSWORD_DEFAULT);
@@ -142,6 +182,7 @@ else{
     $data = [
         'ob' => $ob,
         'address' => $address,
+        'bday' => $bday,
         'contactNo' => $contactNo,
         'dateAdded' => $dateAdded,
         'email' => $email,
@@ -151,6 +192,7 @@ else{
         'l_name' => $l_name,
         'lastVisited' => $lastVisited,
         'medicalHistory' => $medicalHistory,
+        'noOfBaby' => $noOfBaby,
         'occupation' => $occupation,
         'patType' => $patType,
         'passW' => $passW,
@@ -164,6 +206,36 @@ else{
         'bloodSugarCard' => $bloodSugarCard
     ];
     $ref = "patientdata/";
+    $pushData = $database->getReference($ref)->set($data);
+
+    $date1 = date("Y-m-d", strtotime($fdaymens. " +27 weeks"));
+    $date2 = date("Y-m-d", strtotime($fdaymens. " +36 weeks"));
+    $immunName = "Tdap Vaccine";
+    $status = "Not done";
+    $recommend = "$date1 to $date2";
+
+    $data = [
+        'email' => $email,
+        'immunName' => $immunName,
+        'status' => $status,
+        'recommend' => $recommend
+    ];
+
+    $ref = "immunization/";
+    $pushData = $database->getReference($ref)->set($data);
+
+    $immunName = "Flu shot";
+    $status = "Not done";
+    $recommend = "November to March";
+
+    $data = [
+        'email' => $email,
+        'immunName' => $immunName,
+        'status' => $status,
+        'recommend' => $recommend
+    ];
+
+    $ref = "immunization/";
     $pushData = $database->getReference($ref)->set($data);
 }
 

@@ -5,15 +5,16 @@ date_default_timezone_set('Asia/Manila');
 
 if(isset($_POST['push'])){
     $pres = $_POST['prescription'];
+    $days = $_POST['days'] + 2;
+    $date = date("m-d-Y", strtotime("+".$days. " days"));
     $ref = $_POST['ref'];
 
     $data = [
-        'prescription' => $pres
+        'prescription' => $pres,
+        'nextAppt' => $date
     ];
     $pushData = $database->getReference($ref)->update($data);
 
-    $days = $_POST['days'] + 2;
-    $date = date("m-d-Y", strtotime("+".$days. " days"));
     $ob = $_SESSION['user'];
     $reason = "Medication";
     $status = "Approved";

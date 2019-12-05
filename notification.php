@@ -1,4 +1,5 @@
 <?php
+session_start();
 date_default_timezone_set('Asia/Manila');
 //NOTIFICATION FOR WEIGHT
 include("includes/db.php");
@@ -57,18 +58,8 @@ $data = $database->getReference($ref)->getValue();
 $output = '';
 foreach ($data as $key => $data1) {
     if ($data1['comment_status'] == 0) {
-        if ($data1['systolic'] >= 130 && $data1['diastolic'] >= 89) {
+        if ($data1['systolic'] >= 130) {
             ?>
-            <div class="alert alert_default">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <p><strong>Patient with email <?php echo $data1["usermail"]; ?></strong>
-                    <small><em>has exceeded systolic limit with <?php echo $data1["systolic"]; ?> and</em></small>
-                    <small><em>has exceeded diastolic limit with <?php echo $data1["diastolic"]; ?> </em></small>
-                </p>
-            </div>
-        <?php
-                } else if ($data1['systolic'] >= 130) {
-                    ?>
             <div class="alert alert_default">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 <p><strong>Patient with email <?php echo $data1["usermail"]; ?></strong>
@@ -76,7 +67,8 @@ foreach ($data as $key => $data1) {
                 </p>
             </div>
         <?php
-                } else if ($data1['diastolic'] >= 89) {
+                }
+                if ($data1['diastolic'] >= 89) {
                     ?>
             <div class="alert alert_default">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -219,7 +211,7 @@ foreach ($data as $key => $data1) {
         <div class="alert alert_default">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <p><strong>Patient with email <?php echo $data1["usermail"]; ?></strong>
-                <small><em>has asked a question <?php echo $data1["question"]; ?> </em></small>
+                <small><em>has asked a question "<?php echo $data1["question"]; ?>" </em></small>
             </p>
         </div>
 <?php

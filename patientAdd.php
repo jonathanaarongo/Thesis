@@ -1,5 +1,5 @@
-<?php session_start(); 
-date_default_timezone_set('Asia/Manila');?>
+<?php session_start();
+date_default_timezone_set('Asia/Manila'); ?>
 <!doctype html>
 <html lang="en">
 
@@ -177,9 +177,13 @@ date_default_timezone_set('Asia/Manila');?>
                       </div>
 
                       <!-- Default input -->
-                      <div class="col-md-12">
+                      <div class="col-md-8">
                         <label for="adress">Address</label>
                         <input type="text" class="form-control" id="address" name="address">
+                      </div>
+                      <div class="col-md-4">
+                        <label for="occupation">Occupation</label>
+                        <input type="text" class="form-control" id="occupation" name="occupation">
                       </div>
                       <!-- Default input -->
                       <!-- Grid row-->
@@ -191,12 +195,20 @@ date_default_timezone_set('Asia/Manila');?>
                       <!-- Default input -->
                       <div class="col-md-4">
                         <label for="patType">Patient Type</label>
-                        <input type="text" class="form-control" id="patType" name="patType">
+                        <select name="patType" class="form-control">
+                          <option value="Normal">Normal</option>
+                          <option value="High Risk Patient">High Risk Patient</option>
+                        </select>
                       </div>
                       <!-- Default input -->
                       <div class="col-md-4">
-                        <label for="status">Patient Status</label>
-                        <input type="text" class="form-control" id="status" name="status">
+                        <label for="status">Patient Condition</label>
+                        <select name="status" class="form-control">
+                          <option value="Normal">Normal</option>
+                          <option value="Gestational Diabetes">Gestational Diabetes</option>
+                          <option value="Gestational Hypertension">Gestational Hypertension</option>
+                          <option value="Others">Others</option>
+                        </select>
                       </div>
 
                       <!-- Grid row-->
@@ -209,14 +221,16 @@ date_default_timezone_set('Asia/Manila');?>
                       </div>
                       <!-- Default input -->
                       <div class="col-md-4">
+                        <label for="birthday">Birthday</label>
+                        <input type="date" class="form-control" id="birthday" name="birthday">
+                      </div>
+                      <!-- Default input -->
+                      <div class="col-md-4">
                         <label for="fdaymens">First Day of Last Menstration</label>
                         <input type="date" class="form-control" id="fdaymens" name="fdaymens">
                       </div>
                       <!-- Default input -->
-                      <div class="col-md-4">
-                        <label for="occupation">Occupation</label>
-                        <input type="text" class="form-control" id="occupation" name="occupation">
-                      </div>
+
 
                       <!-- Grid row-->
                       <!-- Default input -->
@@ -245,6 +259,11 @@ date_default_timezone_set('Asia/Manila');?>
                       <div class="col-md-12">
                         <label for="familyHistory">Family History</label>
                         <textarea class="form-control" id="familyHistory" name="familyHistory" rows="3"></textarea>
+                      </div>
+
+                      <div class="col-md-1">
+                        <label for="noOfBaby">Number of Babies</label>
+                        <input type="number" class="form-control" id="noOfBaby" name="noOfBaby" value=0>
                       </div>
 
                       <h3>Assign What to Monitor</h3><br>

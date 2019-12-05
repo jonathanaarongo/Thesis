@@ -1,5 +1,22 @@
-<?php session_start(); 
-date_default_timezone_set('Asia/Manila');?>
+<?php session_start();
+date_default_timezone_set('Asia/Manila'); ?>
+<?php
+//getting id from url
+$patientKey = $_GET['key'];
+
+//selecting data associated with this particular id
+include("includes/db.php");
+$ref = "patientdata";
+$data = $database->getReference($ref)->getValue();
+foreach ($data as $key => $data1) {
+    if ($patientKey == $key) {
+        $f_name = $data1['f_name'];
+        $l_name = $data1['l_name'];
+        $email = $data1['email'];
+        $noOfBaby = $data1['noOfBaby'];
+    }
+}
+?>
 <!doctype html>
 <html lang="en">
 
@@ -109,7 +126,7 @@ date_default_timezone_set('Asia/Manila');?>
                 $i = 0;
                 foreach ($data as $key => $data1) {
 
-                    if ( $_SESSION['email'] == $data1['email']) {
+                    if ($_SESSION['email'] == $data1['email']) {
                         $i++;
                         ?>[new Date('<?php echo $data1['date']; ?>'), <?php echo $data1['waistSize']; ?>],
 
@@ -153,25 +170,39 @@ date_default_timezone_set('Asia/Manila');?>
 
             var data = new google.visualization.DataTable();
             data.addColumn('date', 'Date');
-            data.addColumn('number', 'Fetal Heart Tone');
+
+            <?php
+            $i = 0;
+            while ($i < $noOfBaby) {
+                $i++;
+                ?>
+                data.addColumn('number', 'Fetal Heart Tone <?php echo $i; ?>');
+            <?php
+            }
+            ?>
 
             data.addRows([
                 <?php
-                //getting id from url
-                $patientKey = $_GET['key'];
-
-                //selecting data associated with this particular id
                 include("includes/db.php");
                 $ref = "vitals";
                 $data = $database->getReference($ref)->getValue();
-                $i = 0;
                 foreach ($data as $key => $data1) {
-
-                    if ($_SESSION['email'] == $data1['email']) {
-                        $i++;
-                        ?>[new Date('<?php echo $data1['date']; ?>'), <?php echo $data1['fetalHeartTone']; ?>],
-
+                    if ($email == $data1['email']) {
+                        $i = 0;
+                        while ($i < $noOfBaby) {
+                            $i++;
+                            $n = 0;
+                            ?>[new Date('<?php echo $data1['date']; ?>'),
+                                <?php while ($n < $noOfBaby) {
+                                                $n++;
+                                                if (!isset($data1['fetalHeartTone' . $n])) {
+                                                    echo 0 . ',';
+                                                } else {
+                                                    echo $data1['fetalHeartTone' . $n] . ',';
+                                                }
+                                            } ?>],
                 <?php
+                        }
                     }
                 }
                 ?>
@@ -200,8 +231,8 @@ date_default_timezone_set('Asia/Manila');?>
             chart.draw(data, options);
         }
     </script>
-       <!--BLOOD PRESSURE CHART FRONT END-->
-       <script type="text/javascript">
+    <!--BLOOD PRESSURE CHART FRONT END-->
+    <script type="text/javascript">
         google.charts.load('current', {
             'packages': ['corechart']
         });
@@ -258,7 +289,7 @@ date_default_timezone_set('Asia/Manila');?>
 
             chart.draw(data, options);
         }
-    </script> 
+    </script>
 
 
 </head>
@@ -333,22 +364,7 @@ date_default_timezone_set('Asia/Manila');?>
                 </div>
             </nav>
             <!-- End Navbar -->
-            <?php
-            //getting id from url
-            $patientKey = $_GET['key'];
 
-            //selecting data associated with this particular id
-            include("includes/db.php");
-            $ref = "patientdata";
-            $data = $database->getReference($ref)->getValue();
-            foreach ($data as $key => $data1) {
-                if ($patientKey == $key) {
-                    $f_name = $data1['f_name'];
-                    $l_name = $data1['l_name'];
-                    $email = $data1['email'];
-                }
-            }
-            ?>
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
@@ -428,8 +444,17 @@ date_default_timezone_set('Asia/Manila');?>
                                             <i class="material-icons">invert_colors</i><input type="number" class="form-control" name="diastolic" placeholder="Diastolic">
                                             <i class="material-icons">speed</i><input type="number" step="0.1" class="form-control" name="weight" placeholder="Weight (in lbs)">
                                             <i class="material-icons">pregnant_woman</i><input type="number" step="0.1" class="form-control" name="waistSize" placeholder="Belly Size (in cm)">
-                                            <i class="material-icons">favorite</i><input type="number" class="form-control" name="fetalHeartTone" placeholder="Fetal Heart Tone">
+                                            <?php
+                                            $i = 0;
+                                            while ($i < $noOfBaby) {
+                                                $i++;
+                                                ?>
+                                                <i class="material-icons">favorite</i><input type="number" class="form-control" name="fetalHeartTone<?php echo $i; ?>" placeholder="Fetal Heart Tone <?php echo $i; ?>">
+                                            <?php
+                                            }
+                                            ?>
                                         </div>
+                                        <input type="hidden" name="noOfBaby" value="<?php echo $noOfBaby; ?>">
                                         <button type="submit" name="push" class="btn btn-info"><i class="material-icons">person</i> Submit</button>
                                     </form>
                                 </div>
@@ -454,7 +479,15 @@ date_default_timezone_set('Asia/Manila');?>
                                                     <th>Blood Pressure</th>
                                                     <th>Weight</th>
                                                     <th>Belly Size</th>
-                                                    <th>Fetal Heart Tone</th>
+                                                    <?php
+                                                    $i = 0;
+                                                    while ($i < $noOfBaby) {
+                                                        $i++;
+                                                        ?>
+                                                        <th>Fetal Heart Tone <?php echo $i; ?></th>
+                                                    <?php
+                                                    }
+                                                    ?>
                                                     <th>Date</th>
                                                     <th>Time</th>
                                                     <th>Action</th>
@@ -468,16 +501,28 @@ date_default_timezone_set('Asia/Manila');?>
                                                 include("includes/db.php");
                                                 $ref = "vitals";
                                                 $data = $database->getReference($ref)->getValue();
-                                                $i = 0;
                                                 foreach ($data as $key => $data1) {
                                                     if ($email == $data1['email']) {
-                                                        $i++;
                                                         ?>
                                                         <tr>
                                                             <td><?php echo $data1['systolic']; ?>/<?php echo $data1['diastolic'] ?> </a></td>
                                                             <td><?php echo $data1['weight']; ?></td>
                                                             <td><?php echo $data1['waistSize']; ?></td>
-                                                            <td><?php echo $data1['fetalHeartTone']; ?></td>
+                                                            <?php
+                                                                    $i = 0;
+                                                                    while ($i < $noOfBaby) {
+                                                                        $i++;
+                                                                        if (!isset($data1['fetalHeartTone' . $i])) {
+                                                                            ?>
+                                                                    <td>N/A</td>
+                                                                <?php
+                                                                            } else {
+                                                                                ?>
+                                                                    <td><?php echo $data1['fetalHeartTone' . $i]; ?></td>
+                                                            <?php
+                                                                        }
+                                                                    }
+                                                                    ?>
                                                             <td><?php echo $data1['date']; ?></td>
                                                             <td><?php echo $data1['time']; ?></td>
                                                             <td>

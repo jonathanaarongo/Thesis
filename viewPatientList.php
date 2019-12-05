@@ -104,9 +104,9 @@ $_SESSION['user'] = 'obsample@gmail.com';
           <!-- your sidebar here -->
         </ul>
         <div id="alert_popover">
-            <div class="cont">
+          <div class="cont">
 
-            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -251,7 +251,7 @@ $_SESSION['user'] = 'obsample@gmail.com';
 
     setInterval(function() {
       load_last_notification();
-    }, 5000);
+    }, 3000);
 
     function load_last_notification() {
       $.ajax({

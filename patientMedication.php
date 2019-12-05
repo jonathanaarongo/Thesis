@@ -1,6 +1,6 @@
 <?php
-session_start(); 
-date_default_timezone_set('Asia/Manila');?>
+session_start();
+date_default_timezone_set('Asia/Manila'); ?>
 <!doctype html>
 <html lang="en">
 
@@ -164,6 +164,7 @@ date_default_timezone_set('Asia/Manila');?>
                     $f_name = $data1['f_name'];
                     $email = $data1['email'];
                     $l_name = $data1['l_name'];
+                    $fdaymens = $data1['fdaymens'];
 
                     $_SESSION['email'] = $email;
                 }
@@ -182,57 +183,168 @@ date_default_timezone_set('Asia/Manila');?>
                                 <a href="patientMedication.php?key=<?php echo $patientKey ?>" class="btn btn-primary"> Medications</a>
                             </div>
                         </div>
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-header card-header-primary">
-                                    <h3 class="card-title"><?php echo $f_name . ' ' . $l_name ?>'s Medications</h3>
-                                </div>
-
-                                <div class="card-body">
-
-                                    <div class="table-responsive text-nowrap">
-                                        <!--Table-->
-                                        <table class="table table-striped table-bordered">
-
-                                            <!--Table head-->
-                                            <thead>
-                                                <tr>
-                                                    <th>Date Prescribed</th>
-                                                    <th>Prescribed Medication</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <!--Table head-->
-
-                                            <!--Table body-->
-                                            <tbody>
-                                                <?php
-                                                include("includes/db.php");
-                                                $ref = "pefindings";
-                                                $data = $database->getReference($ref)->getValue();
-                                                $i = 0;
-                                                foreach ($data as $key => $data1) {
-                                                    if ($email == $data1['email']) {
-                                                        $i++;
-                                                        ?>
-                                                        <tr>
-                                                            <td><?php echo $data1['date']; ?></td>
-                                                            <td><?php echo $data1['prescription']; ?></td>
-                                                            <td>
-                                                                <a type="button" class="btn btn-info" href="showpatientfindings.php?key=<?php echo $key; ?>"><i class="material-icons">person</i> View</a>
-                                                        </tr>
-                                                <?php
-                                                    }
-                                                }
-                                                ?>
-                                            </tbody>
-                                            <!--Table body-->
-
-
-                                        </table>
-                                        <!--Table-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header card-header-primary">
+                                        <h3 class="card-title"><?php echo $f_name . ' ' . $l_name ?>'s Medications</h3>
                                     </div>
 
+                                    <div class="card-body">
+
+                                        <div class="table-responsive text-nowrap">
+                                            <!--Table-->
+                                            <table class="table table-striped table-bordered">
+
+                                                <!--Table head-->
+                                                <thead>
+                                                    <tr>
+                                                        <th>Date Prescribed</th>
+                                                        <th>Prescribed Medication</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <!--Table head-->
+
+                                                <!--Table body-->
+                                                <tbody>
+                                                    <?php
+                                                    include("includes/db.php");
+                                                    $ref = "pefindings";
+                                                    $data = $database->getReference($ref)->getValue();
+                                                    $i = 0;
+                                                    foreach ($data as $key => $data1) {
+                                                        if ($email == $data1['email']) {
+                                                            $i++;
+                                                            ?>
+                                                            <tr>
+                                                                <td><?php echo $data1['date']; ?></td>
+                                                                <td><?php echo $data1['prescription']; ?></td>
+                                                                <td>
+                                                                    <a type="button" class="btn btn-info" href="showpatientfindings.php?key=<?php echo $key; ?>"><i class="material-icons">person</i> View</a>
+                                                            </tr>
+                                                    <?php
+                                                        }
+                                                    }
+                                                    ?>
+                                                </tbody>
+                                                <!--Table body-->
+
+
+                                            </table>
+                                            <!--Table-->
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header card-header-primary">
+                                        <span class="pull-right">
+                                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal"><i class="fa fa-plus"></i> Add Immunization</button>
+                                        </span>
+                                        <h3 class="card-title"><?php echo $f_name . ' ' . $l_name ?>'s Immunizations</h3>
+                                    </div>
+
+                                    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Add Immunization</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="store_immunization.php" method="POST" enctype="multipart/form-data">
+                                                        <div class="form-group">
+                                                            <label for="email">Immunization Name</label>
+                                                            <input type="text" class="form-control" name="immunName">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="datet">Appointment Date</label>
+                                                            <input type="date" class="form-control" name="date">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="rcommend">Recommendation for Appointment</label>
+                                                            <input type="test" class="form-control" name="recommend" placeholder="When is your recommended immunization for the patient?">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="status">Status</label>
+                                                            <select name="status" class="form-control">
+                                                                <option value="Not done">Not done</option>
+                                                                <option value="Done">Done</option>
+                                                            </select>
+                                                        </div>
+                                                        <button type="submit" name="push" class="btn btn-primary">Add</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="card-body">
+
+                                        <div class="table-responsive text-nowrap">
+                                            <!--Table-->
+                                            <table class="table table-striped table-bordered">
+
+                                                <!--Table head-->
+                                                <thead>
+                                                    <tr>
+                                                        <th>Date Appointed</th>
+                                                        <th>Immunization Name</th>
+                                                        <th>Recommended Date of Appointment</th>
+                                                        <th>Status</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <!--Table head-->
+
+                                                <!--Table body-->
+                                                <tbody>
+                                                    <?php
+                                                    include("includes/db.php");
+                                                    $ref = "immunization";
+                                                    $data = $database->getReference($ref)->getValue();
+                                                    foreach ($data as $key => $data1) {
+                                                        if ($email == $data1['email']) {
+                                                            ?>
+                                                            <tr>
+                                                                <?php
+                                                                        if (!isset($data1['date'])) {
+                                                                            ?>
+                                                                    <td>N/A</td>
+                                                                <?php
+                                                                        } else {
+                                                                            ?>
+                                                                    <td><?php echo $data1['date']; ?></td>
+                                                                <?php
+                                                                        }
+                                                                        ?>
+                                                                <td><?php echo $data1['immunName']; ?></td>
+                                                                <td><?php echo $data1['recommend']; ?></td>
+                                                                <td><?php echo $data1['status']; ?></td>
+                                                                <td>
+                                                                    <a type="button" class="btn btn-success" href="update_immunization.php?key=<?php echo $key; ?>"><i class="material-icons">check</i> Done</a>
+                                                                    <a type="button" class="btn btn-warning" href="showpatientfindings.php?key=<?php echo $key; ?>"><i class="material-icons">person</i> View</a>
+                                                                    <a type="button" class="btn btn-info" href="showpatientfindings.php?key=<?php echo $key; ?>"><i class="material-icons">edit</i> Edit</a>
+                                                                </td>
+                                                            </tr>
+                                                    <?php
+                                                        }
+                                                    }
+                                                    ?>
+                                                </tbody>
+                                                <!--Table body-->
+
+
+                                            </table>
+                                            <!--Table-->
+                                        </div>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>

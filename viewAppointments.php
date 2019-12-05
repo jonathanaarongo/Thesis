@@ -7,7 +7,6 @@ $_SESSION['user'] = 'obsample@gmail.com';
 
 <head>
   <meta charset="utf-8" />
-  </script>
 
   <!-------- calendar dependencies ----->
 
@@ -100,7 +99,7 @@ $_SESSION['user'] = 'obsample@gmail.com';
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="#0">
+            <a class="nav-link" href="dashbboard.php">
               <i class="material-icons">language</i>
               <p>Dashboard</p>
             </a>
@@ -112,7 +111,7 @@ $_SESSION['user'] = 'obsample@gmail.com';
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#0">
+            <a class="nav-link" href="viewPatientList.php">
               <i class="material-icons">pregnant_woman</i>
               <p>Manage Patient</p>
             </a>
@@ -124,7 +123,7 @@ $_SESSION['user'] = 'obsample@gmail.com';
             </a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="#0">
+            <a class="nav-link" href="viewAppointments.php">
               <i class="material-icons">event_note</i>
               <p>Manage Appointments</p>
             </a>
@@ -159,7 +158,8 @@ $_SESSION['user'] = 'obsample@gmail.com';
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal"><i class="fa fa-plus"></i> Add Appointment</button>
+              <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#newmodal"><i class="fa fa-plus"></i> Add Appointment For New Patient</button>
+              <button type="button" class="btn btn-info" data-toggle="modal" data-target="#existmodal"><i class="fa fa-plus"></i> Add Appointment For Existing Patient</button>
               <br>
 
             </div>
@@ -340,7 +340,7 @@ $_SESSION['user'] = 'obsample@gmail.com';
 
             <!-- your content here -->
           </div>
-          <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal fade" id="existmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
@@ -354,8 +354,17 @@ $_SESSION['user'] = 'obsample@gmail.com';
                       <input type="email" class="form-control" name="email">
                     </div>
                     <div class="form-group">
-                      <label for="nextAppt">Next Appointment</label>
-                      <input type="date" class="form-control" name="nextAppt">
+                      <label for="date">Next Appointment</label>
+                      <input type="date" class="form-control" name="date">
+                    </div>
+                    <div class="form-group">
+                      <label for="reason">Reason</label>
+                      <select class="form-control" name="reason" >
+                        <option value="Medication">Medication</option>
+                        <option value="Immunization">Immunization</option>
+                        <option value="Monthly Check-up">Montly Check-up</option>
+                        <option value="Emergency">Emergency</option>
+                      </select>
                     </div>
                     <button type="submit" name="push" class="btn btn-primary">Set Appointment</button>
                   </form>
