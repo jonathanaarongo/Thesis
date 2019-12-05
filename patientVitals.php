@@ -372,7 +372,7 @@ foreach ($data as $key => $data1) {
                             <a href="patientProfile.php?key=<?php echo $patientKey ?>" class="btn btn-primary"> General Data</a>
                             <a href="patientConsult.php?key=<?php echo $patientKey ?>" class="btn btn-primary"> Consultation History</a>
                             <a href="patientVitals.php?key=<?php echo $patientKey ?>" class="btn btn-primary"> Patient Vitals</a>
-                            <a href="patientMedication.php?key=<?php echo $patientKey ?>" class="btn btn-primary"> Medications</a>
+                            <a href="patientMedication.php?key=<?php echo $patientKey ?>" class="btn btn-primary"> Medications & Immunizations</a>
                         </div>
                     </div>
                     <div class="row">

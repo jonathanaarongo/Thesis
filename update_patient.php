@@ -60,7 +60,7 @@ if(isset($_POST['update'])){
 
     $data = [
         'address' => $address,
-        'bday' => $bday,
+        'bdate' => $bday,
         'contactNo' => $contactNo,
         'dateAdded' => $dateAdded,
         'email' => $email,

@@ -14,6 +14,7 @@ $data = $database->getReference($ref)->getValue();
 foreach ($data as $key => $data1) {
     if ($patientKey == $key) {
         $address = $data1['address'];
+        $bdate = $data1['bdate'];
         $contactNo = $data1['contactNo'];
         $dateAdded = $data1['dateAdded'];
         $f_name = $data1['f_name'];
@@ -554,7 +555,7 @@ foreach ($data as $key => $data1) {
                                 <a href="patientProfile.php?key=<?php echo $patientKey ?>" class="btn btn-primary"> General Data</a>
                                 <a href="patientConsult.php?key=<?php echo $patientKey ?>" class="btn btn-primary"> Consultation History</a>
                                 <a href="patientVitals.php?key=<?php echo $patientKey ?>" class="btn btn-primary"> Patient Vitals</a>
-                                <a href="patientMedication.php?key=<?php echo $patientKey ?>" class="btn btn-primary"> Medications</a>
+                                <a href="patientMedication.php?key=<?php echo $patientKey ?>" class="btn btn-primary"> Medications & Immunizations</a>
                             </div>
                         </div>
                         <div class="row">
@@ -582,9 +583,14 @@ foreach ($data as $key => $data1) {
                                                 </div>
 
                                                 <!-- Default input -->
-                                                <div class="col-md-12">
+                                                <div class="col-md-8">
                                                     <label for="adress">Address</label>
                                                     <input type="text" class="form-control" id="address" name="address" value="<?php echo $address ?>">
+                                                </div>
+                                                <!-- Default input -->
+                                                <div class="col-md-4">
+                                                    <label for="occupation">Occupation</label>
+                                                    <input type="text" class="form-control" id="occupation" name="occupation" value="<?php echo $occupation ?>">
                                                 </div>
                                                 <!-- Default input -->
                                                 <!-- Grid row-->
@@ -653,407 +659,398 @@ foreach ($data as $key => $data1) {
                                                     <label for="dateAdded">Date Added</label>
                                                     <input type="text" class="form-control" id="dateAdded" name="dateAdded" value="<?php echo $dateAdded ?>">
                                                 </div>
-                                                <!-- Default input -->
-                                                <div class="col-md-4">
-                                                    <label for="fdaymens">First Day of Last Menstration</label>
-                                                    <input type="date" class="form-control" id="fdaymens" name="fdaymens" value="<?php echo $fdaymens ?>">
-                                                </div>
-                                                <!-- Default input -->
-                                                <div class="col-md-4">
-                                                    <label for="occupation">Occupation</label>
-                                                    <input type="text" class="form-control" id="occupation" name="occupation" value="<?php echo $occupation ?>">
-                                                </div>
-
-                                                <!-- Grid row-->
-                                                <!-- Default input -->
-                                                <div class="col-md-4">
-                                                    <label for="email">Email Address</label>
-                                                    <input type="text" class="form-control" id="email" name="email" value="<?php $_SESSION['email'] = $email;
-                                                                                                                            echo $_SESSION['email']; ?>">
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <label for="passW">Password</label>
-                                                    <input type="password" class="form-control" id="password" name="password" value="<?php echo $_SESSION['passW']; ?>">
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <label for="conpass">Confirm Password</label>
-                                                    <input type="password" class="form-control" id="conpass" name="conpass" value="<?php echo $_SESSION['conpass']; ?>">
-                                                </div>
-
-
-
-                                                <!-- Grid row-->
-                                                <!-- Default input -->
-                                                <div class="col-md-12">
-                                                    <label for="medicalHistory">Medical History</label>
-                                                    <textarea class="form-control" id="medicalHistory" name="medicalHistory" rows="3"><?php echo $medicalHistory ?></textarea>
-                                                </div>
-                                                <!-- Default input -->
-                                                <div class="col-md-12">
-                                                    <label for="familyHistory">Family History</label>
-                                                    <textarea class="form-control" id="familyHistory" name="familyHistory" rows="3"><?php echo $familyHistory ?></textarea>
-                                                </div>
-
-                                                <div class="col-md-1">
-                                                    <label for="noOfBaby">Number of Babies</label>
-                                                    <input type="number" class="form-control" id="noOfBaby" name="noOfBaby" value="<?php echo $noOfBaby; ?>">
-                                                </div>
-
-                                                <div class="col-md-12">
-                                                    <h3>Assign What to Monitor</h3><br>
-                                                    <input type="checkbox" id="conCounterCard" name="conCounterCard" <?php if ($conCounterCard == "true") echo "checked"; ?>> Contraction Counter<br>
-                                                    <input type="checkbox" id="kickCounterCard" name="kickCounterCard" <?php if ($kickCounterCard == "true") echo "checked"; ?>> Kick Counter <br>
-                                                    <input type="checkbox" id="weightCard" name="weightCard" <?php if ($weightCard == "true") echo "checked"; ?>> Weight<br>
-                                                    <input type="checkbox" id="babyMeasureCard" name="babyMeasureCard" <?php if ($babyMeasureCard == "true") echo "checked"; ?>> Baby Measurements<br>
-                                                    <input type="checkbox" id="bloodPressureCard" name="bloodPressureCard" <?php if ($bloodPressureCard == "true") echo "checked"; ?>> Blood Pressure <br>
-                                                    <input type="checkbox" id="bloodSugarCard" name="bloodSugarCard" <?php if ($bloodSugarCard == "true") echo "checked"; ?>> Blood Sugar<br>
-                                                </div>
-
-                                                <input type="hidden" name="ref" value="patientdata/<?php echo $patientKey; ?>">
-                                                <!-- Grid row -->
-                                                <input type="submit" class="btn btn-primary btn-md" name="update" style="display: inline-block" id="editDetails" value="Edit">
+                                            <!-- Default input -->
+                                            <div class="col-md-4">
+                                                <label for="birthday">Birthday</label>
+                                                <input type="date" class="form-control" id="birthday" name="birthday" value="<?php echo $bdate ?>">
                                             </div>
-                                        </form>
+                                            <!-- Default input -->
+                                            <div class="col-md-4">
+                                                <label for="fdaymens">First Day of Last Menstration</label>
+                                                <input type="date" class="form-control" id="fdaymens" name="fdaymens" value="<?php echo $fdaymens ?>">
+                                            </div>
+
+                                            <!-- Grid row-->
+                                            <!-- Default input -->
+                                            <div class="col-md-4">
+                                                <label for="email">Email Address</label>
+                                                <input type="text" class="form-control" id="email" name="email" value="<?php $_SESSION['email'] = $email;
+                                                                                                                        echo $_SESSION['email']; ?>">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="passW">Password</label>
+                                                <input type="password" class="form-control" id="password" name="password" value="<?php echo $_SESSION['passW']; ?>">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="conpass">Confirm Password</label>
+                                                <input type="password" class="form-control" id="conpass" name="conpass" value="<?php echo $_SESSION['conpass']; ?>">
+                                            </div>
+
+
+
+                                            <!-- Grid row-->
+                                            <!-- Default input -->
+                                            <div class="col-md-12">
+                                                <label for="medicalHistory">Medical History</label>
+                                                <textarea class="form-control" id="medicalHistory" name="medicalHistory" rows="3"><?php echo $medicalHistory ?></textarea>
+                                            </div>
+                                            <!-- Default input -->
+                                            <div class="col-md-12">
+                                                <label for="familyHistory">Family History</label>
+                                                <textarea class="form-control" id="familyHistory" name="familyHistory" rows="3"><?php echo $familyHistory ?></textarea>
+                                            </div>
+
+                                            <div class="col-md-1">
+                                                <label for="noOfBaby">Number of Babies</label>
+                                                <input type="number" class="form-control" id="noOfBaby" name="noOfBaby" value="<?php echo $noOfBaby; ?>">
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <h3>Assign What to Monitor</h3><br>
+                                                <input type="checkbox" id="conCounterCard" name="conCounterCard" <?php if ($conCounterCard == "true") echo "checked"; ?>> Contraction Counter<br>
+                                                <input type="checkbox" id="kickCounterCard" name="kickCounterCard" <?php if ($kickCounterCard == "true") echo "checked"; ?>> Kick Counter <br>
+                                                <input type="checkbox" id="weightCard" name="weightCard" <?php if ($weightCard == "true") echo "checked"; ?>> Weight<br>
+                                                <input type="checkbox" id="babyMeasureCard" name="babyMeasureCard" <?php if ($babyMeasureCard == "true") echo "checked"; ?>> Baby Measurements<br>
+                                                <input type="checkbox" id="bloodPressureCard" name="bloodPressureCard" <?php if ($bloodPressureCard == "true") echo "checked"; ?>> Blood Pressure <br>
+                                                <input type="checkbox" id="bloodSugarCard" name="bloodSugarCard" <?php if ($bloodSugarCard == "true") echo "checked"; ?>> Blood Sugar<br>
+                                            </div>
+
+                                            <input type="hidden" name="ref" value="patientdata/<?php echo $patientKey; ?>">
+                                            <!-- Grid row -->
+                                            <input type="submit" class="btn btn-primary btn-md" name="update" style="display: inline-block" id="editDetails" value="Edit">
                                     </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="card">
-                                    <div class="card-header card-header-primary">
-                                        <h3 class="card-title"><?php echo $f_name, ' ', $l_name; ?>'s Contraction Counter</h3>
-                                    </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header card-header-primary">
+                                    <h3 class="card-title"><?php echo $f_name, ' ', $l_name; ?>'s Contraction Counter</h3>
+                                </div>
 
-                                    <div class="card-body">
-                                        <!-- PIE CHART FOR CONTRACTION COUNTER -->
-                                        <div id="pie_contraction" style="width: 1500px; height: 500px;"></div>
-                                    </div>
+                                <div class="card-body">
+                                    <!-- PIE CHART FOR CONTRACTION COUNTER -->
+                                    <div id="pie_contraction" style="width: 1500px; height: 500px;"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="card">
-                                    <div class="card-header card-header-primary">
-                                        <h3 class="card-title"><?php echo $f_name, ' ', $l_name; ?>'s Kick Counter</h3>
-                                    </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header card-header-primary">
+                                    <h3 class="card-title"><?php echo $f_name, ' ', $l_name; ?>'s Kick Counter</h3>
+                                </div>
 
-                                    <div class="card-body">
-                                        <!-- BAR CHART FOR KICK COUNTER -->
-                                        <div id="columnchart_kickcounter" style="width: 800px; height: 500px;"></div>
-                                    </div>
+                                <div class="card-body">
+                                    <!-- BAR CHART FOR KICK COUNTER -->
+                                    <div id="columnchart_kickcounter" style="width: 800px; height: 500px;"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="card">
-                                    <div class="card-header card-header-primary">
-                                        <h3 class="card-title"><?php echo $f_name, ' ', $l_name; ?>'s Weight</h3>
-                                    </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header card-header-primary">
+                                    <h3 class="card-title"><?php echo $f_name, ' ', $l_name; ?>'s Weight</h3>
+                                </div>
 
-                                    <div class="card-body">
-                                        <!-- LINE CHART FOR FETAL WEIGHT -->
-                                        <div id="line_weight_x"></div>
-                                    </div>
+                                <div class="card-body">
+                                    <!-- LINE CHART FOR FETAL WEIGHT -->
+                                    <div id="line_weight_x"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="card">
-                                    <div class="card-header card-header-primary">
-                                        <h3 class="card-title"><?php echo $f_name, ' ', $l_name; ?>'s Waist Size</h3>
-                                    </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header card-header-primary">
+                                    <h3 class="card-title"><?php echo $f_name, ' ', $l_name; ?>'s Waist Size</h3>
+                                </div>
 
-                                    <div class="card-body">
-                                        <!-- LINE CHART FOR WAIST SIZE -->
-                                        <div id="line_bellysize_x"></div>
-                                    </div>
+                                <div class="card-body">
+                                    <!-- LINE CHART FOR WAIST SIZE -->
+                                    <div id="line_bellysize_x"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="card">
-                                    <div class="card-header card-header-primary">
-                                        <h3 class="card-title"><?php echo $f_name, ' ', $l_name; ?>'s Blood Pressure</h3>
-                                    </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header card-header-primary">
+                                    <h3 class="card-title"><?php echo $f_name, ' ', $l_name; ?>'s Blood Pressure</h3>
+                                </div>
 
-                                    <div class="card-body">
-                                        <!-- LINE CHART FOR BLOOD PRESSURE -->
-                                        <div id="line_bloodpressure_x"></div>
-                                    </div>
+                                <div class="card-body">
+                                    <!-- LINE CHART FOR BLOOD PRESSURE -->
+                                    <div id="line_bloodpressure_x"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="card">
-                                    <div class="card-header card-header-primary">
-                                        <h3 class="card-title"><?php echo $f_name, ' ', $l_name; ?>'s Blood Sugar</h3>
-                                    </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header card-header-primary">
+                                    <h3 class="card-title"><?php echo $f_name, ' ', $l_name; ?>'s Blood Sugar</h3>
+                                </div>
 
-                                    <div class="card-body">
-                                        <!-- LINE CHART FOR BLOOD SUGAR -->
-                                        <div id="line_bloodsugar_x"></div>
-                                    </div>
+                                <div class="card-body">
+                                    <!-- LINE CHART FOR BLOOD SUGAR -->
+                                    <div id="line_bloodsugar_x"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+        </div>
 
-                <script>
-                    function myFunction() {
-                        window.print();
+        <script>
+            function myFunction() {
+                window.print();
+            }
+        </script>
+        <script src="assets/js/core/jquery.min.js"></script>
+        <script src="assets/js/core/popper.min.js"></script>
+        <script src="assets/js/core/bootstrap-material-design.min.js"></script>
+        <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+
+        <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+        <script src="assets/js/material-dashboard.js?v=2.1.1" type="text/javascript"></script>
+        <!-- Material Dashboard DEMO methods, don't include it in your project! -->
+        <script src="assets/demo/demo.js"></script>
+
+        <script>
+            $(document).ready(function() {
+                /*
+                                                            let editDetails = document.getElementById("editDetails")
+                                                            let fname = document.getElementById("f_name");
+                                                            let lname = document.getElementById("l_name");
+                                                            let address = document.getElementById("address");
+                                                            let contact = document.getElementById("contactNo");
+                                                            let patType = document.getElementById("patType");
+                                                            let status = document.getElementById("status");
+                                                            let dateAdded = document.getElementById("dateAdded");
+                                                            let fdaymens = document.getElementById("fdaymens");
+                                                            let lastVisited = document.getElementById("lastVisited");
+                                                            let email = document.getElementById("email");
+                                                            let occupation = document.getElementById("occupation");
+                                                            let medhis = document.getElementById("medicalHistory");
+                                                            let famhis = document.getElementById("familyHistory")
+                                                            editDetails.onclick = function() {
+                                                                if (editDetails.value == 'Edit') {
+                                                                    editDetails.value = 'Submit';
+                                                                    editDetails.setAttribute("name", "update"); 
+                                                                    fname.disabled = false;
+                                                                    lname.disabled = false;
+                                                                    address.disabled = false;
+                                                                    contact.disabled = false;
+                                                                    patType.disabled = false;
+                                                                    status.disabled = false;
+                                                                    dateAdded.disabled = false;
+                                                                    fdaymens.disabled = false;
+                                                                    lastVisited.disabled = false;
+                                                                    email.disabled = false;
+                                                                    occupation.disabled = false;
+                                                                    medhis.disabled = false;
+                                                                    famhis.disabled = false;
+
+                                                                } else {
+                                                                    editDetails.value = 'Edit';
+                                                                    editDetails.setAttribute("name", "change"); 
+                                                                    fname.disabled = true;
+                                                                    lname.disabled = true;
+                                                                    address.disabled = true;
+                                                                    contact.disabled = true;
+                                                                    patType.disabled = true;
+                                                                    status.disabled = true;
+                                                                    dateAdded.disabled = true;
+                                                                    fdaymens.disabled = true;
+                                                                    lastVisited.disabled = true;
+                                                                    email.disabled = true;
+                                                                    occupation.disabled = true;
+                                                                    medhis.disabled = true;
+                                                                    famhis.disabled = true;
+                                                                }
+                                                            }
+                                                            */
+
+                $().ready(function() {
+                    $sidebar = $('.sidebar');
+
+                    $sidebar_img_container = $sidebar.find('.sidebar-background');
+
+                    $full_page = $('.full-page');
+
+                    $sidebar_responsive = $('body > .navbar-collapse');
+
+                    window_width = $(window).width();
+
+                    fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
+
+                    if (window_width > 767 && fixed_plugin_open == 'Dashboard') {
+                        if ($('.fixed-plugin .dropdown').hasClass('show-dropdown')) {
+                            $('.fixed-plugin .dropdown').addClass('open');
+                        }
+
                     }
-                </script>
+
+                    $('.fixed-plugin a').click(function(event) {
+                        // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
+                        if ($(this).hasClass('switch-trigger')) {
+                            if (event.stopPropagation) {
+                                event.stopPropagation();
+                            } else if (window.event) {
+                                window.event.cancelBubble = true;
+                            }
+                        }
+                    });
+
+                    $('.fixed-plugin .active-color span').click(function() {
+                        $full_page_background = $('.full-page-background');
+
+                        $(this).siblings().removeClass('active');
+                        $(this).addClass('active');
+
+                        var new_color = $(this).data('color');
+
+                        if ($sidebar.length != 0) {
+                            $sidebar.attr('data-color', new_color);
+                        }
+
+                        if ($full_page.length != 0) {
+                            $full_page.attr('filter-color', new_color);
+                        }
+
+                        if ($sidebar_responsive.length != 0) {
+                            $sidebar_responsive.attr('data-color', new_color);
+                        }
+                    });
+
+                    $('.fixed-plugin .background-color .badge').click(function() {
+                        $(this).siblings().removeClass('active');
+                        $(this).addClass('active');
+
+                        var new_color = $(this).data('background-color');
+
+                        if ($sidebar.length != 0) {
+                            $sidebar.attr('data-background-color', new_color);
+                        }
+                    });
+
+                    $('.fixed-plugin .img-holder').click(function() {
+                        $full_page_background = $('.full-page-background');
+
+                        $(this).parent('li').siblings().removeClass('active');
+                        $(this).parent('li').addClass('active');
 
 
+                        var new_image = $(this).find("img").attr('src');
 
+                        if ($sidebar_img_container.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
+                            $sidebar_img_container.fadeOut('fast', function() {
+                                $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
+                                $sidebar_img_container.fadeIn('fast');
+                            });
+                        }
 
+                        if ($full_page_background.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
+                            var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
 
-                <script src="assets/js/core/jquery.min.js"></script>
-                <script src="assets/js/core/popper.min.js"></script>
-                <script src="assets/js/core/bootstrap-material-design.min.js"></script>
-                <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+                            $full_page_background.fadeOut('fast', function() {
+                                $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
+                                $full_page_background.fadeIn('fast');
+                            });
+                        }
 
-                <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-                <script src="assets/js/material-dashboard.js?v=2.1.1" type="text/javascript"></script>
-                <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-                <script src="assets/demo/demo.js"></script>
+                        if ($('.switch-sidebar-image input:checked').length == 0) {
+                            var new_image = $('.fixed-plugin li.active .img-holder').find("img").attr('src');
+                            var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
 
-                <script>
-                    $(document).ready(function() {
-                        /*
-                                                                    let editDetails = document.getElementById("editDetails")
-                                                                    let fname = document.getElementById("f_name");
-                                                                    let lname = document.getElementById("l_name");
-                                                                    let address = document.getElementById("address");
-                                                                    let contact = document.getElementById("contactNo");
-                                                                    let patType = document.getElementById("patType");
-                                                                    let status = document.getElementById("status");
-                                                                    let dateAdded = document.getElementById("dateAdded");
-                                                                    let fdaymens = document.getElementById("fdaymens");
-                                                                    let lastVisited = document.getElementById("lastVisited");
-                                                                    let email = document.getElementById("email");
-                                                                    let occupation = document.getElementById("occupation");
-                                                                    let medhis = document.getElementById("medicalHistory");
-                                                                    let famhis = document.getElementById("familyHistory")
-                                                                    editDetails.onclick = function() {
-                                                                        if (editDetails.value == 'Edit') {
-                                                                            editDetails.value = 'Submit';
-                                                                            editDetails.setAttribute("name", "update"); 
-                                                                            <?php $buttonvalue = 'Submit';
-                                                                            $buttonname = 'update' ?>
-                                                                            fname.disabled = false;
-                                                                            lname.disabled = false;
-                                                                            address.disabled = false;
-                                                                            contact.disabled = false;
-                                                                            patType.disabled = false;
-                                                                            status.disabled = false;
-                                                                            dateAdded.disabled = false;
-                                                                            fdaymens.disabled = false;
-                                                                            lastVisited.disabled = false;
-                                                                            email.disabled = false;
-                                                                            occupation.disabled = false;
-                                                                            medhis.disabled = false;
-                                                                            famhis.disabled = false;
+                            $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
+                            $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
+                        }
 
-                                                                        } else {
-                                                                            editDetails.value = 'Edit';
-                                                                            editDetails.setAttribute("name", "change"); 
-                                                                            <?php $buttonvalue = 'Edit';
-                                                                            $buttonname = 'change' ?>
-                                                                            fname.disabled = true;
-                                                                            lname.disabled = true;
-                                                                            address.disabled = true;
-                                                                            contact.disabled = true;
-                                                                            patType.disabled = true;
-                                                                            status.disabled = true;
-                                                                            dateAdded.disabled = true;
-                                                                            fdaymens.disabled = true;
-                                                                            lastVisited.disabled = true;
-                                                                            email.disabled = true;
-                                                                            occupation.disabled = true;
-                                                                            medhis.disabled = true;
-                                                                            famhis.disabled = true;
-                                                                        }
-                                                                    }
-                                                                    */
+                        if ($sidebar_responsive.length != 0) {
+                            $sidebar_responsive.css('background-image', 'url("' + new_image + '")');
+                        }
+                    });
 
-                        $().ready(function() {
-                            $sidebar = $('.sidebar');
+                    $('.switch-sidebar-image input').change(function() {
+                        $full_page_background = $('.full-page-background');
 
-                            $sidebar_img_container = $sidebar.find('.sidebar-background');
+                        $input = $(this);
 
-                            $full_page = $('.full-page');
-
-                            $sidebar_responsive = $('body > .navbar-collapse');
-
-                            window_width = $(window).width();
-
-                            fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
-
-                            if (window_width > 767 && fixed_plugin_open == 'Dashboard') {
-                                if ($('.fixed-plugin .dropdown').hasClass('show-dropdown')) {
-                                    $('.fixed-plugin .dropdown').addClass('open');
-                                }
-
+                        if ($input.is(':checked')) {
+                            if ($sidebar_img_container.length != 0) {
+                                $sidebar_img_container.fadeIn('fast');
+                                $sidebar.attr('data-image', '#');
                             }
 
-                            $('.fixed-plugin a').click(function(event) {
-                                // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
-                                if ($(this).hasClass('switch-trigger')) {
-                                    if (event.stopPropagation) {
-                                        event.stopPropagation();
-                                    } else if (window.event) {
-                                        window.event.cancelBubble = true;
-                                    }
-                                }
-                            });
+                            if ($full_page_background.length != 0) {
+                                $full_page_background.fadeIn('fast');
+                                $full_page.attr('data-image', '#');
+                            }
 
-                            $('.fixed-plugin .active-color span').click(function() {
-                                $full_page_background = $('.full-page-background');
+                            background_image = true;
+                        } else {
+                            if ($sidebar_img_container.length != 0) {
+                                $sidebar.removeAttr('data-image');
+                                $sidebar_img_container.fadeOut('fast');
+                            }
 
-                                $(this).siblings().removeClass('active');
-                                $(this).addClass('active');
+                            if ($full_page_background.length != 0) {
+                                $full_page.removeAttr('data-image', '#');
+                                $full_page_background.fadeOut('fast');
+                            }
 
-                                var new_color = $(this).data('color');
-
-                                if ($sidebar.length != 0) {
-                                    $sidebar.attr('data-color', new_color);
-                                }
-
-                                if ($full_page.length != 0) {
-                                    $full_page.attr('filter-color', new_color);
-                                }
-
-                                if ($sidebar_responsive.length != 0) {
-                                    $sidebar_responsive.attr('data-color', new_color);
-                                }
-                            });
-
-                            $('.fixed-plugin .background-color .badge').click(function() {
-                                $(this).siblings().removeClass('active');
-                                $(this).addClass('active');
-
-                                var new_color = $(this).data('background-color');
-
-                                if ($sidebar.length != 0) {
-                                    $sidebar.attr('data-background-color', new_color);
-                                }
-                            });
-
-                            $('.fixed-plugin .img-holder').click(function() {
-                                $full_page_background = $('.full-page-background');
-
-                                $(this).parent('li').siblings().removeClass('active');
-                                $(this).parent('li').addClass('active');
-
-
-                                var new_image = $(this).find("img").attr('src');
-
-                                if ($sidebar_img_container.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
-                                    $sidebar_img_container.fadeOut('fast', function() {
-                                        $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
-                                        $sidebar_img_container.fadeIn('fast');
-                                    });
-                                }
-
-                                if ($full_page_background.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
-                                    var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
-
-                                    $full_page_background.fadeOut('fast', function() {
-                                        $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
-                                        $full_page_background.fadeIn('fast');
-                                    });
-                                }
-
-                                if ($('.switch-sidebar-image input:checked').length == 0) {
-                                    var new_image = $('.fixed-plugin li.active .img-holder').find("img").attr('src');
-                                    var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
-
-                                    $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
-                                    $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
-                                }
-
-                                if ($sidebar_responsive.length != 0) {
-                                    $sidebar_responsive.css('background-image', 'url("' + new_image + '")');
-                                }
-                            });
-
-                            $('.switch-sidebar-image input').change(function() {
-                                $full_page_background = $('.full-page-background');
-
-                                $input = $(this);
-
-                                if ($input.is(':checked')) {
-                                    if ($sidebar_img_container.length != 0) {
-                                        $sidebar_img_container.fadeIn('fast');
-                                        $sidebar.attr('data-image', '#');
-                                    }
-
-                                    if ($full_page_background.length != 0) {
-                                        $full_page_background.fadeIn('fast');
-                                        $full_page.attr('data-image', '#');
-                                    }
-
-                                    background_image = true;
-                                } else {
-                                    if ($sidebar_img_container.length != 0) {
-                                        $sidebar.removeAttr('data-image');
-                                        $sidebar_img_container.fadeOut('fast');
-                                    }
-
-                                    if ($full_page_background.length != 0) {
-                                        $full_page.removeAttr('data-image', '#');
-                                        $full_page_background.fadeOut('fast');
-                                    }
-
-                                    background_image = false;
-                                }
-                            });
-
-                            $('.switch-sidebar-mini input').change(function() {
-                                $body = $('body');
-
-                                $input = $(this);
-
-                                if (md.misc.sidebar_mini_active == true) {
-                                    $('body').removeClass('sidebar-mini');
-                                    md.misc.sidebar_mini_active = false;
-
-                                    $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
-
-                                } else {
-
-                                    $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
-
-                                    setTimeout(function() {
-                                        $('body').addClass('sidebar-mini');
-
-                                        md.misc.sidebar_mini_active = true;
-                                    }, 300);
-                                }
-
-                                // we simulate the window Resize so the charts will get updated in realtime.
-                                var simulateWindowResize = setInterval(function() {
-                                    window.dispatchEvent(new Event('resize'));
-                                }, 180);
-
-                                // we stop the simulation of Window Resize after the animations are completed
-                                setTimeout(function() {
-                                    clearInterval(simulateWindowResize);
-                                }, 1000);
-
-                            });
-                        });
+                            background_image = false;
+                        }
                     });
-                </script>
 
-            </body>
+                    $('.switch-sidebar-mini input').change(function() {
+                        $body = $('body');
+
+                        $input = $(this);
+
+                        if (md.misc.sidebar_mini_active == true) {
+                            $('body').removeClass('sidebar-mini');
+                            md.misc.sidebar_mini_active = false;
+
+                            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+
+                        } else {
+
+                            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
+
+                            setTimeout(function() {
+                                $('body').addClass('sidebar-mini');
+
+                                md.misc.sidebar_mini_active = true;
+                            }, 300);
+                        }
+
+                        // we simulate the window Resize so the charts will get updated in realtime.
+                        var simulateWindowResize = setInterval(function() {
+                            window.dispatchEvent(new Event('resize'));
+                        }, 180);
+
+                        // we stop the simulation of Window Resize after the animations are completed
+                        setTimeout(function() {
+                            clearInterval(simulateWindowResize);
+                        }, 1000);
+
+                    });
+                });
+            });
+        </script>
+
+</body>
 
 </html>

@@ -61,7 +61,7 @@ if(isset($_POST['push'])){
     $data = [
         'ob' => $ob,
         'address' => $address,
-        'bday' => $bday,
+        'bdate' => $bday,
         'contactNo' => $contactNo,
         'dateAdded' => $dateAdded,
         'email' => $email,
@@ -182,7 +182,7 @@ else{
     $data = [
         'ob' => $ob,
         'address' => $address,
-        'bday' => $bday,
+        'bdate' => $bday,
         'contactNo' => $contactNo,
         'dateAdded' => $dateAdded,
         'email' => $email,
