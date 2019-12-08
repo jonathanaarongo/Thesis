@@ -315,22 +315,10 @@ foreach ($data as $key => $data1) {
                             <p>Dashboard</p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#0">
-                            <i class="material-icons">add_box</i>
-                            <p>Add Patient</p>
-                        </a>
-                    </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="viewPatientList.php">
                             <i class="material-icons">pregnant_woman</i>
                             <p>Manage Patient</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#0">
-                            <i class="material-icons">file_copy</i>
-                            <p>View Lab Results</p>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -369,10 +357,11 @@ foreach ($data as $key => $data1) {
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <a href="patientProfile.php?key=<?php echo $patientKey ?>" class="btn btn-primary"> General Data</a>
-                            <a href="patientConsult.php?key=<?php echo $patientKey ?>" class="btn btn-primary"> Consultation History</a>
-                            <a href="patientVitals.php?key=<?php echo $patientKey ?>" class="btn btn-primary"> Patient Vitals</a>
-                            <a href="patientMedication.php?key=<?php echo $patientKey ?>" class="btn btn-primary"> Medications & Immunizations</a>
+                            <a href="patientProfile.php?key=<?php echo $patientKey ?>" class="btn btn-primary"><i class="material-icons">supervisor_account</i> General Data</a>
+                            <a href="patientConsult.php?key=<?php echo $patientKey ?>" class="btn btn-primary"><i class="material-icons">face</i> Consultation History</a>
+                            <a href="patientVitals.php?key=<?php echo $patientKey ?>" class="btn btn-primary"><i class="material-icons">favorite</i> Patient Vitals</a>
+                            <a href="patientMedication.php?key=<?php echo $patientKey ?>" class="btn btn-primary"><i class="material-icons">colorize</i> Medications & Immunizations</a>
+                            <a href="labResults.php?key=<?php echo $patientKey ?>" class="btn btn-primary"><i class="material-icons">file_copy</i> Lab Results</a>
                         </div>
                     </div>
                     <div class="row">
@@ -455,6 +444,8 @@ foreach ($data as $key => $data1) {
                                             ?>
                                         </div>
                                         <input type="hidden" name="noOfBaby" value="<?php echo $noOfBaby; ?>">
+                                        <input type="hidden" name="fname" value="<?php echo $f_name; ?>">
+                                        <input type="hidden" name="lname" value="<?php echo $l_name; ?>">
                                         <button type="submit" name="push" class="btn btn-info"><i class="material-icons">person</i> Submit</button>
                                     </form>
                                 </div>

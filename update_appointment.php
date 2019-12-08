@@ -10,7 +10,8 @@ if(isset($_GET['key'])){
     $data = [
         'status' => $approve,
         'comment_status' => 0,
-        'sendBy' => $sendBy
+        'sendBy' => $sendBy,
+        'notif_status' => 0
     ];
 
     $pushData = $database->getReference("Calendar/".$_GET['key'])->update($data);
@@ -29,7 +30,8 @@ else if (isset($_POST['update'])){
         'status' => $status,
         'reasonOB' => $reasonOB,
         'comment_status' => 0,
-        'sendBy' => $sendBy
+        'sendBy' => $sendBy,
+        'notif_status' => 0
     ];
 
     $pushData = $database->getReference($ref)->update($data);
@@ -46,7 +48,8 @@ else if (isset($_POST['delete'])){
         'date' => $date,
         'status' => $status,
         'comment_status' => 0,
-        'sendBy' => $sendBy
+        'sendBy' => $sendBy,
+        'notif_status' => 0
     ];
 
     $pushData = $database->getReference($ref)->update($data);

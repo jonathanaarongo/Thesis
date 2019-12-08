@@ -99,7 +99,7 @@ foreach ($data as $key => $data1) {
     $date = str_replace('-', '/', $data1['date']);
     $newDate = date("Y-m-d", strtotime($date));
 
-    if ($_SESSION['email'] == $data1['usermail']) {
+    if ($_SESSION['email'] == $data1['usermail'] && $data1['comment_status'] == 0) {
 
         if ($startdate == $newDate) {
             array_push($kickarray, $data1['kick']);

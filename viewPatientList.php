@@ -65,23 +65,12 @@ $_SESSION['user'] = 'obsample@gmail.com';
               <p>Dashboard</p>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#0">
-              <i class="material-icons">add_box</i>
-              <p>Add Patient</p>
-            </a>
-          </li>
           <li class="nav-item active">
             <a class="nav-link">
               <i class="material-icons">pregnant_woman</i>
               <p>Manage Patient</p>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="labResults.php">
-              <i class="material-icons">file_copy</i>
-              <p>View Lab Results</p>
-            </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="viewAppointments.php">
@@ -168,7 +157,8 @@ $_SESSION['user'] = 'obsample@gmail.com';
                         $data = $database->getReference($ref)->getValue();
                         $i = 0;
                         foreach ($data as $key => $data1) {
-                          if ($_SESSION['user'] == $data1['ob']) {
+                          foreach($data1['obs'] as $key2 => $data2){
+                          if ($data2['ob'] == $_SESSION['user']) {
                             $i++;
                             ?>
                             <tr>
@@ -181,13 +171,14 @@ $_SESSION['user'] = 'obsample@gmail.com';
                               <td><?php echo $data1['email']; ?></td>
                               <td><?php echo $data1['fdaymens']; ?></td>
                               <td>
-                                <a type="button" class="btn btn-success" href="patientProfile.php?key=<?php echo $key; ?>"><i class="fa fa-eye"></i> View</a>
+                                <a type="button" onclick="stop_interval()" class="btn btn-success" href="patientProfile.php?key=<?php echo $key; ?>"><i class="fa fa-eye"></i> View</a>
                                 <a type="button" class="btn btn-danger" href="update_data.php?key=<?php echo $key; ?>"><i class="fa fa-trash"></i> Delete</a>
                               </td>
                             </tr>
                         <?php
                           }
                         }
+                      }
                         ?>
                       </tbody>
                       <!--Table body-->
@@ -247,20 +238,24 @@ $_SESSION['user'] = 'obsample@gmail.com';
 </html>
 
 <script>
-  $(document).ready(function() {
+  
 
-    setInterval(function() {
-      load_last_notification();
-    }, 3000);
+ 
 
     function load_last_notification() {
       $.ajax({
         url: "notification.php",
-        method: "POST",
+        method: "GET",
         success: function(data) {
           $('.cont').html(data);
         }
       })
     }
-  });
+
+    var stop = setInterval(load_last_notification, 5000)
+
+    function stop_interval() {
+      clearInterval(stop);
+    }
+  
 </script>

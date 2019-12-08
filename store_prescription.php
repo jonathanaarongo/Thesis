@@ -6,7 +6,7 @@ date_default_timezone_set('Asia/Manila');
 if(isset($_POST['push'])){
     $pres = $_POST['prescription'];
     $days = $_POST['days'] + 2;
-    $date = date("m-d-Y", strtotime("+".$days. " days"));
+    $date = date("Y-m-d", strtotime("+".$days. " days"));
     $ref = $_POST['ref'];
 
     $data = [
@@ -29,7 +29,8 @@ if(isset($_POST['push'])){
         'reason' => $reason,
         'sendBy' => $sendBy,
         'status' => $status,
-        'usermail' => $usermail
+        'usermail' => $usermail,
+        'notif_status' => 0
     ];
 
     $ref = "Calendar/";
@@ -38,7 +39,7 @@ if(isset($_POST['push'])){
 }
 else{
     $days = $_POST['days'] + 2;
-    $date = date("m-d-Y", strtotime("+".$days. " days"));
+    $date = date("Y-m-d", strtotime("+".$days. " days"));
     $ob = $_SESSION['user'];
     $reason = "Medication";
     $status = "Approved";
@@ -53,7 +54,8 @@ else{
         'reason' => $reason,
         'sendBy' => $sendBy,
         'status' => $status,
-        'usermail' => $usermail
+        'usermail' => $usermail,
+        'notif_status' => 0
     ];
 
     $ref = "Calendar/";

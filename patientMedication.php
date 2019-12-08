@@ -43,22 +43,10 @@ date_default_timezone_set('Asia/Manila'); ?>
                             <p>Dashboard</p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#0">
-                            <i class="material-icons">add_box</i>
-                            <p>Add Patient</p>
-                        </a>
-                    </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="viewPatientList.php">
                             <i class="material-icons">pregnant_woman</i>
                             <p>Manage Patient</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#0">
-                            <i class="material-icons">file_copy</i>
-                            <p>View Lab Results</p>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -177,10 +165,11 @@ date_default_timezone_set('Asia/Manila'); ?>
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
-                                <a href="patientProfile.php?key=<?php echo $patientKey ?>" class="btn btn-primary"> General Data</a>
-                                <a href="patientConsult.php?key=<?php echo $patientKey ?>" class="btn btn-primary"> Consultation History</a>
-                                <a href="patientVitals.php?key=<?php echo $patientKey ?>" class="btn btn-primary"> Patient Vitals</a>
-                                <a href="patientMedication.php?key=<?php echo $patientKey ?>" class="btn btn-primary"> Medications & Immunizations</a>
+                                <a href="patientProfile.php?key=<?php echo $patientKey ?>" class="btn btn-primary"><i class="material-icons">supervisor_account</i> General Data</a>
+                                <a href="patientConsult.php?key=<?php echo $patientKey ?>" class="btn btn-primary"><i class="material-icons">face</i> Consultation History</a>
+                                <a href="patientVitals.php?key=<?php echo $patientKey ?>" class="btn btn-primary"><i class="material-icons">favorite</i> Patient Vitals</a>
+                                <a href="patientMedication.php?key=<?php echo $patientKey ?>" class="btn btn-primary"><i class="material-icons">colorize</i> Medications & Immunizations</a>
+                                <a href="labResults.php?key=<?php echo $patientKey ?>" class="btn btn-primary"><i class="material-icons">file_copy</i> Lab Results</a>
                             </div>
                         </div>
                         <div class="row">
@@ -293,7 +282,7 @@ date_default_timezone_set('Asia/Manila'); ?>
                                                 <!--Table head-->
                                                 <thead>
                                                     <tr>
-                                                        <th>Date Appointed</th>
+                                                        <th>Date Updated</th>
                                                         <th>Immunization Name</th>
                                                         <th>Recommended Date of Appointment</th>
                                                         <th>Status</th>
@@ -327,9 +316,47 @@ date_default_timezone_set('Asia/Manila'); ?>
                                                                 <td><?php echo $data1['recommend']; ?></td>
                                                                 <td><?php echo $data1['status']; ?></td>
                                                                 <td>
-                                                                    <a type="button" class="btn btn-success" href="update_immunization.php?key=<?php echo $key; ?>"><i class="material-icons">check</i> Done</a>
-                                                                    <a type="button" class="btn btn-warning" href="showpatientfindings.php?key=<?php echo $key; ?>"><i class="material-icons">person</i> View</a>
-                                                                    <a type="button" class="btn btn-info" href="showpatientfindings.php?key=<?php echo $key; ?>"><i class="material-icons">edit</i> Edit</a>
+                                                                    <a type="button" class="btn btn-info" href="showpatientfindings.php?key=<?php echo $key; ?>"><i class="material-icons">person</i> View</a>
+                                                                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editmodal"><i class="material-icons">edit</i> Edit</button>
+                                                                    <?php
+                                                                            if ($data1['status'] == "Not done") {
+                                                                                ?>
+                                                                        <a type="button" class="btn btn-success" href="update_immunization.php?key=<?php echo $key; ?>"><i class="material-icons">check</i> Done</a>
+                                                                    <?php
+
+                                                                            }  ?>
+
+                                                                    <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                        <div class="modal-dialog" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title" id="exampleModalLabel">Edit Immunization</h5>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <form action="update_immunization.php" method="POST" enctype="multipart/form-data">
+                                                                                        <div class="form-group">
+                                                                                            <label for="email">Immunization Name</label>
+                                                                                            <input type="text" class="form-control" name="immunName" value="<?php echo $data1['immunName'];?>">
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label for="recommend">Recommendation for Appointment</label>
+                                                                                            <input type="text" class="form-control" name="recommend" placeholder="When is your recommended immunization for the patient?" value="<?php echo $data1['recommend'];?>">
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label for="status">Status</label>
+                                                                                            <select name="status" class="form-control">
+                                                                                                <option value="Not done">Not done</option>
+                                                                                                <option value="Done">Done</option>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                        <input type="hidden" name="ref" value="immunization/<?php echo $key; ?>">
+                                                                                        <button type="submit" name="update" class="btn btn-primary">Edit</button>
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </td>
                                                             </tr>
                                                     <?php

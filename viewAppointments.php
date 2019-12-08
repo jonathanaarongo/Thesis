@@ -1,5 +1,5 @@
 <?php session_start();
-date_default_timezone_set('Asia/Manila');
+
 $_SESSION['user'] = 'obsample@gmail.com';
 ?>
 <!doctype html>
@@ -86,6 +86,7 @@ $_SESSION['user'] = 'obsample@gmail.com';
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="assets/demo/demo.css" rel="stylesheet" />
   <link rel="stylesheet" type="text/css" href="style.css">
+  <link href="css/topnav.css" rel="stylesheet">
 </head>
 
 <body>
@@ -99,15 +100,9 @@ $_SESSION['user'] = 'obsample@gmail.com';
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="dashbboard.php">
+            <a class="nav-link" href="dashboard.php">
               <i class="material-icons">language</i>
               <p>Dashboard</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#0">
-              <i class="material-icons">add_box</i>
-              <p>Add Patient</p>
             </a>
           </li>
           <li class="nav-item">
@@ -116,14 +111,8 @@ $_SESSION['user'] = 'obsample@gmail.com';
               <p>Manage Patient</p>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="labResults.php">
-              <i class="material-icons">file_copy</i>
-              <p>View Lab Results</p>
-            </a>
-          </li>
           <li class="nav-item active">
-            <a class="nav-link" href="viewAppointments.php">
+            <a class="nav-link" href="#0">
               <i class="material-icons">event_note</i>
               <p>Manage Appointments</p>
             </a>
@@ -141,30 +130,35 @@ $_SESSION['user'] = 'obsample@gmail.com';
             </a>
           </li>
           <!-- your sidebar here -->
+          
         </ul>
       </div>
     </div>
+    
     <div class="main-panel">
+    
       <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
-        <div class="container-fluid">
-          <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">Appointments</a>
-          </div>
-        </div>
+      <div class="topnav">
+  <a href="#about">  <img src ='img/white.png' width = "65" length = "65"> Pregnancy Health Information Management and Patient Monitoring System</a>
+
+</div>
       </nav>
       <!-- End Navbar -->
-      <div class="content">
-        <div class="container-fluid">
+      <br>
+      <div class="container-fluid">
+  <br>
+      <b><font size="20"><font face="Montserrat" color="black"><img src ='img/calendar.png' width = "65" length = "65"> Appointments</font></b>
+        <span class = "pull-right">
           <div class="row">
             <div class="col-md-12">
-              <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#newmodal"><i class="fa fa-plus"></i> Add Appointment For New Patient</button>
-              <button type="button" class="btn btn-info" data-toggle="modal" data-target="#existmodal"><i class="fa fa-plus"></i> Add Appointment For Existing Patient</button>
+              <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal"><i class="fa fa-plus"></i> Add Appointment for Existing Patient</button>
+              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal"><i class="fa fa-plus"></i> Add Appointment for New Patient</button>
+  </span>
+  </div>
               <br>
-
             </div>
           </div>
-
+    
           <div class="row">
             <div class="col-md-12">
               <div class="card">
@@ -309,7 +303,7 @@ $_SESSION['user'] = 'obsample@gmail.com';
                         $ref = "Calendar";
                         $data = $database->getReference($ref)->getValue();
                         foreach ($data as $key => $data1) {
-                          if ($_SESSION['user'] == $data1['ob'] & $data1['status'] == "Pending") { //display all pending appointments 
+                          if ($_SESSION['user'] == $data1['ob'] & $data1['sendBy'] == "patient" & $data1['status'] == "Pending") { //display all pending appointments 
                             $i++;
                             ?>
                             <tr>
@@ -318,7 +312,32 @@ $_SESSION['user'] = 'obsample@gmail.com';
                               <td><?php echo $data1['date']; ?></td>
                               <td>
                                 <a type="button" class="btn btn-info" href="update_appointment.php?key=<?php echo $key; ?>"><i class="material-icons">person</i> Approve</a>
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#appoint2modal"><i class="fa fa-plus"></i> Move Appointment</button>
                                 <a type="button" class="btn btn-danger" href="update_data.php?key="><i class="fa fa-trash"></i> Cancel</a>
+                                <div class="modal fade" id="appoint2modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="exampleModalLabel">Move Appointment</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        </div>
+                                        <div class="modal-body">
+                                          <form action="update_appointment.php" method="POST" enctype="multipart/form-data">
+                                            <div class="form-group">
+                                              <label for="email">New Date</label>
+                                              <input type="date" class="form-control" name="date">
+                                            </div>
+                                            <div class="form-group">
+                                              <label for="nextAppt">Reason of Moving</label>
+                                              <input type="text" class="form-control" name="reasonOB">
+                                            </div>
+                                            <input type="hidden" name="ref" value="Calendar/<?php echo $key; ?>">
+                                            <button type="submit" name="update" class="btn btn-primary">Set Appointment</button>
+                                          </form>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
                               </td>
                             </tr>
                         <?php
@@ -340,7 +359,7 @@ $_SESSION['user'] = 'obsample@gmail.com';
 
             <!-- your content here -->
           </div>
-          <div class="modal fade" id="existmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
@@ -354,17 +373,8 @@ $_SESSION['user'] = 'obsample@gmail.com';
                       <input type="email" class="form-control" name="email">
                     </div>
                     <div class="form-group">
-                      <label for="date">Next Appointment</label>
-                      <input type="date" class="form-control" name="date">
-                    </div>
-                    <div class="form-group">
-                      <label for="reason">Reason</label>
-                      <select class="form-control" name="reason" >
-                        <option value="Medication">Medication</option>
-                        <option value="Immunization">Immunization</option>
-                        <option value="Monthly Check-up">Montly Check-up</option>
-                        <option value="Emergency">Emergency</option>
-                      </select>
+                      <label for="nextAppt">Next Appointment</label>
+                      <input type="date" class="form-control" name="nextAppt">
                     </div>
                     <button type="submit" name="push" class="btn btn-primary">Set Appointment</button>
                   </form>
@@ -383,11 +393,6 @@ $_SESSION['user'] = 'obsample@gmail.com';
                 </li>
               </ul>
             </nav>
-            <div class="copyright float-right">
-              &copy;
-              <script>
-                document.write(new Date().getFullYear())
-              </script> AGAPAY
             </div>
             <!-- your footer here -->
           </div>

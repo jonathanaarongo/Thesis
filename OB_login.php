@@ -26,14 +26,14 @@ session_start();
 
     </div>
     <div class="form-container sign-in-container">
-      <form method="post" ng-submit="submitLogin()">
-        <h1>OB Account</h1>
+      <form action="authActions.php" method="post" enctype="multipart/form-data">
+        <h1>WELCOME!</h1>
         <div class="social-container">
         </div>
-        <input type="email" placeholder="Email" ng-model="loginData.email" />
-        <input type="password" placeholder="Password" ng-model="loginData.password" />
-        <button ng-click="submitLogin()" >LOGIN</button>
-        <input type="submit" name="login" value="Login" ng-click="submitLogin()" />
+        <input type="email" name="emailSignIn" placeholder="Email" ng-model="loginData.email" />
+        <input type="password" name="passSignIn" placeholder="Password" ng-model="loginData.password" />
+        <br>
+        <button type="submit" name="signin" >LOGIN</button>
       </form>
     </div>
     <div class="overlay-container">
@@ -41,6 +41,7 @@ session_start();
         <div class="overlay-panel overlay-left">
         </div>
         <div class="overlay-panel overlay-right">
+          <img src ='img/white.png' width = "300" length = "300">
         </div>
       </div>
     </div>

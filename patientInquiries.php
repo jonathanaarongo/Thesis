@@ -46,21 +46,9 @@ date_default_timezone_set('Asia/Manila');?>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#0">
-              <i class="material-icons">add_box</i>
-              <p>Add Patient</p>
-            </a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="viewPatientList.php">
               <i class="material-icons">pregnant_woman</i>
               <p>Manage Patient</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="labResults.php">
-              <i class="material-icons">file_copy</i>
-              <p>View Lab Results</p>
             </a>
           </li>
           <li class="nav-item">
@@ -69,10 +57,10 @@ date_default_timezone_set('Asia/Manila');?>
               <p>Manage Appointments</p>
             </a>
           </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="patientInquiries.php">
-              <i class="material-icons">emoji_people</i>
-              <p>Patient Inquiries</p>
+          <li class="nav-item">
+            <a class="nav-link" href="viewNotification.php">
+              <i class="material-icons">notifications_active</i>
+              <p>View Notifications</p>
             </a>
           </li>
           <li class="nav-item">

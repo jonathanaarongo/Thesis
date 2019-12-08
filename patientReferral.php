@@ -1,5 +1,5 @@
-<?php session_start(); 
-date_default_timezone_set('Asia/Manila');?>
+<?php session_start();
+date_default_timezone_set('Asia/Manila'); ?>
 <!doctype html>
 <html lang="en">
 
@@ -42,22 +42,10 @@ date_default_timezone_set('Asia/Manila');?>
               <p>Dashboard</p>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#0">
-              <i class="material-icons">add_box</i>
-              <p>Add Patient</p>
-            </a>
-          </li>
           <li class="nav-item active">
             <a class="nav-link" href="viewPatientList.php">
               <i class="material-icons">pregnant_woman</i>
               <p>Manage Patient</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#0">
-              <i class="material-icons">file_copy</i>
-              <p>View Lab Results</p>
             </a>
           </li>
           <li class="nav-item">
@@ -150,21 +138,22 @@ date_default_timezone_set('Asia/Manila');?>
       </nav>
       <!-- End Navbar -->
       <?php
-            //getting id from url
-            $patientKey = $_GET['key'];
+      //getting id from url
+      $referralKey = $_GET['key'];
+      $patientKey = $_SESSION['key'];
 
-            //selecting data associated with this particular id
-            include("includes/db.php");
-            $ref = "patientdata";
-            $data = $database->getReference($ref)->getValue();
-            foreach ($data as $key => $data1) {
-                if ($patientKey == $key) {
-                    $f_name = $data1['f_name'];
-                    $l_name = $data1['l_name'];
-                    $email = $data1['email'];
-                }
-            }
-            ?>
+      //selecting data associated with this particular id
+      include("includes/db.php");
+      $ref = "patientdata";
+      $data = $database->getReference($ref)->getValue();
+      foreach ($data as $key => $data1) {
+        if ($patientKey == $key) {
+          $f_name = $data1['f_name'];
+          $l_name = $data1['l_name'];
+          $email = $data1['email'];
+        }
+      }
+      ?>
 
       <body>
 
@@ -188,7 +177,8 @@ date_default_timezone_set('Asia/Manila');?>
                       </div>
 
 
-                      <input type="hidden" name="ref" value="patientdata/<?php echo $patientKey; ?>">
+                      <input type="hidden" name="ref" value="patientdata/<?php echo $patientKey; ?>/obs/">
+                      <input type="hidden" name="refdate" value="pefindings/<?php echo $referralKey; ?>">
                       <!-- Grid row -->
                       <input type="submit" class="btn btn-primary btn-md" style="display: inline-block" id="updateReferral" name="update" value="Finish">
                   </form>

@@ -33,7 +33,7 @@ if(isset($_POST['push'])){
     $ref = "pefindings/";
     $pushData = $database->getReference($ref)->push($data)->getKey();
     if($choose == "isReferred"){
-        header("Location:patientReferral.php?key=".$_SESSION['key']);
+        header("Location:patientReferral.php?key=".$pushData);
     }
     else{
         header("Location:patientPrescription.php?key=".$pushData);

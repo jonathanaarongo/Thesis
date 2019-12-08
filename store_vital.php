@@ -13,6 +13,8 @@ if (isset($_POST['push'])) {
     $weight = $_POST['weight'];
     //$fetalHeartTone = $_POST['fetalHeartTone'];
     $waistSize = $_POST['waistSize'];
+    $fname = $_POST['fname'];
+    $lname = $_POST['lname'];
 
     $data = [
         'ob' => $ob,
@@ -23,6 +25,8 @@ if (isset($_POST['push'])) {
         'diastolic' => $diastolic,
         'weight' => $weight,
         'waistSize' => $waistSize,
+        'fname' => $fname,
+        'lname' => $lname
     ];
     $ref = "vitals/";
     $pushData = $database->getReference($ref)->push($data)->getKey();
@@ -53,7 +57,8 @@ if (isset($_POST['push'])) {
     $weight = $_POST['weight'];
     //$fetalHeartTone = $_POST['fetalHeartTone'];
     $waistSize = $_POST['waistSize'];
-
+    $fname = $_POST['fname'];
+    $lname = $_POST['lname'];
 
 
     $data = [
@@ -64,7 +69,9 @@ if (isset($_POST['push'])) {
         'systolic' => $systolic,
         'diastolic' => $diastolic,
         'weight' => $weight,
-        'waistSize' => $waistSize
+        'waistSize' => $waistSize,
+        'fname' => $fname,
+        'lname' => $lname
     ];
     $ref = "vitals/";
     $pushData = $database->getReference($ref)->set($data);

@@ -18,8 +18,8 @@ if(isset($_POST['push'])){
     $noOfBaby = $_POST['noOfBaby'];
     $occupation = $_POST['occupation'];
     $patType = $_POST['patType'];
-    $passW = password_hash($_POST['passW'], PASSWORD_DEFAULT);
-    $conpass = password_hash($_POST['conpass'], PASSWORD_DEFAULT);
+    $passW = hash("sha256",$_POST['passW']);
+    $conpass = hash("sha256",$_POST['conpass']);
     $status = $_POST['status'];
     if (isset($_POST['conCounterCard'])){
         $conCounterCard = true;
@@ -69,7 +69,6 @@ if(isset($_POST['push'])){
         'familyHistory' => $familyHistory,
         'fdaymens' => $fdaymens,
         'l_name' => $l_name,
-        'lastVisited' => $lastVisited,
         'medicalHistory' => $medicalHistory,
         'noOfBaby' => $noOfBaby,
         'occupation' => $occupation,
@@ -85,20 +84,26 @@ if(isset($_POST['push'])){
         'bloodSugarCard' => $bloodSugarCard
 
     ];
+
+    $auth = $firebase->getAuth();
+    $user = $auth->createUserWithEmailAndPassword($email,$passW);
+    
     $ref = "patientdata/";
     $pushData = $database->getReference($ref)->push($data);
 
     $date1 = date("Y-m-d", strtotime($fdaymens. " +27 weeks"));
     $date2 = date("Y-m-d", strtotime($fdaymens. " +36 weeks"));
+    $date = date("Y-m-d");
     $immunName = "Tdap Vaccine";
     $status = "Not done";
-    $recommend = "$date1 to $date2";
+    $recommend = "$date1 to $date2 (Set on 27-36 weeks of pregnancy)";
 
     $data = [
         'email' => $email,
         'immunName' => $immunName,
         'status' => $status,
-        'recommend' => $recommend
+        'recommend' => $recommend,
+        'date' => $date
     ];
 
     $ref = "immunization/";
@@ -107,12 +112,14 @@ if(isset($_POST['push'])){
     $immunName = "Flu shot";
     $status = "Not done";
     $recommend = "November to March";
+    $date = date("Y-m-d");
 
     $data = [
         'email' => $email,
         'immunName' => $immunName,
         'status' => $status,
-        'recommend' => $recommend
+        'recommend' => $recommend,
+        'date' => $date
     ];
 
     $ref = "immunization/";
@@ -134,13 +141,12 @@ else{
     $familyHistory = $_POST['familyHistory'];
     $fdaymens = $_POST['fdaymens'];
     $l_name = $_POST['l_name'];
-    $lastVisited= $_POST['lastVisited'];
     $medicalHistory = $_POST['medicalHistory'];
     $noOfBaby = $_POST['noOfBaby'];
     $occupation = $_POST['occupation'];
     $patType = $_POST['patType'];
-    $passW = password_hash($_POST['passW'], PASSWORD_DEFAULT);
-    $conpass = password_hash($_POST['conpass'], PASSWORD_DEFAULT);
+    $passW = hash("sha256",$_POST['passW']);
+    $conpass = hash("sha256",$_POST['conpass']);
     $status = $_POST['status'];
     if (isset($_POST['conCounterCard'])){
         $conCounterCard = true;
@@ -190,7 +196,6 @@ else{
         'familyHistory' => $familyHistory,
         'fdaymens' => $fdaymens,
         'l_name' => $l_name,
-        'lastVisited' => $lastVisited,
         'medicalHistory' => $medicalHistory,
         'noOfBaby' => $noOfBaby,
         'occupation' => $occupation,
@@ -210,6 +215,7 @@ else{
 
     $date1 = date("Y-m-d", strtotime($fdaymens. " +27 weeks"));
     $date2 = date("Y-m-d", strtotime($fdaymens. " +36 weeks"));
+    $date = date("Y-m-d");
     $immunName = "Tdap Vaccine";
     $status = "Not done";
     $recommend = "$date1 to $date2";
@@ -227,12 +233,14 @@ else{
     $immunName = "Flu shot";
     $status = "Not done";
     $recommend = "November to March";
+    $date = date("Y-m-d");
 
     $data = [
         'email' => $email,
         'immunName' => $immunName,
         'status' => $status,
-        'recommend' => $recommend
+        'recommend' => $recommend,
+        'date' => $date
     ];
 
     $ref = "immunization/";

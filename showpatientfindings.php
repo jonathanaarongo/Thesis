@@ -42,22 +42,10 @@ date_default_timezone_set('Asia/Manila');?>
               <p>Dashboard</p>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#0">
-              <i class="material-icons">add_box</i>
-              <p>Add Patient</p>
-            </a>
-          </li>
           <li class="nav-item active">
             <a class="nav-link" href="viewPatientList.php">
               <i class="material-icons">pregnant_woman</i>
               <p>Manage Patient</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#0">
-              <i class="material-icons">file_copy</i>
-              <p>View Lab Results</p>
             </a>
           </li>
           <li class="nav-item">
@@ -175,8 +163,7 @@ date_default_timezone_set('Asia/Manila');?>
       $data = $database->getReference($ref)->getValue();
       foreach ($data as $key => $data1) {
         if ($email == $data1['email'] && $consultKey == $key) {
-          $date = date("Y-m-d");
-          $time = date("h:ia");
+          $date = $data1['date'];
           $reason = $data1['reason'];
           $chiefComplaint = $data1['chiefComplaint'];
           $peFindings = $data1['peFindings'];

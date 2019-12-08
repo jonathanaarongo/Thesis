@@ -9,7 +9,7 @@ date_default_timezone_set('Asia/Manila'); ?>
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    Patient Inquiries
+    AGAPAY
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -42,22 +42,10 @@ date_default_timezone_set('Asia/Manila'); ?>
               <p>Dashboard</p>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#0">
-              <i class="material-icons">add_box</i>
-              <p>Add Patient</p>
-            </a>
-          </li>
           <li class="nav-item active">
             <a class="nav-link" href="#0">
               <i class="material-icons">pregnant_woman</i>
               <p>Manage Patient</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#0">
-              <i class="material-icons">file_copy</i>
-              <p>View Lab Results</p>
             </a>
           </li>
           <li class="nav-item">
@@ -240,7 +228,7 @@ date_default_timezone_set('Asia/Manila'); ?>
                       </div>
                       <div class="col-md-4">
                         <label for="passW">Password</label>
-                        <input type="password" class="form-control" id="password" name="password">
+                        <input type="password" class="form-control" id="passW" name="passW">
                       </div>
                       <div class="col-md-4">
                         <label for="conpass">Confirm Password</label>
@@ -263,11 +251,12 @@ date_default_timezone_set('Asia/Manila'); ?>
 
                       <div class="col-md-1">
                         <label for="noOfBaby">Number of Babies</label>
-                        <input type="number" class="form-control" id="noOfBaby" name="noOfBaby" value=0>
+                        <input type="number" class="form-control" id="noOfBaby" name="noOfBaby" value=1>
                       </div>
 
-                      <h3>Assign What to Monitor</h3><br>
+
                       <div class="col-md-12">
+                        <h3>Assign What to Monitor</h3><br>
                         <input type="checkbox" id="conCounterCard" name="conCounterCard"> Contraction Counter<br>
                         <input type="checkbox" id="kickCounterCard" name="kickCounterCard"> Kick Counter <br>
                         <input type="checkbox" id="weightCard" name="weightCard"> Weight<br>

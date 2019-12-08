@@ -1,5 +1,5 @@
-<?php session_start(); 
-date_default_timezone_set('Asia/Manila');?>
+<?php session_start();
+date_default_timezone_set('Asia/Manila'); ?>
 <!doctype html>
 <html lang="en">
 
@@ -45,22 +45,10 @@ date_default_timezone_set('Asia/Manila');?>
                             <p>Dashboard</p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#0">
-                            <i class="material-icons">add_box</i>
-                            <p>Add Patient</p>
-                        </a>
-                    </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="viewPatientList.php">
                             <i class="material-icons">pregnant_woman</i>
                             <p>Manage Patient</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#0">
-                            <i class="material-icons">file_copy</i>
-                            <p>View Lab Results</p>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -115,10 +103,11 @@ date_default_timezone_set('Asia/Manila');?>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <a href="patientProfile.php?key=<?php echo $patientKey ?>" class="btn btn-primary"> General Data</a>
-                            <a href="patientConsult.php?key=<?php echo $patientKey ?>" class="btn btn-primary"> Consultation History</a>
-                            <a href="patientVitals.php?key=<?php echo $patientKey ?>" class="btn btn-primary"> Patient Vitals</a>
-                            <a href="patientMedication.php?key=<?php echo $patientKey ?>" class="btn btn-primary"> Medications & Immunizations</a>
+                            <a href="patientProfile.php?key=<?php echo $patientKey ?>" class="btn btn-primary"><i class="material-icons">supervisor_account</i> General Data</a>
+                            <a href="patientConsult.php?key=<?php echo $patientKey ?>" class="btn btn-primary"><i class="material-icons">face</i> Consultation History</a>
+                            <a href="patientVitals.php?key=<?php echo $patientKey ?>" class="btn btn-primary"><i class="material-icons">favorite</i> Patient Vitals</a>
+                            <a href="patientMedication.php?key=<?php echo $patientKey ?>" class="btn btn-primary"><i class="material-icons">colorize</i> Medications & Immunizations</a>
+                            <a href="labResults.php?key=<?php echo $patientKey ?>" class="btn btn-primary"><i class="material-icons">file_copy</i> Lab Results</a>
                         </div>
                     </div>
                     <div class="pull-right" style="margin-top:-30px;">

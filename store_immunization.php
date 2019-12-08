@@ -17,7 +17,8 @@ if (isset($_POST['push'])) {
         'status' => $status,
         'email' => $usermail,
     ];
-    $pushData = $database->getReference($ref)->psuh($data);
+    $ref = "immunization/";
+    $pushData = $database->getReference($ref)->push($data);
 
     if ($date != "") {
         $ob = $_SESSION['user'];
@@ -43,7 +44,9 @@ if (isset($_POST['push'])) {
 
 
     header("Location:patientMedication.php?key=" . $_SESSION['key']);
-} else {
+} 
+
+else {
     $immunName = $_POST['immunName'];
     $date = $_POST['date'];
     $recommend = $_POST['recommend'];
@@ -57,6 +60,7 @@ if (isset($_POST['push'])) {
         'status' => $status,
         'email' => $usermail,
     ];
+    $ref = "immunization/";
     $pushData = $database->getReference($ref)->set($data);
 
     $ob = $_SESSION['user'];

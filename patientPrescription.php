@@ -42,22 +42,10 @@ date_default_timezone_set('Asia/Manila');?>
               <p>Dashboard</p>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#0">
-              <i class="material-icons">add_box</i>
-              <p>Add Patient</p>
-            </a>
-          </li>
           <li class="nav-item active">
             <a class="nav-link" href="viewPatientList.php">
               <i class="material-icons">pregnant_woman</i>
               <p>Manage Patient</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#0">
-              <i class="material-icons">file_copy</i>
-              <p>View Lab Results</p>
             </a>
           </li>
           <li class="nav-item">
@@ -67,9 +55,9 @@ date_default_timezone_set('Asia/Manila');?>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="patientInquiries.php">
-              <i class="material-icons">emoji_people</i>
-              <p>Patient Inquiries</p>
+            <a class="nav-link" href="viewNotification.php">
+              <i class="material-icons">notifications_active</i>
+              <p>View Notifications</p>
             </a>
           </li>
           <li class="nav-item">
@@ -192,7 +180,9 @@ date_default_timezone_set('Asia/Manila');?>
                         <label for="date">Number of days to take:</label>
                         <input type="number" class="form-control" id="days" name="days">
                       </div>
+                      <div class="col-md-12">
                       *Note: An appointment will automatically set 2 days after the number of days the patient will take
+                      </div>
                       <input type="hidden" name="ref" value="pefindings/<?php echo $consultKey; ?>">
                       <!-- Grid row -->
                       <input type="submit" class="btn btn-primary btn-md" style="display: inline-block" id="updateReferral" name="push" value="Finish">

@@ -1,5 +1,5 @@
-<?php session_start(); 
-date_default_timezone_set('Asia/Manila');?>
+<?php session_start();
+date_default_timezone_set('Asia/Manila'); ?>
 <!doctype html>
 <html lang="en">
 
@@ -42,22 +42,10 @@ date_default_timezone_set('Asia/Manila');?>
               <p>Dashboard</p>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#0">
-              <i class="material-icons">add_box</i>
-              <p>Add Patient</p>
-            </a>
-          </li>
           <li class="nav-item active">
             <a class="nav-link" href="viewPatientList.php">
               <i class="material-icons">pregnant_woman</i>
               <p>Manage Patient</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#0">
-              <i class="material-icons">file_copy</i>
-              <p>View Lab Results</p>
             </a>
           </li>
           <li class="nav-item">
@@ -150,21 +138,21 @@ date_default_timezone_set('Asia/Manila');?>
       </nav>
       <!-- End Navbar -->
       <?php
-            //getting id from url
-            $patientKey = $_GET['key'];
+      //getting id from url
+      $patientKey = $_GET['key'];
 
-            //selecting data associated with this particular id
-            include("includes/db.php");
-            $ref = "patientdata";
-            $data = $database->getReference($ref)->getValue();
-            foreach ($data as $key => $data1) {
-                if ($patientKey == $key) {
-                    $f_name = $data1['f_name'];
-                    $l_name = $data1['l_name'];
-                    $email = $data1['email'];
-                }
-            }
-            ?>
+      //selecting data associated with this particular id
+      include("includes/db.php");
+      $ref = "patientdata";
+      $data = $database->getReference($ref)->getValue();
+      foreach ($data as $key => $data1) {
+        if ($patientKey == $key) {
+          $f_name = $data1['f_name'];
+          $l_name = $data1['l_name'];
+          $email = $data1['email'];
+        }
+      }
+      ?>
 
       <body>
 
@@ -222,16 +210,16 @@ date_default_timezone_set('Asia/Manila');?>
                               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             </div>
                             <div class="modal-body">
-                                <div class="form-group">
-                                  <input type="radio" name="choose" value="isReferred" <?php if (isset($choose) && $choose=="isReferred") echo "checked";?>>
-                                  <label for="exampleFormControlInput1">Refer to Another Doctor</label>
-                                </div>
-                                <div class="form-group">
-                                  <input type="radio" name="choose" value="isPrescribed" <?php if (isset($choose) && $choose=="isPrescribed") echo "checked";?>>
-                                  <label for="exampleInputEmail1">Prescribe Medications</label>
-                                </div>
-                                
-                                <button type="submit" name="push" class="btn btn-primary">Next</button>
+                              <div class="form-group">
+                                <input type="radio" name="choose" value="isReferred" <?php if (isset($choose) && $choose == "isReferred") echo "checked"; ?>>
+                                <label for="exampleFormControlInput1">Refer to Another Doctor</label>
+                              </div>
+                              <div class="form-group">
+                                <input type="radio" name="choose" value="isPrescribed" <?php if (isset($choose) && $choose == "isPrescribed") echo "checked"; ?>>
+                                <label for="exampleInputEmail1">Prescribe Medications</label>
+                              </div>
+
+                              <button type="submit" name="push" class="btn btn-primary">Next</button>
                             </div>
                           </div>
                         </div>
