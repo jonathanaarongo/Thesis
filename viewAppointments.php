@@ -152,7 +152,7 @@ $_SESSION['user'] = 'obsample@gmail.com';
           <div class="row">
             <div class="col-md-12">
               <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal"><i class="fa fa-plus"></i> Add Appointment for Existing Patient</button>
-              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal"><i class="fa fa-plus"></i> Add Appointment for New Patient</button>
+            <!--   <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal"><i class="fa fa-plus"></i> Add Appointment for New Patient</button> -->
   </span>
   </div>
               <br>

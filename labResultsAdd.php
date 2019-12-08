@@ -86,33 +86,33 @@ foreach ($data as $key => $data1) {
                 </a>
             </div>
             <div class="sidebar-wrapper">
-                <ul class="nav">
+            <ul class="nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#0">
+                        <a class="nav-link" href="dashboard.php">
                             <i class="material-icons">language</i>
                             <p>Dashboard</p>
                         </a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="#0">
+                        <a class="nav-link" href="viewPatientList.php">
                             <i class="material-icons">pregnant_woman</i>
                             <p>Manage Patient</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#0">
+                        <a class="nav-link" href="viewAppointments.php">
                             <i class="material-icons">event_note</i>
                             <p>Manage Appointments</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#0">
+                        <a class="nav-link" href="patientInquiries.php">
                             <i class="material-icons">emoji_people</i>
                             <p>Patient Inquiries</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#0">
+                        <a class="nav-link" href="OB_login.php">
                             <i class="material-icons">power_settings_new</i>
                             <p>Logout</p>
                         </a>

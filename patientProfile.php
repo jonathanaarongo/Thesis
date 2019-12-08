@@ -235,7 +235,9 @@ foreach ($data as $key => $data1) {
                     },
                     minValue: 0
                 },
-                trendlines: { 0: {} }
+                trendlines: {
+                    0: {}
+                }
             };
 
             var chart = new google.visualization.LineChart(document.getElementById('line_weight_x'));
@@ -297,6 +299,60 @@ foreach ($data as $key => $data1) {
             };
 
             var chart = new google.visualization.LineChart(document.getElementById('line_bellysize_x'));
+
+            chart.draw(data, options);
+        }
+    </script>
+    <!--CONTRACTION COUNTER CHART FRONT END-->
+    <script type="text/javascript">
+        <?php
+        include("includes/db.php");
+        $ref = "SymptomsAdd";
+        $data = $database->getReference($ref)->getValue();
+        $headache = array();
+        $nauzea = array();
+        $fatigue = array();
+        $moodswing = array();
+        $swollenbreast = array();
+        foreach ($data as $key => $data1) {
+
+            if ($_SESSION['email'] == $data1['usermail']) {
+                if ($data1['symptoms'] == "Headache") {
+                    array_push($headache, $data1['symptoms']);
+                } else if ($data1['symptoms'] == "Nauzea") {
+                    array_push($nauzea, $data1['symptoms']);
+                } else if ($data1['symptoms'] == "Fatigue") {
+                    array_push($fatigue, $data1['symptoms']);
+                } else if ($data1['symptoms'] == "Mood Swing") {
+                    array_push($moodswing, $data1['symptoms']);
+                } else if ($data1['symptoms'] == "Swollen Breast") {
+                    array_push($swollenbreast, $data1['symptoms']);
+                }
+            }
+        }
+
+        ?>
+        google.charts.load('current', {
+            'packages': ['corechart']
+        });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var data = google.visualization.arrayToDataTable([
+                ['Symptoms', 'Symptoms No.'],
+                ['Headache', <?php echo count($headache); ?>],
+                ['Nauzea', <?php echo count($nauzea); ?>],
+                ['Fatigue', <?php echo count($fatigue); ?>],
+                ['Mood Swing', <?php echo count($moodswing); ?>],
+                ['Swollen Breast', <?php echo count($swollenbreast); ?>]
+            ]);
+
+            var options = {
+                title: ''
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('pie_symptoms'));
 
             chart.draw(data, options);
         }
@@ -697,7 +753,7 @@ foreach ($data as $key => $data1) {
                                                     <input type="checkbox" id="symptomsCard" name="symptomsCard" <?php if ($symptomsCard == "true") echo "checked"; ?>> Symptoms <br>
                                                     <input type="checkbox" id="bloodPressureCard" name="bloodPressureCard" <?php if ($bloodPressureCard == "true") echo "checked"; ?>> Blood Pressure <br>
                                                     <input type="checkbox" id="bloodSugarCard" name="bloodSugarCard" <?php if ($bloodSugarCard == "true") echo "checked"; ?>> Blood Sugar<br>
-                                                    
+
                                                 </div>
 
                                                 <input type="hidden" name="ref" value="patientdata/<?php echo $patientKey; ?>">
@@ -761,6 +817,20 @@ foreach ($data as $key => $data1) {
                                     <div class="card-body">
                                         <!-- LINE CHART FOR WAIST SIZE -->
                                         <div id="line_bellysize_x"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header card-header-primary">
+                                        <h3 class="card-title"><?php echo $f_name, ' ', $l_name; ?>'s Symptoms</h3>
+                                    </div>
+
+                                    <div class="card-body">
+                                        <!-- PIE CHART FOR SYMPTOMS-->
+                                        <div id="pie_symptoms" style="width: 1500px; height: 500px;"></div>
                                     </div>
                                 </div>
                             </div>
