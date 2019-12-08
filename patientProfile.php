@@ -35,6 +35,7 @@ foreach ($data as $key => $data1) {
         $babyMeasureCard = $data1['babyMeasureCard'];
         $bloodSugarCard = $data1['bloodSugarCard'];
         $bloodPressureCard = $data1['bloodPressureCard'];
+        $symptomsCard = $data1['symptomsCard'];
 
         $_SESSION['email'] = $email;
 
@@ -693,8 +694,10 @@ foreach ($data as $key => $data1) {
                                                     <input type="checkbox" id="kickCounterCard" name="kickCounterCard" <?php if ($kickCounterCard == "true") echo "checked"; ?>> Kick Counter <br>
                                                     <input type="checkbox" id="weightCard" name="weightCard" <?php if ($weightCard == "true") echo "checked"; ?>> Weight<br>
                                                     <input type="checkbox" id="babyMeasureCard" name="babyMeasureCard" <?php if ($babyMeasureCard == "true") echo "checked"; ?>> Baby Measurements<br>
+                                                    <input type="checkbox" id="symptomsCard" name="symptomsCard" <?php if ($symptomsCard == "true") echo "checked"; ?>> Symptoms <br>
                                                     <input type="checkbox" id="bloodPressureCard" name="bloodPressureCard" <?php if ($bloodPressureCard == "true") echo "checked"; ?>> Blood Pressure <br>
                                                     <input type="checkbox" id="bloodSugarCard" name="bloodSugarCard" <?php if ($bloodSugarCard == "true") echo "checked"; ?>> Blood Sugar<br>
+                                                    
                                                 </div>
 
                                                 <input type="hidden" name="ref" value="patientdata/<?php echo $patientKey; ?>">

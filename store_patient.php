@@ -45,6 +45,12 @@ if(isset($_POST['push'])){
     else{
         $babyMeasureCard = false;
     }
+    if (isset($_POST['symptomsCard'])){
+        $symptomsCard= true;
+    }
+    else{
+        $symptomsCard = false;
+    }
     if (isset($_POST['bloodPressureCard'])){
         $bloodPressureCard= true;
     }
@@ -80,6 +86,7 @@ if(isset($_POST['push'])){
         'kickCounterCard' => $kickCounterCard,
         'weightCard' => $weightCard,
         'babyMeasureCard' => $babyMeasureCard,
+        'symptomsCard' =>$symptomsCard,
         'bloodPressureCard' => $bloodPressureCard,
         'bloodSugarCard' => $bloodSugarCard
 
@@ -172,6 +179,12 @@ else{
     else{
         $babyMeasureCard = false;
     }
+    if (isset($_POST['symptomsCard'])){
+        $symptomsCard= true;
+    }
+    else{
+        $symptomsCard = false;
+    }
     if (isset($_POST['bloodPressureCard'])){
         $bloodPressureCard= true;
     }
@@ -207,6 +220,7 @@ else{
         'kickCounterCard' => $kickCounterCard,
         'weightCard' => $weightCard,
         'babyMeasureCard' => $babyMeasureCard,
+        'symptomsCard' => $symptomsCard,
         'bloodPressureCard' => $bloodPressureCard,
         'bloodSugarCard' => $bloodSugarCard
     ];

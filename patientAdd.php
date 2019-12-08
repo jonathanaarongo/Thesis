@@ -261,6 +261,7 @@ date_default_timezone_set('Asia/Manila'); ?>
                         <input type="checkbox" id="kickCounterCard" name="kickCounterCard"> Kick Counter <br>
                         <input type="checkbox" id="weightCard" name="weightCard"> Weight<br>
                         <input type="checkbox" id="babyMeasureCard" name="babyMeasureCard"> Baby Measurements<br>
+                        <input type="checkbox" id="symptomsCard" name="symptomsCard"> Symptoms <br>
                         <input type="checkbox" id="bloodPressureCard" name="bloodPressureCard"> Blood Pressure <br>
                         <input type="checkbox" id="bloodSugarCard" name="bloodSugarCard"> Blood Sugar<br>
                       </div>
