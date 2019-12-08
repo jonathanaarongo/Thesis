@@ -619,7 +619,7 @@ foreach ($data as $key => $data1) {
                                             <div class="form-row">
                                                 <!-- Default input -->
                                                 <div class="col-md-12">
-                                                    <h1>WEEK <?php echo floor($diff->format("%a") / 7); ?> OF PREGNANT PATIENT'S PREGNANCY</h1>
+                                                    <h1>WEEK <?php echo floor($diff->format("%a") / 7 + 1); ?> OF PREGNANT PATIENT'S PREGNANCY</h1>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label for="f_name">First Name</label>
