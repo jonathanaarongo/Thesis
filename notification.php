@@ -32,7 +32,7 @@ $ref = "BloodSugarAdd";
 $data = $database->getReference($ref)->getValue();
 $output = '';
 foreach ($data as $key => $data1) {
-    if ($data1['comment_status'] == 0 && $data1['bsField'] >= 120) {
+    if ($data1['comment_status'] == 0 && $data1['bsField'] >= 140) {
         ?>
         <div class="alert alert_default">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>

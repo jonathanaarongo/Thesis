@@ -37,38 +37,45 @@ foreach ($data as $key => $data1) {
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="assets/demo/demo.css" rel="stylesheet" />
     <style>
-    
-    #Transparent{
-        background-color: transparent;
-    }
-    #PaleStrawColour{
-        background-color: #fffcdf;
-    }
-    #TransparentYellow{
-        background-color: #fff79a;
-    }
-    #DarkYellow{
-        background-color: #fef200;
-    }
-    #Amber{
-        background-color: #f8cf5b;
-    }
-    #BrownAle{
-        background-color: #be824e;
-    }
-    #Pink{
-        background-color: #f48a8c;
-    }
-    #Orange{
-        background-color: #faaf54;
-    }
-    #Green{
-        background-color: #68be63;
-    }
-    #Blue{
-        background-color: #637fbe;
-    }
-    
+        #Transparent {
+            background-color: transparent;
+        }
+
+        #PaleStrawColour {
+            background-color: #fffcdf;
+        }
+
+        #TransparentYellow {
+            background-color: #fff79a;
+        }
+
+        #DarkYellow {
+            background-color: #fef200;
+        }
+
+        #Amber {
+            background-color: #f8cf5b;
+        }
+
+        #BrownAle {
+            background-color: #be824e;
+        }
+
+        #Pink {
+            background-color: #f48a8c;
+        }
+
+        #Orange {
+            background-color: #faaf54;
+        }
+
+        #Green {
+            background-color: #68be63;
+        }
+
+        #Blue {
+            background-color: #637fbe;
+        }
     </style>
 </head>
 
@@ -86,7 +93,7 @@ foreach ($data as $key => $data1) {
                 </a>
             </div>
             <div class="sidebar-wrapper">
-            <ul class="nav">
+                <ul class="nav">
                     <li class="nav-item">
                         <a class="nav-link" href="dashboard.php">
                             <i class="material-icons">language</i>
@@ -205,167 +212,181 @@ foreach ($data as $key => $data1) {
                                     <form action="store_labresults_encode.php" method="post" enctype="multipart/form-data">
 
                                         <div class="form-row">
-                                            <?php if($_SESSION['cbc'] == true){?>
-                                            <!-- Default input -->
-                                            <div class="col-md-12">
-                                                <h3>Complete Blood Count</h3>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <label for="rbc">Red Blood Cells (MIL/uL)</label>
-                                                <input type="number" step=".01" class="form-control" id="rbc" name="rbc">
-                                            </div>
-                                            <!-- Default input -->
-                                            <div class="col-md-2">
-                                                <label for="wbc">White Blood Cells (K/uL) </label>
-                                                <input type="number" step=".01" class="form-control" id="wbc" name="wbc">
-                                            </div>
+                                            <?php if ($_SESSION['cbc'] == true) { ?>
+                                                <!-- Default input -->
+                                                <div class="col-md-12">
+                                                    <h3>Complete Blood Count</h3>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label for="rbc">Red Blood Cells (MIL/uL)</label>
+                                                    <input type="number" step=".01" class="form-control" id="rbc" name="rbc">
+                                                </div>
+                                                <!-- Default input -->
+                                                <div class="col-md-2">
+                                                    <label for="wbc">White Blood Cells (K/uL) </label>
+                                                    <input type="number" step=".01" class="form-control" id="wbc" name="wbc">
+                                                </div>
 
-                                            <!-- Default input -->
-                                            <div class="col-md-2">
-                                                <label for="hemoglobin">Hemoglobin (G/dL)</label>
-                                                <input type="number" step=".01" class="form-control" id="hemoglobin" name="hemoglobin">
-                                            </div>
-                                            <div class="col-md-2">
-                                                <label for="hematocrit">Hematocrit (%)</label>
-                                                <input type="number" step=".01" class="form-control" id="hematocrit" name="hematocrit">
-                                            </div>
-                                            <!-- Default input -->
-                                            <div class="col-md-2">
-                                                <label for="platelet">Platelet Count (K/uL)</label>
-                                                <input type="number" step=".01" class="form-control" id="platelet" name="platelet">
-                                            </div>
+                                                <!-- Default input -->
+                                                <div class="col-md-2">
+                                                    <label for="hemoglobin">Hemoglobin (G/dL)</label>
+                                                    <input type="number" step=".01" class="form-control" id="hemoglobin" name="hemoglobin">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label for="hematocrit">Hematocrit (%)</label>
+                                                    <input type="number" step=".01" class="form-control" id="hematocrit" name="hematocrit">
+                                                </div>
+                                                <!-- Default input -->
+                                                <div class="col-md-2">
+                                                    <label for="platelet">Platelet Count (K/uL)</label>
+                                                    <input type="number" step=".01" class="form-control" id="platelet" name="platelet">
+                                                </div>
                                             <?php }
-                                            if($_SESSION['urinalysis'] == true){?>
+                                            if ($_SESSION['urinalysis'] == true) { ?>
+                                                <div class="col-md-12">
+                                                    <h3>Urinalysis</h3>
+                                                </div>
+                                                <!-- Default input -->
+                                                <div class="col-md-3">
+                                                    <label for="urineColor">Urine Color</label>
+                                                    <select name="urineColor" class="form-control">
+                                                        <option id="Transparent" value="Transparent">Transparent</option>
+                                                        <option id="PaleStrawColour" value="Pale Straw Colour">Pale Straw Colour</option>
+                                                        <option id="TransparentYellow" value="Transparent Yellow">Transparent Yellow</option>
+                                                        <option id="DarkYellow" value="Dark Yellow">DarkYellow</option>
+                                                        <option id="Amber" value="Amber">Amber</option>
+                                                        <option id="BrownAle" value="Brown Ale">Brown Ale</option>
+                                                        <option id="Pink" value="Pink">Pink</option>
+                                                        <option id="Orange" value="Orange">Orange</option>
+                                                        <option id="Blue" value="Blue">Blue</option>
+                                                        <option id="Green" value="Green">Green</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="urineClarity">Urine Clarity</label>
+                                                    <select name="urineClarity" class="form-control">
+                                                        <option value="Clear">Clear</option>
+                                                        <option value="Hazy">Hazy</option>
+                                                        <option value="Cloudy">Cloudy</option>
+                                                        <option value="Turbid">Turbid</option>
+                                                        <option value="Milky">Milky</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="phlvl">pH Level</label>
+                                                    <input type="number" step=".1" class="form-control" id="phlvl" name="phlvl">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="grav">Specific Gravity</label>
+                                                    <input type="number" step=".001" class="form-control" id="grav" name="grav">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="leukocytes">Leukocytes (wbc/hpf)</label>
+                                                    <input type="number" step=".01" class="form-control" id="leukocytes" name="leukocytes">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="protein">Protein (mg/dL)</label>
+                                                    <input type="number" step=".01" class="form-control" id="protein" name="protein">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="glucose">Glucose (mmol/L)</label>
+                                                    <input type="number" step=".01" class="form-control" id="glucose" name="glucose">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="urobilinogen">Urobilinogen (mg/dL)</label>
+                                                    <input type="number" step=".01" class="form-control" id="urobilinogen" name="urobilinogen">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="hemoPresent">Hemoglobin Present</label>
+                                                    <select name="hemoPresent" class="form-control">
+                                                        <option value="Negative">Negative</option>
+                                                        <option value="Positive">Positive</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="nitritePresent">Nitrite Present</label>
+                                                    <select name="nitritePresent" class="form-control">
+                                                        <option value="Negative">Negative</option>
+                                                        <option value="Positive">Positive</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="ketonesPresent">Ketones Present</label>
+                                                    <select name="ketonesPresent" class="form-control">
+                                                        <option value="Negative">Negative</option>
+                                                        <option value="Positive">Positive</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="bilirubinPresent">Bilirubin Present</label>
+                                                    <select name="bilirubinPresent" class="form-control">
+                                                        <option value="Negative">Negative</option>
+                                                        <option value="Positive">Positive</option>
+                                                    </select>
+                                                </div>
+                                            <?php }
+                                            if ($_SESSION['bloodSugar'] == true) { ?>
+                                                <div class="col-md-4">
+                                                    <h3>Blood Sugar (mg/dL)</h3><br>
+                                                    <input type="number" class="form-control" id="bloodSugar" name="bloodSugar">
+                                                </div>
+                                            <?php }
+                                            if ($_SESSION['rubella'] == true) { ?>
+                                                <div class="col-md-4">
+                                                    <h3>Rubella</h3><br>
+                                                    <select name="rubella" class="form-control">
+                                                        <option value="Negative">Negative</option>
+                                                        <option value="Positive">Positive</option>
+                                                    </select>
+                                                </div>
+                                            <?php }
+                                            if ($_SESSION['hepatitisB'] == true) { ?>
+                                                <div class="col-md-4">
+                                                    <h3>Hepatitis B</h3><br>
+                                                    <select name="hepatitisB" class="form-control">
+                                                        <option value="Negative">Negative</option>
+                                                        <option value="Positive">Positive</option>
+                                                    </select>
+                                                </div>
+                                            <?php }
+                                            if ($_SESSION['hepatitisC'] == true) { ?>
+                                                <div class="col-md-4">
+                                                    <h3>Hepatitis C</h3><br>
+                                                    <select name="hepatitisC" class="form-control">
+                                                        <option value="Negative">Negative</option>
+                                                        <option value="Positive">Positive</option>
+                                                    </select>
+                                                </div>
+                                            <?php }
+                                            if ($_SESSION['std'] == true) { ?>
+                                                <div class="col-md-4">
+                                                    <h3>Sexually Transmitted Disease</h3><br>
+                                                    <select name="std" class="form-control">
+                                                        <option value="Negative">Negative</option>
+                                                        <option value="Positive">Positive</option>
+                                                    </select>
+                                                </div>
+                                            <?php }
+                                            if ($_SESSION['hiv'] == true) { ?>
+                                                <div class="col-md-4">
+                                                    <h3>Human Immunodeficiency Virus</h3><br>
+                                                    <select name="hiv" class="form-control">
+                                                        <option value="Negative">Negative</option>
+                                                        <option value="Positive">Positive</option>
+                                                    </select>
+                                                </div>
+                                            <?php }
+                                            if ($_SESSION['tb'] == true) { ?>
+                                                <div class="col-md-4">
+                                                    <h3>Tuberculosis</h3><br>
+                                                    <select name="tb" class="form-control">
+                                                        <option value="Negative">Negative</option>
+                                                        <option value="Positive">Positive</option>
+                                                    </select>
+                                                </div>
+                                            <?php } ?>
                                             <div class="col-md-12">
-                                                <h3>Urinalysis</h3>
                                             </div>
-                                            <!-- Default input -->
-                                            <div class="col-md-3">
-                                                <label for="urineColor">Urine Color</label>
-                                                <select name="urineColor" class="form-control">
-                                                    <option id="Transparent" value="Transparent">Transparent</option>
-                                                    <option id="PaleStrawColour" value="PaleStrawColour">Pale Straw Colour</option>
-                                                    <option id="TransparentYellow" value="TransparentYellow">Transparent Yellow</option>
-                                                    <option id="DarkYellow" value="DarkYellow">DarkYellow</option>
-                                                    <option id="Amber" value="Amber">Amber</option>
-                                                    <option id="BrownAle" value="Brown Ale">Brown Ale</option>
-                                                    <option id="Pink" value="Pink">Pink</option>
-                                                    <option id="Orange" value="Orange">Orange</option>
-                                                    <option id="Blue" value="Blue">Blue</option>
-                                                    <option id="Green" value="Green">Green</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="urineClarity">Urine Clarity</label>
-                                                <select name="urineClarity" class="form-control">
-                                                    <option value="Clear">Clear</option>
-                                                    <option value="Hazy">Hazy</option>
-                                                    <option value="Cloudy">Cloudy</option>
-                                                    <option value="Turbid">Turbid</option>
-                                                    <option value="Milky">Milky</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="phlvl">pH Level</label>
-                                                <input type="number" step=".1" class="form-control" id="phlvl" name="phlvl">
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="grav">Specific Gravity</label>
-                                                <input type="number" step=".001" class="form-control" id="grav" name="grav">
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="leukocytes">Leukocytes K/uL</label>
-                                                <input type="number" step=".01" class="form-control" id="leukocytes" name="leukocytes">
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="protein">Protein (mg/mL)</label>
-                                                <input type="number" step=".01" class="form-control" id="protein" name="protein">
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="glucose">Glucose (md/dL)</label>
-                                                <input type="number" step=".01" class="form-control" id="glucose" name="glucose">
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="urobilinogen">Urobilinogen (mg/dL)</label>
-                                                <input type="number" step=".01" class="form-control" id="urobilinogen" name="urobilinogen">
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="hemoPresent">Hemoglobin Present</label>
-                                                <select name="hemoPresent" class="form-control">
-                                                    <option value="Negative">Negative</option>
-                                                    <option value="Positive">Positive</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="nitritePresent">Nitrite Present</label>
-                                                <select name="nitritePresent" class="form-control">
-                                                    <option value="Negative">Negative</option>
-                                                    <option value="Positive">Positive</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="ketonesPresent">Ketones Present</label>
-                                                <select name="ketonesPresent" class="form-control">
-                                                    <option value="Negative">Negative</option>
-                                                    <option value="Positive">Positive</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="bilirubinPresent">Bilirubin Present</label>
-                                                <select name="bilirubinPresent" class="form-control">
-                                                    <option value="Negative">Negative</option>
-                                                    <option value="Positive">Positive</option>
-                                                </select>
-                                            </div>
-                                            <?php }if($_SESSION['rubella'] == true){?>
-                                            <div class="col-md-4">
-                                                <h3>Rubella</h3><br>
-                                                <select name="rubella" class="form-control">
-                                                    <option value="Negative">Negative</option>
-                                                    <option value="Positive">Positive</option>
-                                                </select>
-                                            </div>
-                                            <?php }if($_SESSION['hepatitisB'] == true){?>
-                                            <div class="col-md-4">
-                                                <h3>Hepatitis B</h3><br>
-                                                <select name="hepatitisB" class="form-control">
-                                                    <option value="Negative">Negative</option>
-                                                    <option value="Positive">Positive</option>
-                                                </select>
-                                            </div>
-                                            <?php }if($_SESSION['hepatitisC'] == true){?>
-                                            <div class="col-md-4">
-                                                <h3>Hepatitis C</h3><br>
-                                                <select name="hepatitisC" class="form-control">
-                                                    <option value="Negative">Negative</option>
-                                                    <option value="Positive">Positive</option>
-                                                </select>
-                                            </div>
-                                            <?php }if($_SESSION['std'] == true){?>
-                                            <div class="col-md-4">
-                                                <h3>Sexually Transmitted Disease</h3><br>
-                                                <select name="std" class="form-control">
-                                                    <option value="Negative">Negative</option>
-                                                    <option value="Positive">Positive</option>
-                                                </select>
-                                            </div>
-                                            <?php }if($_SESSION['hiv'] == true){?>
-                                            <div class="col-md-4">
-                                                <h3>Human Immunodeficiency Virus</h3><br>
-                                                <select name="hiv" class="form-control">
-                                                    <option value="Negative">Negative</option>
-                                                    <option value="Positive">Positive</option>
-                                                </select>
-                                            </div> 
-                                            <?php }if($_SESSION['tb'] == true){?>
-                                            <div class="col-md-4">
-                                                <h3>Tuberculosis</h3><br>
-                                                <select name="tb" class="form-control">
-                                                    <option value="Negative">Negative</option>
-                                                    <option value="Positive">Positive</option>
-                                                </select>
-                                            </div>
-                                            <?php }?>
 
                                             <input type="submit" class="btn btn-primary btn-md" style="display: inline-block" id="addPatient" name="push" value="Add">
                                     </form>

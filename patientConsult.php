@@ -135,6 +135,7 @@ date_default_timezone_set('Asia/Manila'); ?>
                                                 <tr>
                                                     <th>Reason</th>
                                                     <th>Chief Complaint</th>
+                                                    <th>Decision</th>
                                                     <th>Date</th>
                                                     <th>Time</th>
                                                     <th>Action</th>
@@ -156,6 +157,13 @@ date_default_timezone_set('Asia/Manila'); ?>
                                                         <tr>
                                                             <td><?php echo $data1['reason']; ?></td>
                                                             <td><?php echo $data1['chiefComplaint']; ?></td>
+                                                            <td><?php if($data1['choose'] == 'isPrescribed'){
+                                                                echo "Prescribed Medications";
+                                                            }else if($data1['choose'] == 'isReferred'){
+                                                                echo "Referred to Another OB";
+                                                            }else if($data1['choose'] == 'isLab'){
+                                                                echo "Requested Lab Results";
+                                                            }?></td>
                                                             <td><?php echo $data1['date']; ?></td>
                                                             <td><?php echo $data1['time']; ?></td>
                                                             <td>

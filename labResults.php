@@ -144,7 +144,7 @@ foreach ($data as $key => $data1) {
                             <div class="card">
                                 <div class="card-header card-header-primary">
                                     <span class="pull-right">
-                                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal"><i class="fa fa-plus"></i> Add Lab Results</button>
+                                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal"><i class="fa fa-plus"></i> Upload Lab Results</button>
                                     </span>
                                     <h3 class="card-title"><?php echo $f_name . ' ' . $l_name; ?>'s Uploaded Lab Results</h3>
                                 </div>
@@ -252,6 +252,7 @@ foreach ($data as $key => $data1) {
                                                 <tr>
                                                     <th>Date Added</th>
                                                     <th>Time</th>
+                                                    <th>Lab Results Type/s</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -269,6 +270,25 @@ foreach ($data as $key => $data1) {
                                                         <tr>
                                                             <td><?php echo $data1['date']; ?></td>
                                                             <td><?php echo $data1['time']; ?></td>
+                                                            <td><?php if($data1['cbcBool'] == true){
+                                                                echo 'Complete Blood Count,';
+                                                            }if($data1['urinalysisBool'] == true){
+                                                                echo 'Urinalysis,';
+                                                            }if($data1['bloodSugarBool'] == true){
+                                                                echo 'Blood Sugar,';
+                                                            }if($data1['rubellaBool'] == true){
+                                                                echo 'Rubella Test,';
+                                                            }if($data1['hepatitisBBool'] == true){
+                                                                echo 'Hepatitis B Test,';
+                                                            }if($data1['hepatitisCBool'] == true){
+                                                                echo 'Hepatitis C Test,';
+                                                            }if($data1['stdBool'] == true){
+                                                                echo 'STD Test,';
+                                                            }if($data1['hivBool'] == true){
+                                                                echo 'HIV Test,';
+                                                            }if($data1['tbBool'] == true){
+                                                                echo 'TB Test,';
+                                                            } ?></td>
                                                             <td>
                                                                 <a type="button" class="btn btn-primary" href="labResultsView.php?key=<?php echo $key; ?>"><i class="material-icons">rate_review</i> View</a>
                                                                 <a type="button" class="btn btn-danger" href="patientFindingsAdd.php?key=<?php echo $key; ?>"><i class="material-icons">delete</i> Delete</a>
@@ -298,7 +318,8 @@ foreach ($data as $key => $data1) {
                                         <form action="process_labs.php" method="POST" enctype="multipart/form-data">
                                             <div class="form-group">
                                                 <input type="checkbox" id="cbc" name="cbc"> Complete Blood Count<br>
-                                                <input type="checkbox" id="urinalysis" name="urinalysis"> Urinalysis <br>
+                                                <input type="checkbox" id="urinalysis" name="urinalysis"> Urinalysis<br>
+                                                <input type="checkbox" id="bloodSugar" name="bloodSugar"> Blood Sugar<br>
                                                 <input type="checkbox" id="rubella" name="rubella"> Rubella<br>
                                                 <input type="checkbox" id="hepatitisB" name="hepatitisB"> Hepatitis B<br>
                                                 <input type="checkbox" id="hepatitisC" name="hepatitisC"> Hepatitis C <br>

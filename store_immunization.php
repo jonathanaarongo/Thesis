@@ -5,7 +5,7 @@ date_default_timezone_set('Asia/Manila');
 
 if (isset($_POST['push'])) {
     $immunName = $_POST['immunName'];
-    $date = $_POST['date'];
+    $date = "";
     $recommend = $_POST['recommend'];
     $status = $_POST['status'];
     $usermail = $_SESSION['email'];
@@ -19,7 +19,7 @@ if (isset($_POST['push'])) {
     ];
     $ref = "immunization/";
     $pushData = $database->getReference($ref)->push($data);
-
+/*
     if ($date != "") {
         $ob = $_SESSION['user'];
         $reason = "Immunization";
@@ -41,14 +41,14 @@ if (isset($_POST['push'])) {
         $ref = "Calendar/";
         $pushData = $database->getReference($ref)->push($data);
     }
-
+*/
 
     header("Location:patientMedication.php?key=" . $_SESSION['key']);
 } 
 
 else {
     $immunName = $_POST['immunName'];
-    $date = $_POST['date'];
+    $date = "";
     $recommend = $_POST['recommend'];
     $status = $_POST['status'];
     $usermail = $_SESSION['email'];
@@ -62,7 +62,7 @@ else {
     ];
     $ref = "immunization/";
     $pushData = $database->getReference($ref)->set($data);
-
+/*
     $ob = $_SESSION['user'];
     $reason = "Immunization";
     $status = "Approved";
@@ -82,4 +82,5 @@ else {
 
     $ref = "Calendar/";
     $pushData = $database->getReference($ref)->set($data);
+    */
 }

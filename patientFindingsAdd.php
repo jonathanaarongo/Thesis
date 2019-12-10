@@ -210,13 +210,17 @@ date_default_timezone_set('Asia/Manila'); ?>
                               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             </div>
                             <div class="modal-body">
-                              <div class="form-group">
-                                <input type="radio" name="choose" value="isReferred" <?php if (isset($choose) && $choose == "isReferred") echo "checked"; ?>>
-                                <label for="exampleFormControlInput1">Refer to Another Doctor</label>
+                            <div class="form-group">
+                                <input type="radio" name="choose" value="isLab" <?php if (isset($choose) && $choose == "isLab") echo "checked"; ?>>
+                                <label for="exampleInputEmail1">Request Lab Results</label>
                               </div>
                               <div class="form-group">
                                 <input type="radio" name="choose" value="isPrescribed" <?php if (isset($choose) && $choose == "isPrescribed") echo "checked"; ?>>
                                 <label for="exampleInputEmail1">Prescribe Medications</label>
+                              </div>
+                              <div class="form-group">
+                                <input type="radio" name="choose" value="isReferred" <?php if (isset($choose) && $choose == "isReferred") echo "checked"; ?>>
+                                <label for="exampleFormControlInput1">Refer to Another Doctor</label>
                               </div>
 
                               <button type="submit" name="push" class="btn btn-primary">Next</button>

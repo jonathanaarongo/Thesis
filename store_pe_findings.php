@@ -15,6 +15,7 @@ if(isset($_POST['push'])){
     $choose = $_POST['choose'];
     $prescription = "";
     $referral = "";
+    $labrequest = "";
 
     
     $data = [
@@ -28,15 +29,19 @@ if(isset($_POST['push'])){
         'diagnosis' => $diagnosis,
         'choose' => $choose,
         'prescription' => $prescription,
-        'referral' => $referral
+        'referral' => $referral,
+        'labrequest' => $labrequest
     ];
     $ref = "pefindings/";
     $pushData = $database->getReference($ref)->push($data)->getKey();
     if($choose == "isReferred"){
         header("Location:patientReferral.php?key=".$pushData);
     }
-    else{
+    else if ($choose == "isPrescribed"){
         header("Location:patientPrescription.php?key=".$pushData);
+    }
+    else{
+        header("Location:patientRequestLab.php?key=".$pushData);
     }
 }
 else{
@@ -51,6 +56,7 @@ else{
     $choose = $_POST['choose'];
     $prescription = "";
     $referral = "";
+    $labrequest = "";
     
     $data = [
         'ob' => $ob,
@@ -63,7 +69,8 @@ else{
         'diagnosis' => $diagnosis,
         'choose' => $choose,
         'prescription' => $prescription,
-        'referral' => $referral
+        'referral' => $referral,
+        'labrequest' => $labrequest
     ];
     $ref = "pefindings/";
     $pushData = $database->getReference($ref)->set($data);

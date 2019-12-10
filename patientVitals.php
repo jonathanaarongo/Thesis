@@ -195,7 +195,7 @@ foreach ($data as $key => $data1) {
                             ?>[new Date('<?php echo $data1['date']; ?>'),
                                 <?php while ($n < $noOfBaby) {
                                                 $n++;
-                                                if (!isset($data1['fetalHeartTone' . $n])) {
+                                                if (!isset($data1['fetalHeartTone' . $n]) || $data1['fetalHeartTone' . $n] == "") {
                                                     echo 0 . ',';
                                                 } else {
                                                     echo $data1['fetalHeartTone' . $n] . ',';
@@ -503,7 +503,7 @@ foreach ($data as $key => $data1) {
                                                                     $i = 0;
                                                                     while ($i < $noOfBaby) {
                                                                         $i++;
-                                                                        if (!isset($data1['fetalHeartTone' . $i])) {
+                                                                        if (!isset($data1['fetalHeartTone' . $i]) || $data1['fetalHeartTone' . $i] == "") {
                                                                             ?>
                                                                     <td>N/A</td>
                                                                 <?php

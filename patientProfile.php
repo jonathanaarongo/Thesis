@@ -221,8 +221,6 @@ foreach ($data as $key => $data1) {
 
 
             var options = {
-                width: 1300,
-                height: 500,
                 hAxis: {
                     format: 'MMM/dd/yy',
                     gridlines: {
@@ -234,9 +232,6 @@ foreach ($data as $key => $data1) {
                         color: 'none'
                     },
                     minValue: 0
-                },
-                trendlines: {
-                    0: {}
                 }
             };
 
@@ -282,8 +277,6 @@ foreach ($data as $key => $data1) {
 
 
             var options = {
-                width: 1300,
-                height: 500,
                 hAxis: {
                     format: 'MMM/dd/yy',
                     gridlines: {
@@ -395,8 +388,6 @@ foreach ($data as $key => $data1) {
 
 
             var options = {
-                width: 1300,
-                height: 500,
                 hAxis: {
                     format: 'MMM/dd/yy',
                     gridlines: {
@@ -453,8 +444,6 @@ foreach ($data as $key => $data1) {
 
 
             var options = {
-                width: 1300,
-                height: 500,
                 hAxis: {
                     format: 'MMM/dd/yy',
                     gridlines: {
@@ -505,13 +494,13 @@ foreach ($data as $key => $data1) {
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#0">
+                        <a class="nav-link" href="viewAppointments.php">
                             <i class="material-icons">event_note</i>
                             <p>Manage Appointments</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#0">
+                        <a class="nav-link" href="patientInquiries.php">
                             <i class="material-icons">emoji_people</i>
                             <p>Patient Inquiries</p>
                         </a>
@@ -596,7 +585,6 @@ foreach ($data as $key => $data1) {
 
             <body>
                 <div class="content">
-                    <button onclick="myFunction()">Print this page</button>
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
@@ -774,7 +762,7 @@ foreach ($data as $key => $data1) {
 
                                     <div class="card-body">
                                         <!-- PIE CHART FOR CONTRACTION COUNTER -->
-                                        <div id="pie_contraction" style="width: 1500px; height: 500px;"></div>
+                                        <div id="pie_contraction" style="width: 100%; height: 500px;"></div>
                                     </div>
                                 </div>
                             </div>
@@ -788,7 +776,7 @@ foreach ($data as $key => $data1) {
 
                                     <div class="card-body">
                                         <!-- BAR CHART FOR KICK COUNTER -->
-                                        <div id="columnchart_kickcounter" style="width: 800px; height: 500px;"></div>
+                                        <div id="columnchart_kickcounter" style="width: 100%; height: 500px;"></div>
                                     </div>
                                 </div>
                             </div>
@@ -802,7 +790,7 @@ foreach ($data as $key => $data1) {
 
                                     <div class="card-body">
                                         <!-- LINE CHART FOR FETAL WEIGHT -->
-                                        <div id="line_weight_x"></div>
+                                        <div id="line_weight_x" style="width: 100%; height: 500px;"></div>
                                     </div>
                                 </div>
                             </div>
@@ -816,7 +804,7 @@ foreach ($data as $key => $data1) {
 
                                     <div class="card-body">
                                         <!-- LINE CHART FOR WAIST SIZE -->
-                                        <div id="line_bellysize_x"></div>
+                                        <div id="line_bellysize_x" style="width: 100%; height: 500px;"></div>
                                     </div>
                                 </div>
                             </div>
@@ -830,7 +818,7 @@ foreach ($data as $key => $data1) {
 
                                     <div class="card-body">
                                         <!-- PIE CHART FOR SYMPTOMS-->
-                                        <div id="pie_symptoms" style="width: 1500px; height: 500px;"></div>
+                                        <div id="pie_symptoms" style="width: 100%; height: 500px;"></div>
                                     </div>
                                 </div>
                             </div>
@@ -844,7 +832,7 @@ foreach ($data as $key => $data1) {
 
                                     <div class="card-body">
                                         <!-- LINE CHART FOR BLOOD PRESSURE -->
-                                        <div id="line_bloodpressure_x"></div>
+                                        <div id="line_bloodpressure_x" style="width: 100%; height: 500px;"></div>
                                     </div>
                                 </div>
                             </div>
@@ -858,7 +846,7 @@ foreach ($data as $key => $data1) {
 
                                     <div class="card-body">
                                         <!-- LINE CHART FOR BLOOD SUGAR -->
-                                        <div id="line_bloodsugar_x"></div>
+                                        <div id="line_bloodsugar_x" style="width: 100%; height: 500px;"></div>
                                     </div>
                                 </div>
                             </div>

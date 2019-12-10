@@ -3,7 +3,7 @@ session_start();
 include("includes/db.php");
 
 if (isset($_GET['key'])) {
-        $status = "Done";
+        $status = "done";
         $date = date("Y-m-d");
 
         $data = [
@@ -17,7 +17,6 @@ if (isset($_GET['key'])) {
 
 else if (isset($_POST['update'])) {
     $status = $_POST['status'];
-    $date = date("Y-m-d");
     $immunName = $_POST['immunName'];
     $recommend = $_POST['recommend'];
     $ref = $_POST['ref'];
@@ -25,7 +24,6 @@ else if (isset($_POST['update'])) {
 
     $data = [
         'immunName' => $immunName,
-        'date' => $date,
         'recommend' => $recommend,
         'status' => $status,
     ];

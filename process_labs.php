@@ -14,6 +14,11 @@ if (isset($_POST['button'])) {
     } else {
         $_SESSION['urinalysis'] = false;
     }
+    if (isset($_POST['bloodSugar'])) {
+        $_SESSION['bloodSugar'] = true;
+    } else {
+        $_SESSION['bloodSugar'] = false;
+    }
     if (isset($_POST['rubella'])) {
         $_SESSION['rubella'] = true;
     } else {

@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("includes/db.php");
+date_default_timezone_set('Asia/Manila');
 
 if (isset($_POST['push'])) {
     $date = date("Y-m-d");
@@ -8,6 +9,7 @@ if (isset($_POST['push'])) {
     $email = $_SESSION['email'];
     $cbcBool = $_SESSION['cbc'];
     $urinalysisBool = $_SESSION['urinalysis'];
+    $bloodSugarBool = $_SESSION['bloodSugar'];
     $rubellaBool = $_SESSION['rubella'];
     $hepatitisBBool = $_SESSION['hepatitisB'];
     $hepatitisCBool = $_SESSION['hepatitisC'];
@@ -21,6 +23,7 @@ if (isset($_POST['push'])) {
         'email' => $email,
         'cbcBool' => $cbcBool,
         'urinalysisBool' => $urinalysisBool,
+        'bloodSugarBool' => $bloodSugarBool,
         'rubellaBool' => $rubellaBool,
         'hepatitisBBool' => $hepatitisBBool,
         'hepatitisCBool' => $hepatitisCBool,
@@ -83,6 +86,14 @@ if (isset($_POST['push'])) {
         ];
         $pushData = $database->getReference($ref)->update($data);
     }
+    if ($_SESSION['bloodSugar'] == true) {
+        $rubella = $_POST['bloodSugar'];
+        $data = [
+            'bloodSugar' => $bloodSugar,
+    
+        ];
+        $pushData = $database->getReference($ref)->update($data);
+    }
     if ($_SESSION['rubella'] == true) {
         $rubella = $_POST['rubella'];
         $data = [
@@ -139,6 +150,7 @@ if (isset($_POST['push'])) {
     $email = $_SESSION['email'];
     $cbcBool = $_SESSION['cbc'];
     $urinalysisBool = $_SESSION['urinalysis'];
+    $bloodSugarBool = $_SESSION['bloodSugar'];
     $rubellaBool = $_SESSION['rubella'];
     $hepatitisBBool = $_SESSION['hepatitisB'];
     $hepatitisCBool = $_SESSION['hepatitisC'];
@@ -152,6 +164,7 @@ if (isset($_POST['push'])) {
         'email' => $email,
         'cbcBool' => $cbcBool,
         'urinalysisBool' => $urinalysisBool,
+        'bloodSugarBool' => $bloodSugarBool,
         'rubellaBool' => $rubellaBool,
         'hepatitisBBool' => $hepatitisBBool,
         'hepatitisCBool' => $hepatitisCBool,
@@ -213,6 +226,14 @@ if (isset($_POST['push'])) {
     
         ];
         $pushData = $database->getReference($ref)->set($data);
+    }
+    if ($_SESSION['bloodSugar'] == true) {
+        $rubella = $_POST['bloodSugar'];
+        $data = [
+            'bloodSugar' => $bloodSugar,
+    
+        ];
+        $pushData = $database->getReference($ref)->update($data);
     }
     if ($_SESSION['rubella'] == true) {
         $rubella = $_POST['rubella'];

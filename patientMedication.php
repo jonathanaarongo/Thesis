@@ -203,7 +203,7 @@ date_default_timezone_set('Asia/Manila'); ?>
                                                     $data = $database->getReference($ref)->getValue();
                                                     $i = 0;
                                                     foreach ($data as $key => $data1) {
-                                                        if ($email == $data1['email']) {
+                                                        if ($email == $data1['email'] && $data1['prescription'] != "") {
                                                             $i++;
                                                             ?>
                                                             <tr>
@@ -252,18 +252,14 @@ date_default_timezone_set('Asia/Manila'); ?>
                                                             <input type="text" class="form-control" name="immunName">
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="datet">Appointment Date</label>
-                                                            <input type="date" class="form-control" name="date">
-                                                        </div>
-                                                        <div class="form-group">
                                                             <label for="rcommend">Recommendation for Appointment</label>
-                                                            <input type="test" class="form-control" name="recommend" placeholder="When is your recommended immunization for the patient?">
+                                                            <input type="text" class="form-control" name="recommend" placeholder="When is your recommended immunization for the patient?">
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="status">Status</label>
                                                             <select name="status" class="form-control">
                                                                 <option value="Not done">Not done</option>
-                                                                <option value="Done">Done</option>
+                                                                <option value="done">Done</option>
                                                             </select>
                                                         </div>
                                                         <button type="submit" name="push" class="btn btn-primary">Add</button>
@@ -297,8 +293,10 @@ date_default_timezone_set('Asia/Manila'); ?>
                                                     include("includes/db.php");
                                                     $ref = "immunization";
                                                     $data = $database->getReference($ref)->getValue();
+                                                    $i = 0;
                                                     foreach ($data as $key => $data1) {
                                                         if ($email == $data1['email']) {
+                                                            $i++;
                                                             ?>
                                                             <tr>
                                                                 <?php
@@ -317,7 +315,7 @@ date_default_timezone_set('Asia/Manila'); ?>
                                                                 <td><?php echo $data1['status']; ?></td>
                                                                 <td>
                                                                     <a type="button" class="btn btn-info" href="showpatientfindings.php?key=<?php echo $key; ?>"><i class="material-icons">person</i> View</a>
-                                                                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editmodal"><i class="material-icons">edit</i> Edit</button>
+                                                                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editmodal<?php echo$i; ?>"><i class="material-icons">edit</i> Edit</button>
                                                                     <?php
                                                                             if ($data1['status'] == "Not done") {
                                                                                 ?>
@@ -326,7 +324,7 @@ date_default_timezone_set('Asia/Manila'); ?>
 
                                                                             }  ?>
 
-                                                                    <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                    <div class="modal fade" id="editmodal<?php echo $i; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                                         <div class="modal-dialog" role="document">
                                                                             <div class="modal-content">
                                                                                 <div class="modal-header">
@@ -347,7 +345,7 @@ date_default_timezone_set('Asia/Manila'); ?>
                                                                                             <label for="status">Status</label>
                                                                                             <select name="status" class="form-control">
                                                                                                 <option value="Not done">Not done</option>
-                                                                                                <option value="Done">Done</option>
+                                                                                                <option value="done">Done</option>
                                                                                             </select>
                                                                                         </div>
                                                                                         <input type="hidden" name="ref" value="immunization/<?php echo $key; ?>">

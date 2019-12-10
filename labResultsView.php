@@ -27,6 +27,7 @@ foreach ($data as $key => $data1) {
     $time = date("h:ia");
     $cbcBool = $data1['cbcBool'];
     $urinalysisBool = $data1['urinalysisBool'];
+    $bloodSugarBool = $data1['bloodSugarBool'];
     $rubellaBool = $data1['rubellaBool'];
     $hepatitisBBool = $data1['hepatitisBBool'];
     $hepatitisCBool = $data1['hepatitisCBool'];
@@ -53,6 +54,9 @@ foreach ($data as $key => $data1) {
         $nitritePresent = $data1['nitritePresent'];
         $ketonesPresent = $data1['ketonesPresent'];
         $bilirubinPresent = $data1['bilirubinPresent'];
+    }
+    if ($bloodSugarBool == true) {
+        $bloodSugar = $data1['bloodSugar'];
     }
     if ($rubellaBool == true) {
         $rubella = $data1['rubella'];
@@ -217,6 +221,7 @@ foreach ($data as $key => $data1) {
 
 
                 <div class="content">
+                <button onclick="myFunction()">Print this page</button>
                     <div class="container-fluid">
 
                         <div class="col-md-12">
@@ -311,6 +316,11 @@ foreach ($data as $key => $data1) {
                                             <div class="col-md-3">
                                                 <label for="bilirubinPresent">Bilirubin Present</label>
                                                 <input type="text" class="form-control" id="bilirubinPresent" name="bilirubinPresent" value="<?php echo $bilirubinPresent; ?>">
+                                            </div>
+                                            <?php }if($bloodSugarBool == true){?>
+                                            <div class="col-md-4">
+                                                <h3>Rubella</h3><br>
+                                                <input type="number" class="form-control" id="bloodSugar" name="bloodSugar" value="<?php echo $bloodSugar; ?>">
                                             </div>
                                             <?php }if($rubellaBool == true){?>
                                             <div class="col-md-4">
@@ -536,5 +546,9 @@ foreach ($data as $key => $data1) {
                                     </script>
 
             </body>
-
+            <script>
+                    function myFunction() {
+                        window.print();
+                    }
+                </script>
 </html>

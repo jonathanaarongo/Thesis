@@ -4,10 +4,12 @@ include("includes/db.php");
 
 if(isset($_POST['update'])){
     $answer = $_POST['answer'];
+    $date = date("m-d-Y");
     $ref = $_POST['ref'];
     
     $data = [
-        'answer' => $answer
+        'answer' => $answer,
+        'dateAnswered' => $date
     ];
 
     $pushData = $database->getReference($ref)->update($data);

@@ -1,5 +1,5 @@
-<?php session_start();
-date_default_timezone_set('Asia/Manila'); ?>
+<?php session_start(); 
+date_default_timezone_set('Asia/Manila');?>
 <!doctype html>
 <html lang="en">
 
@@ -37,7 +37,7 @@ date_default_timezone_set('Asia/Manila'); ?>
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="dashboard.php">
+            <a class="nav-link" href="#0">
               <i class="material-icons">language</i>
               <p>Dashboard</p>
             </a>
@@ -55,9 +55,9 @@ date_default_timezone_set('Asia/Manila'); ?>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="patientInquiries.php">
-              <i class="material-icons">emoji_people</i>
-              <p>Patient Inquiries</p>
+            <a class="nav-link" href="viewNotification.php">
+              <i class="material-icons">notifications_active</i>
+              <p>View Notifications</p>
             </a>
           </li>
           <li class="nav-item">
@@ -137,139 +137,58 @@ date_default_timezone_set('Asia/Manila'); ?>
         </div>
       </nav>
       <!-- End Navbar -->
-
       <?php
-      //getting id from url
-      $consultKey = $_GET['key'];
-      $patientKey = $_SESSION['key'];
+            //getting id from url
+            $labKey = $_GET['key'];
+            $patientKey = $_SESSION['key'];
 
-      //selecting data associated with this particular id
-      include("includes/db.php");
-      $ref = "patientdata";
-      $data = $database->getReference($ref)->getValue();
-      foreach ($data as $key => $data1) {
-        if ($patientKey == $key) {
-          $f_name = $data1['f_name'];
-          $l_name = $data1['l_name'];
-          $email = $data1['email'];
-        }
-      }
-      ?>
-      <?php
-
-      //selecting data associated with this particular id
-      include("includes/db.php");
-      $ref = "pefindings";
-      $data = $database->getReference($ref)->getValue();
-      foreach ($data as $key => $data1) {
-        if ($email == $data1['email'] && $consultKey == $key) {
-          $date = $data1['date'];
-          $reason = $data1['reason'];
-          $choose = $data1['choose'];
-          $chiefComplaint = $data1['chiefComplaint'];
-          $peFindings = $data1['peFindings'];
-          $diagnosis = $data1['diagnosis'];
-          $referral = $data1['referral'];
-          $labrequest = $data1['labrequest'];
-          $pres = $data1['prescription'];
-          if (!isset($data1['nextAppt'])) {
-            $nextAppt = "";
-          } else {
-            $nextAppt = $data1['nextAppt'];
-          }
-        }
-      }
-      ?>
+            //selecting data associated with this particular id
+            include("includes/db.php");
+            $ref = "patientdata";
+            $data = $database->getReference($ref)->getValue();
+            foreach ($data as $key => $data1) {
+                if ($patientKey == $key) {
+                    $f_name = $data1['f_name'];
+                    $l_name = $data1['l_name'];
+                    $email = $data1['email'];
+                }
+            }
+            ?>
 
       <body>
 
 
         <div class="content">
-          <button onclick="myFunction()">Print this page</button>
           <div class="container-fluid">
 
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h3 class="card-title"><?php echo $f_name, ' ', $l_name; ?>'s Patient Findings</h3>
+                  <h3 class="card-title">Request Lab Results From <?php echo $f_name, ' ', $l_name; ?></h3>
                 </div>
                 <div class="card-body">
                   <!-- Grid row -->
-                  <form action="update_pe_findings.php" method="post" enctype="multipart/form-data">
+                  <form action="store_labrequest.php" method="post" enctype="multipart/form-data">
                     <div class="form-row">
                       <!-- Default input -->
-                      <div class="col-md-6">
-                        <label for="date">Date Added</label>
-                        <input type="date" class="form-control" id="date" name="date" value="<?php echo $date ?>">
-                      </div>
-                      <div class="col-md-6">
-                        <label for="nextAppt">Next Appointment</label>
-                        <input type="date" class="form-control" id="date" name="date" value="<?php echo $nextAppt ?>">
-                      </div>
-                      <!-- Default input -->
                       <div class="col-md-12">
-                        <label for="adress">Reason for Visit</label>
-                        <input type="text" class="form-control" id="reason" name="reason" value="<?php echo $reason ?>">
+                        <label for="date">Lab Results to Request:</label>
+                        <textarea class="form-control" id="prescription" name="labrequest" rows="3"></textarea>
                       </div>
-                      <!-- Default input -->
-                      <!-- Grid row-->
-                      <!-- Default input -->
-                      <div class="col-md-12">
-                        <label for="chiefComplaint">Chief Complaint</label>
-                        <textarea class="form-control" id="chiefComplaint" name="chiefComplaint" rows="3"><?php echo $chiefComplaint ?></textarea>
-                      </div>
-                      <!-- Default input -->
-                      <div class="col-md-12">
-                        <label for="peFindings">Physical Examination Findings</label>
-                        <textarea class="form-control" id="peFindings" name="peFindings" rows="3"><?php echo $peFindings ?></textarea>
-                      </div>
-                      <!-- Default input -->
-                      <div class="col-md-12">
-                        <label for="diagnosis">Diagnosis</label>
-                        <textarea class="form-control" id="diagnosis" name="diagnosis" rows="3"><?php echo $diagnosis ?></textarea>
-                      </div>
-                      <div class="col-md-12">
-                        <label for="adress">Decision</label>
-                        <input type="text" class="form-control" id="choose" name="choose" value="<?php if ($choose == 'isPrescribed') {
-                                                                                                    echo "Prescribed Medications";
-                                                                                                  } else if ($choose == 'isReferred') {
-                                                                                                    echo "Referred to Another OB";
-                                                                                                  } else if ($choose == 'isLab') {
-                                                                                                    echo "Requested Lab Results";
-                                                                                                  } ?>">
-                      </div>
-                      <?php if ($choose == 'isPrescribed') {
 
-                        ?>
-                        <div class="col-md-12">
-                          <label for="diagnosis">Prescription</label>
-                          <textarea class="form-control" id="prescription" name="prescription" rows="3"><?php echo $pres ?></textarea>
-                        </div>
-                      <?php } else if ($choose == 'isReferred') {
-
-                        ?>
-                        <div class="col-md-12">
-                          <label for="diagnosis">Referred To</label>
-                          <input class="form-control" id="referral" name="referral" value="<?php echo $referral; ?>">
-                        </div>
-                      <?php } else{
-                        ?>
-                        <div class="col-md-12">
-                          <label for="diagnosis">Request Lab Results</label>
-                          <input class="form-control" id="labrequest" name="labrequest" value="<?php echo $labrequest; ?>">
-                        </div>
-                      <?php } ?>
-                      <input type="hidden" name="ref" value="questions/<?php echo $key; ?>">
+                      <div class="col-md-2">
+                        <label for="date">Next Appointment:</label>
+                        <input type="date" class="form-control" id="date" name="date" value="<?php echo date("Y-m-d", strtotime("+1 week")); ?>">
+                      </div>
+                      <div class="col-md-12">
+                      </div>
+                      <input type="hidden" name="ref" value="pefindings/<?php echo $labKey; ?>">
                       <!-- Grid row -->
-                      <input type="submit" class="btn btn-primary btn-md" style="display: inline-block" id="editPatient" name="update" value="Edit">
+                      <input type="submit" class="btn btn-primary btn-md" style="display: inline-block" id="updateLab" name="push" value="Finish">
                   </form>
 
 
-                  <script>
-                    function myFunction() {
-                      window.print();
-                    }
-                  </script>
+
 
 
 
